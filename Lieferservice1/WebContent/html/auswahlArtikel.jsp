@@ -8,6 +8,7 @@
 <title>Artikel</title>
 <base href="${pageContext.request.requestURI}/">
 <script type="text/javascript" src="../../js/filter.js"></script>
+<script type="text/javascript" src="../../js/warenkorb.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="../../css/artikelAuswahl.css">
 
@@ -61,7 +62,8 @@
 				<p>Pfand: ${a.pfandGesamt}</p>
 				<p>( ${a.epJeLiter} €/Liter)</p>
 			</div>
-			
+			<input type="number" id="menge" name="menge" min="1" max="10" value="1">
+			<button type="submit" value="${a.artikelID}" onclick="addShoppingCart(this.value)">Hinzufügen</button>
 		</div>
 			<br>
 		</c:forEach>

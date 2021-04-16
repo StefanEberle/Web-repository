@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/suche.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 	<header>
@@ -36,6 +37,9 @@
 			
 			<div class="divLupe" id="divLupe">
 				<i class="fa fa-search" id="search"></i>
+			</div>
+			<div class="warenkorb" id="warenkorb">
+				<i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
 			</div>
 				<div id="artikelSuche">
 					<input type="text" id="artikelSucheInput" maxlength="75" placeholder="Suche nach deiner Lieblingsmarke">

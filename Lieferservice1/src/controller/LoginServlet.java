@@ -87,7 +87,7 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	public boolean checklogin(String mail, String pw) throws SQLException, ServletException {
+	public boolean checklogin(String mail, String pw) throws SQLException, ServletException {   // params ändern
 		boolean LoginOk;
 		boolean hasResult;
 
