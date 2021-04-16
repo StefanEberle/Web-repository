@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+#registrieren{
+  dispaly:table;
+  background: #4CAF50;
+  padding: 2em 2em 5em;
+  max-width: 800px;
+  margin: 20px;
+  box-shadow: 0 0 4em #222;
+  border-radius: 10px;
+  font-size: 20px;
+ 
+}
+ #registrieren input{
+   height: 30px
+   
+ }
+ #registrieren textarea{
+   height:80px;
+   width: 380px;
+ }
+#registrieren button{
+   background-color: #8c8c8c;
+	color: white;
+	padding: 16px;
+	font-size: 16px;
+	border: none;
+ }
+  .geb{
+     position: relative;
+ }
+ .geb select{
+  background-color: white;
+  color: grey;
+  padding: 12px;
+  width: 150px;
+  border: none;
+  font-size: 15px;
+  outline: none;
+}
+.geb p{
+	display:inline-block;
+}

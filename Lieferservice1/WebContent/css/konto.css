@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+/* https://codepen.io/mp/pen/ldAFs    ----- Border ! */
+
+.mainTable{
+    
+    font-size:25px;
+    padding-bottom: 50px;
+}
+.mainSideBar{
+  float:left;
+  width:200px;
+  height:200px;
+  padding:0px 40px 0px 20px;
+  background:grey;
+  border: solid black;
+  border-color: black;
+  border-width: 5px 3px 3px 5px;
+  border-radius:95% 4% 97% 5%/4% 94% 3% 95%;
+}
+.mainContent{
+  position:relative;
+  float:right;
+  display:table;
+  background:grey;
+  border: solid black;
+  border-color: black;
+  border-width: 5px 3px 3px 5px;
+  border-radius:90% 4% 97% 5%/4% 94% 3% 95%;
+  width:80%;
+}
+.mainContent input{
+  display:block;
+  width: 80%;
+  height: 25px;
+  padding:10px; 
+  border:none;
+}
+.mainKonto{
+   display:table-cell;
+  padding-right: 80px; 
+  padding-left: 30px;
+  width:50%;
+ 
+}
+.mainAdresse{
+
+    display:table-cell;
+    width:50%;
+}
+.mainSideBar h5{
+    margin: 0px;
+    padding-bottom:10px; 
+}
+.mainSideBar a{
+     line-height: 1.5em; 
+     font-size:20px;
+}
+.main button{
+  padding:16px;
+  background-color: #4CAF50;
+  color:whitesmoke;
+  font-size: 16px;
+  margin:5px;
+  width: 50%;
+}
