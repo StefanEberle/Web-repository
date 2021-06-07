@@ -1,0 +1,122 @@
+@charset "UTF-8";
+
+
+
+#emailAdresse, #passwort{
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 31px 0 0 29px;
+  width: 350px;
+  height: 60px;
+  position:relative;
+  left:5%;
+  top:5%;
+  
+}
+
+#kundenLogin{
+  width:100%;
+  margin:40px;;
+  padding:10px;
+  position:relative;
+  left:40%;
+  top:50px;
+
+}
+
+#login {
+  background: dimgrey;
+  border: 1px solid #42464b;
+  border-radius: 6px;
+  height: 350px;
+  margin: 20px;
+  width: 450px;
+}
+
+#kundenLogin h1{
+  position:relative;
+  font-size:40px;
+  left:120px
+}
+
+button[name="loginButton"]{
+  width:350px;
+  height: 60px;
+  background: #095484;
+  font-size: 20px;
+  text-align:;
+  position:relative;
+  top:15%;
+  left:11%;
+  border-radius: 15px 15px 15px 15px;
+}
+#registrierenButton{
+  background: #095484;
+  font-size: 30px;
+  text-align:center;
+  position:relative;
+  width:25%;
+  border-radius: 15px 15px 15px 15px;
+}
+
+#reg{
+  position:relative;
+  width:95%;
+  padding:20px;
+  text-align:center;;
+  font-size:30px;
+  top:100px;
+  left:6%;
+
+}
+
+header{
+  position:relative;
+  text-align:center;
+  font-size:30px;
+ 
+}
+header h3{
+  color:black;
+
+}
+/*https://de.w3docs.com/snippets/css/wie-kann-man-eine-horizontale-linie-stylen.html
+Abschnitte mit hr,hr1 & hr2
+*/
+header hr{
+  position:relative;
+  border: 0;
+  height: 3px;
+  background: #095484;
+  background-image: linear-gradient(to right, #ccc, #095484, #ccc);
+}
+
+.hr1 {
+      height: 30px; 
+      border-style: solid; 
+      border-color: #095484; 
+      border-width: 5px 0 0 0; 
+      border-radius: 20px; 
+     
+}
+.hr2 {
+      display: block; 
+      content: ""; 
+      height: 30px; 
+      margin-top: 31px; 
+      border-style: solid; 
+      border-color: #095484; 
+      border-width: 0 0 5px 0; 
+      border-radius: 20px; 
+}
+
+section h3{
+  font-size:45px;
+}
+
+
+main{
+
+  height:100%;
+  width:90%;
+}

@@ -42,11 +42,11 @@ public class LoginServlet extends HttpServlet {
 			session.removeAttribute("user");
 			session.removeAttribute("adresse");
 			
-			response.sendRedirect("html/login.jsp");
+			response.sendRedirect("index.jsp");
 		
 		}else {
 		
-			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/login.jsp");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 		
@@ -78,13 +78,24 @@ public class LoginServlet extends HttpServlet {
 						session.setAttribute("user", user);
 						session.setAttribute("adresse", adresse);
 				
-				final RequestDispatcher dispatcher = request.getRequestDispatcher("html/konto.jsp");
+				if(!user.isAdmin())	{
+					final RequestDispatcher dispatcher = request.getRequestDispatcher("html/konto.jsp");
+					 dispatcher.forward(request, response);
+				}else {
+					final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+					 dispatcher.forward(request, response);
+				}
+						
+				
+			}else {
+				final RequestDispatcher dispatcher = request.getRequestDispatcher("html/login.jsp");
 				 dispatcher.forward(request, response);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	public boolean checklogin(String mail, String pw) throws SQLException, ServletException {   // params ändern

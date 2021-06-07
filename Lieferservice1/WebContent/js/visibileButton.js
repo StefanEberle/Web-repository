@@ -19,18 +19,26 @@ function init() {
 	}
 	navBar();
 	
-	var suche = document.getElementById("artikelSuche");
-	suche.style.visibility = "hidden";
 	
 	
+	/*
+	 * 
+	 var suche = document.getElementById("artikelSuche");
+	suche.style.visibility = "hidden"; 
+	  
+	 
 	var suchbar = document.getElementById("search");
 	var suchbarInput = document.getElementById("artikelSuche");
-	suchbar.addEventListener("mousemove", showInput);
-	suchbarInput.addEventListener("mousemove", showInput);
+	var sucheErg = document.getElementById("searchErg");
+	suchbar.addEventListener("mouseover", showInput);
+	suchbarInput.addEventListener("mouseover", showInput);
+	suchbar.addEventListener("mouseover",showInput);
 	
 	var suchbarHidden = document.getElementById("divLupe");
 	suchbarHidden.addEventListener("mouseout", hiddInput);
+*/
 }
+
 function hiddInput(){
 	var suche = document.getElementById("artikelSuche");
 	suche.style.visibility = "hidden";
@@ -43,7 +51,7 @@ function showInput() {
 
 function navBar(){
 	
-	
+
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 
@@ -69,7 +77,7 @@ function navBar(){
 					if(!katBezListe.includes(erg[i].bezeichnungKat)){
 						katBezListe.push(erg[i].bezeichnungKat);
 						ausgabe += "<div class="+ "dropdown" + ">";
-						ausgabe += "<button class=" + "dropbtn" +" "+"name=" + "kategorie " + "value="+ erg[i].fkKategorieID + ">";
+						ausgabe += "<button + type=" + "submit"+ " "  + "class=" + "dropbtn" +" "+"name=" + "kategorie " + "value="+ erg[i].fkKategorieID + ">";
 						ausgabe += erg[i].bezeichnungKat;
 						ausgabe += "</button>";
 						ausgabe += "<div class=" + "dropdown-content" + ">";

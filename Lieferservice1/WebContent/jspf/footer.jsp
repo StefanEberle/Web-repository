@@ -23,9 +23,9 @@
 		</tr>
 
 	</table>
-
-	<a href="###">AGB</a> <a href="###">Datenschutz</a> <a href="###">Impressum</a>
-
+	<nav>
+		<a href="###">AGB</a> <a href="###">Datenschutz</a> <a href="###">Impressum</a>
+	</nav>
 </footer>
 
 </body>

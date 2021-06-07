@@ -5,7 +5,7 @@ function init() {
 
 	var passwort = document.getElementById("pw");
 	var pw = document.getElementById("pw").value;
-	passwort.addEventListener("change", pwRules);
+	//passwort.addEventListener("change", pwRules);
 
 	var correct = document.getElementById("meldungPW1");
 	var repeatPW = document.getElementById("repeatPW");
@@ -16,6 +16,7 @@ function init() {
 
 }
 
+/*
 function pwRules(id) {
 	
 	var pw = id.value;
@@ -42,6 +43,7 @@ function pwRules(id) {
 	}
 
 }
+*/
 
 function correctPW() {
 
@@ -61,7 +63,7 @@ function correctPW() {
 
 }
 
-function loadDoc() {
+function loadPwVerfuegbar() {
 
 	
 	var email = document.getElementById("email").value;
@@ -89,6 +91,7 @@ function loadDoc() {
 	xmlhttp.send("email=" + email);
 }
 
+/*
 function aktPW(){
 	
 	var email = document.getElementById("aktuellesPW").value;
@@ -115,4 +118,5 @@ function aktPW(){
 			"application/x-www-form-urlencoded");
 	xmlhttp.send("aktuellesPW=" + email);
 }
+*/
 

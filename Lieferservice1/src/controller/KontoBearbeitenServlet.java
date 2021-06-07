@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +34,14 @@ public class KontoBearbeitenServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
+		final PrintWriter out = response.getWriter();
+		
+			
+		
 		HttpSession session = request.getSession();
 		UserBean user = (UserBean) session.getAttribute("user");
 
@@ -45,10 +54,17 @@ public class KontoBearbeitenServlet extends HttpServlet {
 				if (passwortUeberpruefen(user, passwort) && checkEmail(email)) {
 
 					sicherEmail(user, email);
+					
+					user.setEmail(email);
 					session.setAttribute("user", user);
+				}else {
+				
+					out.println("<h3> Falsche Passwort </h3>");
+				
+					response.sendRedirect("html/konto.jsp");
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}
@@ -59,6 +75,9 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			try {
 				if(passwortUeberpruefen(user, passwort) && passwortNeu.equals(passwortNeu2)) {
 					sicherPW(passwortNeu, user.getUserid());
+					
+				}else {
+					response.sendRedirect("html/konto.jsp");
 				}
 			} catch (SQLException e) {
 			
@@ -66,6 +85,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			}
 		}
 		if(request.getParameter("adresseBearbeiten") != null) {
+			
 			String vorname = request.getParameter("vorname");
 			String nachname = request.getParameter("nachname");
 			String strasse = request.getParameter("strasse");
@@ -76,7 +96,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			String telefonnummer =request.getParameter("telefonnummer");
 			String geburtstag = request.getParameter("geburtstag");
 			String hinweis = request.getParameter("hinweis");
-			
+			System.out.println(geburtstag);
 			AdresseBean adresse = new AdresseBean();
 			
 			adresse.setUserid(user.getUserid());
@@ -105,9 +125,9 @@ public class KontoBearbeitenServlet extends HttpServlet {
 	}
 	private void sicherAdresse(AdresseBean adresse) throws SQLException {
 		
-		String query = "UPDATE thidb.Adresse SET Strasse = ?, Hausnummer = ?, PLZ = ?, Stadt = ?, Etage = ?, Telefonnummer = ?, Geburtstag = ?,"
+		String query = "UPDATE thidb.Adresse SET Strasse = ?, Hausnummer = ?, PLZ = ?, Stadt = ?, Etage = ?, Telefonnummer = ?, Geburtstag = ?, "
 				+ "Hinweis = ?, Vorname = ?, Nachname = ? WHERE FKUserID = ?";
-		
+		System.out.println(adresse.getGeburtstag());
 		try(Connection conn = ds.getConnection("root", "root"); PreparedStatement pstm = conn.prepareStatement(query);) {
 			
 			pstm.setString(1, adresse.getStrasse());
@@ -154,7 +174,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 							rueckgabe = true;
 						} else {
 							rueckgabe = false;
-							System.out.println("Falsches Passwort eingegeben!"); // AUSGABE JSP!!!!!!!!!!!!!!!
+						
 						}
 					}
 				}

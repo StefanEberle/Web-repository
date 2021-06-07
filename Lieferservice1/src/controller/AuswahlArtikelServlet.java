@@ -33,6 +33,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String kategorie = request.getParameter("kategorie");
 		String unterKategorie = request.getParameter("unterKategorie"); 
 		String marke = request.getParameter("marke");
+	
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 		
 		
@@ -48,6 +49,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 			artikelList = getMarke(marke);
 			
 		}
+	
 		
 		request.setAttribute("artikelList", artikelList);
 		

@@ -13,62 +13,57 @@
 <%@ include file="../jspf/header.jsp"%>
 <main>
 
-<div class="main">
-
-	<div class="mainTitel">
+	<section class="mainTitel">
 		<h1>Mein Konto</h1>
-	</div>
-
-	<div class="mainTable">
-		
-		<div class="mainSideBar">
-			<h5>Mein Konto</h5>
-			<a>Bestellungen</a> <br>
-			<a>Adresse</a> <br>
-			<a>Passwort ändern</a>
-		</div>
+	</section>
 	
-		<div class="mainContent">
-			<div class=mainKonto>
+	<aside class="mainSideBar">
+			<h5>Mein Konto</h5>
+			<a>Bestellungen</a>
+	</aside>
+
+<section class="mainContent">
+	
+		
+			<article class=mainKonto>
 				<h2>Kontoinformationen</h2>
 				
 				
 				<div id="emailBearbeiten">
 				<h5>Email bearbeiten:</h5>
-				<form action="../../KontoBearbeitenServlet" method="POST" name="emailBearbeiten" value="EmailBearbeiten">
-				 	<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" value="${user.email}" onchange="loadDoc()"> <br> <label id="emailTest"> </label>
+				<form action="../../KontoBearbeitenServlet" method="POST" name="emailBearbeiten">
+				 	<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" value="${user.email}" onchange="loadPwVerfuegbar()"> <br> <label id="emailTest"> </label>    				 	 
 					<br>
 					<input type="password" name="passwort" size="60" maxlength="60" placeholder="Passwort">
 					<br>
-					<button type="submit" name="emailBearbeiten" onclick="">Änderung speichern</button>
+					<button type="submit" name="emailBearbeiten">Änderung speichern</button>
 				</form>	
 				</div>
 				
 				<div id="pwBearbeiten"> 
 				<h5>Passwort bearbeiten:</h5>
-				<form action="../../KontoBearbeitenServlet" method="POST" name="pwBearbeiten" value="PWBearbeiten">
+				<form action="../../KontoBearbeitenServlet" method="POST" name="pwBearbeiten">
 					<input type="password" name="passwort" id="aktuellesPW" size="60" maxlength="60" placeholder="Aktuelles Passwort">
 					<br>
-					<input type="password" name="passwortNeu" id="pw" size="60" maxlength="60" placeholder="Neues Passwort" onchange="pwRules(this)"> <label id="meldungPW1"> </label>
+					<input type="password" name="passwortNeu" id="pw" pattern=".{8,}" size="60" maxlength="60" placeholder="Neues Passwort"> <label id="meldungPW1"> </label>
 					<br>
-					<input type="password" name ="passwortNeu2" id="repeatPW" size="60" maxlength="60" placeholder="Passwort wiederholen" disabled="disabled"> <label id="meldungPW2"> </label>
+					<input type="password" name ="passwortNeu2" id="repeatPW" pattern=".{8,}" size="60" maxlength="60" placeholder="Passwort wiederholen"> <label id="meldungPW2"> </label>
 					
-					<button type="submit" id="absendeButton" name="pwBearbeiten" onclick="" disabled>Änderung speichern</button>
+					<button type="submit" id="absendeButton" name="pwBearbeiten">Änderung speichern</button>
 				</form>	
 				</div>
 				
 				<button type="submit" name="emailBearbeiten" id="emailButton">Email ändern</button>
 				<button type="submit" name="pwBearbeiten" id="pwButton">Passwort ändern</button>
 				
-			</div>
+			</article>
 		
-		<div class="mainAdresse">	
+		<article class="mainAdresse">	
 				<h2>Adresse</h2>
 				<h5>Standardrechnungsadresse verwalten:</h5>
 			
 				
-			<div id="mainAdresse">
-				<form action="../../KontoBearbeitenServlet" method="POST" name="adresseBearbeiten">
+				<form action="../../KontoBearbeitenServlet" method="POST" name="adresseBearbeiten" id="mainAdresse">
 				<label>Vorname:</label>
 				<input type="text" name="vorname" value="${adresse.vorname}" maxlength="75"><br>
 				<label>Nachname:</label>
@@ -86,19 +81,18 @@
 				<label>Telefonnummer:</label>
 				<input type="text" name="telefonnummer" value="${adresse.telefonnummer}" maxlength="75"><br>
 				<label>Geburstag:</label>
-				<input type="text" name="geburstag" value="${adresse.geburtstag}" maxlength="75"><br>
+				<input type="text" name="geburtstag" value="${adresse.geburtstag}" maxlength="75"><br>
 				<label>Hinweis</label>
-				<input type="text" name="stadt" value="${adresse.hinweis}" maxlength="75"><br>
+				<input type="text" name="hinweis" value="${adresse.hinweis}" maxlength="75"><br>
 		
 				<button type="submit" name="adresseBearbeiten">Änderung speichern</button>
 				</form>	
 	
-			</div>
+			
 			<button type="submit" name="adresseButton" id="adresseButton">Adresse bearbeiten</button>
-			</div>
-		</div>
-	</div>
-</div>
+		</article>
+		
+</section>
 
 
 </main>

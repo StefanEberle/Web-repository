@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import modell.KategorieBean;
 import modell.TextBean;
 import modell.UnterKategorieBean;
 
@@ -45,14 +46,14 @@ public class HoleKategorieServlet extends HttpServlet {
 
 				while (rs != null && rs.next()) {
 					UnterKategorieBean kategorie = new UnterKategorieBean();
-
+					
 					kategorie.setFkKategorieID(rs.getInt("FKKategorieID"));
 					kategorie.setUnterkategorieBez(rs.getString("UnterkategorieBez"));
 					kategorie.setBezeichnungKat(rs.getString("BezeichnungKat"));
 					kategorie.setUnterkategorieID(rs.getInt("UnterkategorieID"));
 
 					kategorieList.add(kategorie);
-
+					
 				}
 
 			}
@@ -89,6 +90,8 @@ public class HoleKategorieServlet extends HttpServlet {
 		if(katID == null && unterKatID != null) {
 			sucheList = getFilterMarken(unterKatID, "FKUnterkategorieID");
 		}
+		
+
 		request.setAttribute("sucheList", sucheList);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("html/suche.jsp");
@@ -162,4 +165,7 @@ public class HoleKategorieServlet extends HttpServlet {
 		return list;
 	}
 
+	
+	
 }
+

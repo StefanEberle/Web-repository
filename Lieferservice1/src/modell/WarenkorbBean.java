@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class WarenkorbBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int warenkorbID;
 	private int fkuserID;
 	

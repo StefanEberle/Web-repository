@@ -12,6 +12,7 @@
 <%@ include file="../jspf/header.jsp"%>
 <main>
 
+
 <h1>Kundenlogin</h1>
 <h3>Registrierte Kunden</h3>
 <p>Falls Du schon Registriert bist, melde dich hier mit deiner
@@ -31,7 +32,7 @@
 </form>
 
 <h3>Neue Kunden</h3>
-<p>Hier kannst Du kostenlos ein Konto erstellen und von unseren
+<p>Hier kannst Du kostenlos ein Konto erstellen und von unserem
 	erstklassigen Angeboten provitieren</p>
 
 <form action="../registrierung.jsp" name="registrierung">

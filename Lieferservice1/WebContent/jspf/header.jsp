@@ -12,6 +12,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<noscript> Sie haben JavaScript deaktiviert.</noscript>
 </head>
 <body>
 	<header>
@@ -29,30 +30,33 @@
 		<input type="hidden" id="valueTest" value="${user.login}">
 
 
-		<div class="col-container">
+		<nav class="navBar">
 
 			<form action="../../AuswahlArtikelServlet" method="GET">
-				<nav id="navigationBar"></nav>
+				<div id="navigationBar"></div>
 			</form>
 			
 			<div class="divLupe" id="divLupe">
 				<i class="fa fa-search" id="search"></i>
-			</div>
-			<div class="warenkorb" id="warenkorb">
-				<i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
-			</div>
-				<div id="artikelSuche">
+				
+				
 					<input type="text" id="artikelSucheInput" maxlength="75" placeholder="Suche nach deiner Lieblingsmarke">
 						<div id="searchErg">
 						
 						</div>
-					<button type="submit" class="sucheButton">Suche</button>
-				</div>
+					
+				
+				
+			</div>
+			<div class="warenkorb" id="warenkorb">
+				<i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
+			</div>
+				
 
 		
 
 
-			<form action="../../html/login.jsp" id="einloggen">
+			<form action="../../index.jsp" id="einloggen">
 				<button type="submit" id="anmeldeButton" name="anmeldeButton">Anmelden</button>
 			</form>
 
@@ -60,7 +64,7 @@
 				<button type="submit" id="abmeldeButton" name="abmeldeButton">Abmelden</button>
 			</form>
 
-		</div>
+		</nav>
 
 
 	</header>

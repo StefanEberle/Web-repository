@@ -17,15 +17,15 @@
 
 <main>
 
-<div>
-	<p>Sorte</p>
-	<div id="unterKategorie">
+<aside>
+	<p>Sorten</p>
+	<section id="unterKategorie">
 	
-	</div>
+	</section>
 	
-	<div>
 	
-	<div id="gebinde">
+	
+	<section id="gebinde">
 	<p>Gebinde</p>
 	<input type="checkbox" id="glas" name="gebinde" value="Glas">
   	<label for="glas">Glas</label>	<br>
@@ -33,43 +33,61 @@
   	<input type="checkbox" id="pet" name="gebinde" value="PET">
   	<label for="pet">PET</label>
 	
-	</div>
-	<p>Marken</p>
-	<div id="marken">
+	</section>
 	
-	</div>
 	
-	</div>
+	<!-- <p>Marken</p> <div id="marken"></div>  -->
+	
+	   
 
 
-</div>
+</aside>
 
-<div id="artikel">
+<table id="artikelListe">
+	
 	<c:if test="${not empty artikelList}">
-		<c:forEach var="a" items="${artikelList}">
-
-		<div class="${a.gebinde}" name="${a.marke}">
-			<div class="artikelBild">
-				<img src="../../RetrieveImageServlet?artikelID=${a.artikelID}">
-			</div>
-
-			<div class="artikelBeschreibung">
-				<p>Marke: ${a.marke}</p>
-				<p>Gebinde: ${a.gebinde}</p>
-				<p>Füllmenge: ${a.fuellmenge}</p>
-				<p>Stückzahl: ${a.stueckzahl}</p>
-				<p>Gesamtpreis: ${a.gesamtpreis}</p>
-				<p>Pfand: ${a.pfandGesamt}</p>
-				<p>( ${a.epJeLiter} €/Liter)</p>
-			</div>
+	
+		<c:forEach var="a" items="${artikelList}" varStatus="counter">
+	
+	
+		
+		<c:if test="${(counter.index mod 3) == 0 }">
+			<tr>
+			
+		</c:if>
+		
+		
+		
+		<td class="${a.gebinde}" id="artikel">
+			
+			<img src="../../RetrieveImageServlet?artikelID=${a.artikelID}" class="artikelBild">
+		
+			<ul class="artikelBeschreibung">
+				<li>Marke: ${a.marke}</li>
+				<li>Gebinde: ${a.gebinde}</li>
+				<li>Füllmenge: ${a.fuellmenge}</li>
+				<li>Stückzahl: ${a.stueckzahl}</li>
+				<li>Gesamtpreis: ${a.gesamtpreis}</li>
+				<li>Pfand: ${a.pfandGesamt}</li>
+				<li>Preis pro Liter: ${a.epJeLiter} €/Liter</li>
+			</ul>
+			
 			<input type="number" id="menge" name="menge" min="1" max="10" value="1">
-			<button type="submit" value="${a.artikelID}" onclick="addShoppingCart(this.value)">Hinzufügen</button>
-		</div>
-			<br>
+			<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" onclick="addShoppingCart(this.value)"></button>
+			
+		</td>
+		
+		<c:if test="${(counter.count mod 3) == 0}">
+			</tr> 
+		</c:if>
+			
+			
 		</c:forEach>
+	
+	
 	</c:if>
 
-</div>
+</table>
 
 
 </main>

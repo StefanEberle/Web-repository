@@ -27,7 +27,10 @@ import modell.ArtikelBildBean;
  * Servlet implementation class ArtikelServlet
  */
 @WebServlet("/ArtikelServlet")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize =  1024*1024*5,
+								maxRequestSize=1024*1024*5*5,
+								location= "/tmp",
+								fileSizeThreshold=1024*1024)
 
 public class ArtikelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -38,9 +41,14 @@ public class ArtikelServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		response.setContentType("text/html");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		
 		ArtikelBean artikel = new ArtikelBean();
 //		ArtikelBildBean artikelBild = new ArtikelBildBean();
 		
+		/** Parameter holen **/
 		final String marke = request.getParameter("marke");
 		final int kategorie = Integer.parseInt(request.getParameter("kategorie"));
 		final int unterKategorie = Integer.parseInt(request.getParameter("unterKategorie"));
@@ -53,12 +61,11 @@ public class ArtikelServlet extends HttpServlet {
 		
 		BigDecimal epJeLiter = fuellmenge.multiply(new BigDecimal(stueckzahl));
 		epJeLiter = gesamtpreis.divide(epJeLiter, 2, RoundingMode.HALF_EVEN);
-		
 		BigDecimal pfandGesamt = pfandProFlasche.multiply(new BigDecimal(stueckzahl)).add(pfandKasten);
 		
 		final Part image = request.getPart("artikelBild");
 	
-		
+		/** ArtikelBean füllen **/
 		artikel.setMarke(marke);
 		artikel.setFkkategorieID(kategorie);
 		artikel.setFkunterkategorieID(unterKategorie);
@@ -73,7 +80,7 @@ public class ArtikelServlet extends HttpServlet {
 
 	
 		
-		artikel = sicherArtikel(artikel);
+		artikel = sicherArtikel(artikel); //Artikel in die Datenbank schreiben
 		
 		//Quelle Bild Upload: https://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql
 		
@@ -108,8 +115,8 @@ public class ArtikelServlet extends HttpServlet {
 		}
 		//request.setAttribute("Message", message);
 		
-		final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
-		dispatcher.forward(request, response);
+
+		response.sendRedirect("html/artikelErzeugen.jsp");
 		
 	
 	}
