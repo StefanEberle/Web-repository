@@ -7,6 +7,7 @@
 <title>Artikel erzeugen</title>
 <base href="${pageContext.request.requestURI}/">
 <script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/delete.css">
 </head>
 <%@ include file="../jspf/header.jsp"%>
 <main>

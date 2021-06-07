@@ -2,8 +2,8 @@
 
 
 footer{
-	position: absolute;
-	top:1500px;
+	position: relative;
+	font-size:25px;
     height: 100px;
     
 }	background-color: #8c8c8c;
