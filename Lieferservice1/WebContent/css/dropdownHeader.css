@@ -34,9 +34,10 @@ header > h3{
 	color: black;
 	padding: 16px;
 	font-size: 18px;
-	width:120px;
+	width:125px;
 	border: none;
-
+	font-weight:bold;
+    text-align:center;
 }
 
 /*  https://www.w3schools.com/howto/howto_css_dropdown.asp */
