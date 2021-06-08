@@ -46,21 +46,18 @@
 <section class="artikelAdd">
 <form action="../../ArtikelServlet" method="POST" enctype="multipart/form-data">
 <h3>Artikel hinzufügen</h3>
-<article>
+<article id="erzeugen1">
 <label>Kategorie:</label>
 <select id="kategorie2" name="kategorie" required>
 <option> </option>
 </select>
-</article>
 
-<article>
 <label>Unterkategorie:</label>
 <select id="unterkategorie" name="unterKategorie" required>
 <option></option>
 </select>
-</article>
 
-<article>
+
 <label>Gebinde:</label>
 <select name="gebinde" required>
 <option>PET</option>
@@ -68,7 +65,7 @@
 </select>
 </article>
 
-<article>
+<article id="erzeugen2">
 <input type="text" name="marke"  maxlength="40" placeholder="Marke" requierd>
 <br>
 <input type="number" step="0.01" name="fuelmenge"  min="0.19" max="99999" maxlength="5" placeholder="Füllmenge" required>

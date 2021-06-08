@@ -5,8 +5,8 @@
 <head>
 <base href="${pageContext.request.requestURI}/">
 <meta charset="UTF-8">
-<title>Getränke Lieferservice</title>
-
+<title>Getränke Lieferdienst</title>
+<noscript> Sie haben JavaScript deaktiviert.</noscript>
 <link rel="stylesheet" type="text/css" href="../css/index.css">
 <link rel="stylesheet" type="text/css" href="../css/dropdownHeader.css">
 

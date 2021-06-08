@@ -7,6 +7,7 @@
 <title>Account</title>
 <base href="${pageContext.request.requestURI}/">
 <link rel="stylesheet" type="text/css" href="../../css/konto.css">
+
 <script type="text/javascript" src="../../js/konto.js"></script>
 <script type="text/javascript" src="../../js/passwortPruefen.js"></script>
 </head>

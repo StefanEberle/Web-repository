@@ -2,9 +2,9 @@
 
 
 footer{
-	position: relative;
+	position: static;
 	font-size:25px;
     height: 100px;
-    
-}	background-color: #8c8c8c;
-}
+    margin-top:120px;
+ 
+}	

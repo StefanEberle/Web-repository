@@ -62,7 +62,7 @@ function navBar(){
 				var erg = JSON.parse(xmlhttp.responseText);
 				var katBezListe = new Array();
 				
-
+				
 				
 				var ausgabe = "";
 				var tmp = 1;

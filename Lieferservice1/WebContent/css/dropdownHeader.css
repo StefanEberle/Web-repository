@@ -1,56 +1,57 @@
 @charset "UTF-8";
 body{
-  background-color:#8c8c8c;
+  background-color:#FFFFF;
   font-family:Georgia, Times, "Times New Roman", serif;
+  height:100%;
+  max-width: 1400px;
+  margin: auto;
+}
+main{
+	height:80%;
+	margin-bottom:60px;
 }
 header > h1{
-	color:#F8F8FF;
+	color:black;
 	
 }
 header > h3{
-	color:#F8F8FF;
+	color:black;
 	
 }
-#benutzerKonto{
-	position:absolute;
-	right:50%;
-	height:50px;
-	width:220px;
-	top:0px;
-	background-color: #4CAF50;
-	border-radius: 0px 0px 15px 15px;
-	font-size:20px;
-}
+
 
 .navBar {
 	display: flex;
-	background-color: #4CAF50;
+	background-color: #095484;
 	padding:none;
-	height:55px;
+	height:51px;
 	width:100%;
+	border: black solid 1px;
 }
 /* Dropdown Button */
 .dropbtn{
-	background-color: #4CAF50;
-	color: white;
+	background-color:#095484;
+	color: black;
 	padding: 16px;
-	font-size: 16px;
+	font-size: 18px;
 	width:120px;
 	border: none;
 
 }
 
-
-/* The container <div> - needed to position the dropdown content  https://www.w3schools.com/howto/howto_css_dropdown.asp */
+/*  https://www.w3schools.com/howto/howto_css_dropdown.asp */
 .dropdown {
 	position: relative;
 	display: inline-block;
+	border-right:black solid 1px;
+
 }
 
 
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content{
+
 	display: none;
 	position: absolute;
 	background-color: #f1f1f1;
@@ -80,7 +81,11 @@ header > h3{
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-	background-color: #3e8e41;
+	background-color: #DADED4;
 }
 
-
+#warenkorbIcon{
+    height: 50px;
+    width: 58px;
+    font-size:20px;
+}

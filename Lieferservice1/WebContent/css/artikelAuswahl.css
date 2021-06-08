@@ -1,9 +1,32 @@
 @charset "UTF-8";
 
+a{
+  text-decoration:none;
+  color:#095484;
+  font-size:25px;
+ 
+}
+p{
+  border-bottom:black solid 1px;
+  width:130px;
+  font-size:25px;
+}
+aside button {
+  position:relative;
+  right:10px;
+  margin:10px;
+  margin-top:15px;
+  width:120px;
+  height:40px;
+  border-radius:12px;
+  color:black;
+  background-color:#095484;
+}
 aside{
     width:10%;
-    height:2000px;
+    height:200px;
     float:left;
+    padding-top:50px;
 }
 
 .artikelBild{
@@ -35,29 +58,37 @@ li{
   height:280px;
   margin:0;
   padding:10px;
+  padding-right:18px;
   
 }
 
 #menge {
    position:relative;
    left:80px;
-   top: -163px;
-    height: 35px;
+   top: -165px;
+    height: 45px;
    width: 45px;
  }
-table button{
+#artikelListe button{
   position:relative;
-  background-color: #4CAF50;
+  background-color: #095484;
   color:whitesmoke;
   text-align:center;
   left:80px;
   top:-160px
+
 }
 
-#warenkorbIcon{
-    height: 45px;
-    width: 45px;
+
+#artikelListe table{
+    position: absolute;
+    height: 80%;
+    width:80%;
+    margin-left:120px;
+    padding-right: 0px;
 }
+
+
 
 
 

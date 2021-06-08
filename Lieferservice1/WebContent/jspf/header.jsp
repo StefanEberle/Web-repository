@@ -17,16 +17,14 @@
 <body>
 	<header>
 
-		<form action="../../html/konto.jsp">
-			<button type="submit" id="benutzerKonto">Benutzerkonto</button>
-		</form>
+	
 
 		<h1>Flaschen Lieferservice</h1>
 		<h3>Direkt bis zu Ihrer Haustür</h3>
 
 
 
-		<%--	<a href="../../html/login.jsp" id="einloggen">Anmelden</a>  Wenn Angemeldet dann Benutzerkonto wenn nicht Anmelden als Text --%>
+		
 		<input type="hidden" id="valueTest" value="${user.login}">
 
 
@@ -44,25 +42,27 @@
 						<div id="searchErg">
 						
 						</div>
-					
-				
-				
-			</div>
+		   </div>
+			
 			<div class="warenkorb" id="warenkorb">
 				<i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
-			</div>
+			
+				<form action="../../html/konto.jsp">
+			<button type="submit" id="benutzerKonto"><i class="fa fa-user" id="userIcon"></i></button>
+		</form>
+			</div>	
 				
-
-		
+	<div class="log">
+		<form action="../../LoginServlet" method="GET" id="ausloggen">
+				<button type="submit" id="abmeldeButton" name="abmeldeButton">Abmelden</button>
+			</form>
 
 
 			<form action="../../index.jsp" id="einloggen">
 				<button type="submit" id="anmeldeButton" name="anmeldeButton">Anmelden</button>
 			</form>
-
-			<form action="../../LoginServlet" method="GET" id="ausloggen">
-				<button type="submit" id="abmeldeButton" name="abmeldeButton">Abmelden</button>
-			</form>
+	</div>
+			
 
 		</nav>
 

@@ -18,7 +18,11 @@
 <main>
 
 <aside>
+<form action="../../AuswahlArtikelServlet" method="POST">
 	<p>Sorten</p>
+	<input type="hidden" name="kategorie" value="${param.kategorie}" >
+	<input type="hidden" name="unterKategorie" value="${param.unterKategorie}" >
+	
 	<section id="unterKategorie">
 	
 	</section>
@@ -27,10 +31,10 @@
 	
 	<section id="gebinde">
 	<p>Gebinde</p>
-	<input type="checkbox" id="glas" name="gebinde" value="Glas">
+	<input type="checkbox" id="filterGlas" name="glas" value="glas">
   	<label for="glas">Glas</label>	<br>
   	
-  	<input type="checkbox" id="pet" name="gebinde" value="PET">
+  	<input type="checkbox" id="filterPet" name="pet" value="pet">
   	<label for="pet">PET</label>
 	
 	</section>
@@ -39,8 +43,8 @@
 	<!-- <p>Marken</p> <div id="marken"></div>  -->
 	
 	   
-
-
+<button type="submit" name="filtern">Filtern</button>
+</form>
 </aside>
 
 <table id="artikelListe">

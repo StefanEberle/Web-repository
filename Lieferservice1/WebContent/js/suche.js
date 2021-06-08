@@ -18,6 +18,7 @@ function suchErgebnisse(){
 			
 			if (xmlhttp.status == 200) {
 				
+
 				
 				var erg = JSON.parse(xmlhttp.responseText);
 				

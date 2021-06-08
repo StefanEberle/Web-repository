@@ -2,7 +2,7 @@
 
 main{
 	margin:20px;
-	margin-left:40px;
+	
 }
 main h3{
     font-size:40px;
@@ -13,17 +13,20 @@ main a{
     text-decoration: none;
 
 }
+main input{
+    font-size:25px;
+}
+aside{
+	margin-bottom:40px;
+}
 label{
     display:block;
     font-size:25px;
 }
 a:hover{
-    color:green;
+    color:#095484;
 }
 
-.artikelAdd{
-    width: 80%;
-}
 .artikelAdd input{
     padding:10px;
     margin:5px;
@@ -36,22 +39,59 @@ a:hover{
     width:350px;
     
 }
-
+.artikelAdd{
+	width: 89%;
+	border:black solid 1px;
+	margin-top:20px;
+	display:table;
+}
+.artikelAdd button{
+	position:relative;
+	right:-500px;
+}
+#erzeugen1{
+	display:table-cell;
+	padding-left:100px;
+	padding-right:40px;
+    position:relative;
+    top:-40px;
+}
+#erzeugen2{
+	display:table-cell;
+	padding-left:50px;
+}
 select{
     width:300px;
     height:50px;
     margin:5px;
-   font-size:25px;
-}
-input{
     font-size:25px;
+
 }
+
+
 main button{
     display:block;
     margin:5px;
-    background-color: #4CAF50;
+    background-color: #095484;
 	padding: 16px;
 	font-size: 16px;
 	width:220px;
 	border: none;
+}
+
+.kategorieAdd{
+	display:table-cell;
+	padding-right:50px;
+	padding-left:50px;
+	border:black solid 1px;
+}
+.unterKategorieAdd{
+    display:table-cell;
+    padding-left:50px;
+    padding-right:50px;
+
+    margin:10px;
+    border:black solid 2px;
+   
+	
 }

@@ -8,6 +8,17 @@ function init() {
 	unterKategorie();
 	//sucheMarkenAuswahl();
 	
+	/*
+	var glas = document.getElementById("filterGlas");
+	var pet = document.getElementById("filterPet");
+	glas.checked = true;
+	pet.checked = true;
+	
+	glas.addEventListener("change",filterGebinde);
+	pet.addEventListener("change",filterGebinde);
+	*/
+	
+	/*
 	var cbGlas = document.getElementById("glas");
 	cbGlas.checked = true;
 	var cbPet = document.getElementById("pet");
@@ -29,7 +40,7 @@ function init() {
 		}
 	});
 	
-	/*
+	
 	var child = document.querySelectorAll("div[name]");
 	
 	for(var j = 0, len = child.length; j < len; j++){
@@ -51,10 +62,12 @@ function unterKategorie() {
 				var erg = JSON.parse(xmlhttp.responseText);
 				var ausgabe = "";
 
+				// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 				const queryString = window.location.search;
 				const urlParams = new URLSearchParams(queryString);
 				const id = urlParams.get("kategorie");
 
+				
 				for (var i = 0; i < erg.length; i++) {
 
 					if (id == erg[i].fkKategorieID && id != null) {
@@ -81,29 +94,84 @@ function unterKategorie() {
 
 
 
-function filterGebinde(value,boolean){
+function filterGebinde(){
 	
+	var glas = document.getElementById("filterGlas");
+	var pet = document.getElementById("filterPet");
+	const gebinde = "";
 	
-	
-	var elemente = document.querySelectorAll("."+value);
-	
-	for (var i = 0; i < elemente.length; i++) {
-	    if(boolean == false){
-		elemente[i].style.display = "none";
-	    }
-	    if(boolean == true){
-	    	elemente[i].style.display = "block";
-	    }
-	  }
-	/*
-	var marke = document.getElementsByName("marke");
-	for(var i = 0; i < marke.length; i++){
-		marke[i].disabled = true;
+	if(glas.checked == false){
+		gebinde = "gebinde=PET";
+	}else if(pet.checked == false){
+		gebinde = "gebinde=Glas";
+	}else if(glas.checked == true && pet.checked == true){
+		gebinde = "gebinde=allSelected";
+	}else if(glas.checked == false && pet.checked == false){
+		gebinde = "NULL";
 	}
-	*/
+	
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	
+	const kategorieID = urlParams.get("kategorie");
+	const unterKategorieID = urlParams.get("unterKategorie");
+	
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+
+		if (xmlhttp.readyState == 4) {
+
+			if (xmlhttp.status == 200) {
+
+				var erg = JSON.parse(xmlhttp.responseText);
+				var ausgabe = "";
+
+				
+				
+				for (var i = 0; i < erg.length; i++) {
+
+					if (id == erg[i].fkKategorieID && id != null) {
+
+						ausgabe += "<a href="
+								+ "../../AuswahlArtikelServlet?unterKategorie="
+								+ erg[i].unterkategorieID + "&kategorie="
+								+ erg[i].fkKategorieID + ">";
+						ausgabe += erg[i].unterkategorieBez + " ";
+						ausgabe += "</a><br>";
+					}
+					
+				}
+
+				// Kategorie und Unterkategorie und ID von beiden id als value
+				// in option und Bezeichnung als auswahl
+			}
+			document.getElementById("unterKategorie").innerHTML = ausgabe;
+		}
+	}
+	xmlhttp.open("POST", "../../AuswahlArtikelServlet", false);
+	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xmlhttp.send();
+	
 }
 
+/*
+var elemente = document.querySelectorAll("."+value);
 
+for (var i = 0; i < elemente.length; i++) {
+    if(boolean == false){
+	elemente[i].style.display = "none";
+    }
+    if(boolean == true){
+    	elemente[i].style.display = "block";
+    }
+  }
+
+var marke = document.getElementsByName("marke");
+for(var i = 0; i < marke.length; i++){
+	marke[i].disabled = true;
+}
+*/
 
 /* 
 function nachMarkenFiltern(value){
