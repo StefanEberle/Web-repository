@@ -41,6 +41,8 @@ public class DynEmailServlet extends HttpServlet {
 			request.setAttribute("textbean", user);
 		}
 		
+		// JSON - Email verfügbar oder nicht 
+		// Ausgabe neben INput Felder
 		RequestDispatcher dispatcher = request.getRequestDispatcher("html/test.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -51,7 +53,7 @@ public boolean checkEmail(String email) throws ServletException, IOException {
 		boolean rueckgabe;
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 		
-		
+		//Email Verfügbarkeit testen
 		try (Connection conn = ds.getConnection("root","root");
 				PreparedStatement stm = conn.prepareStatement(query);) {
 			

@@ -7,7 +7,7 @@ var counterMonUndTag = 0;
 
 function init() {
 	
-	
+	//Aktuelles Jahr
 	selectedJahr();
 	
 	if(counterMonUndTag === 0){
@@ -24,7 +24,7 @@ function init() {
 
 }
 
-function hiddenMonUndTag(){
+function hiddenMonUndTag(){ //Jahr ausgewählt counter++
 	
 	if(counterMonUndTag===1){
 		document.getElementById("monat").disabled = false;
@@ -57,11 +57,12 @@ function selectedTag(){
 	}else if (array30.includes(valueMonat)){
 		days = 30;
 	}else{
-		const date29 = new Date(valueJahr,1,29);
-		if(date29.getMonth() == 2){
-			days = 29;
-		}else{
+		const date29 = new Date(valueJahr,1,29); // (bei Schaltjahr - Jahr,Feb,29) (Sonst: Jahr, Mar, 01) 
+	
+		if(date29.getMonth() == 2){ // == 2 bei keinem SJ // == 1 bei SJ
 			days = 28;
+		}else{
+			days = 29;
 		}
 	}
 	

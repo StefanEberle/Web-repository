@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", init);
 function init() {
 	/* Asynchron laden */
 
-	unterKategorie();
+	unterKategorieFilter();
+	
+	
 	//sucheMarkenAuswahl();
 	
 	/*
@@ -49,8 +51,8 @@ function init() {
 	*/
 }
 
-
-function unterKategorie() {
+//Aside Filter
+function unterKategorieFilter() {
 
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -69,7 +71,8 @@ function unterKategorie() {
 
 				
 				for (var i = 0; i < erg.length; i++) {
-
+					
+					//KategorieID gehörige Unterkategorie hinzufügen
 					if (id == erg[i].fkKategorieID && id != null) {
 
 						ausgabe += "<a href="
@@ -93,7 +96,7 @@ function unterKategorie() {
 }
 
 
-
+/**
 function filterGebinde(){
 	
 	var glas = document.getElementById("filterGlas");
@@ -154,6 +157,7 @@ function filterGebinde(){
 	xmlhttp.send();
 	
 }
+**/
 
 /*
 var elemente = document.querySelectorAll("."+value);

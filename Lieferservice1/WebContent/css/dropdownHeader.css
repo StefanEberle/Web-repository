@@ -32,7 +32,7 @@ header > h3{
 .dropbtn{
 	background-color:#095484;
 	color: black;
-	padding: 16px;
+	padding: 13px;
 	font-size: 18px;
 	width:125px;
 	border: none;
@@ -90,3 +90,4 @@ header > h3{
     width: 58px;
     font-size:20px;
 }
+

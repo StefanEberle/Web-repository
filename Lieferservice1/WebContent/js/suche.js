@@ -43,5 +43,5 @@ function suchErgebnisse(){
 	
 	xmlhttp.open("POST", "../../HoleKategorieServlet", true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xmlhttp.send("methode="+suche);
+	xmlhttp.send("markenBez="+suche);
 }

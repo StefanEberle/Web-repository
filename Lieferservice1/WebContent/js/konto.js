@@ -7,14 +7,17 @@ function init(){
 	var emailForm = document.getElementById("emailBearbeiten");
 	emailForm.style.display = "none";
 	
-	var pwForm = document.getElementById("pwBearbeiten");
-	pwForm.style.display = "none";
-	
 	var emailButton = document.getElementById("emailButton");
 	emailButton.addEventListener("click",zeigeEmail);
 	
+	
+	var pwForm = document.getElementById("pwBearbeiten");
+	pwForm.style.display = "none";
+	
 	var pwButton = document.getElementById("pwButton");
 	pwButton.addEventListener("click", zeigePasswort);
+	
+	
 	
 	var adresseForm = document.getElementById("mainAdresse");
 	adresseForm.style.display = "none";

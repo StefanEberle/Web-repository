@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class AdresseBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userid;
 	private String vorname;
 	private String nachname;

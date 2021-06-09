@@ -34,6 +34,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		/*  Bei Falscher eingabe noch Ausgabe anhängen */
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -45,6 +46,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserBean user = (UserBean) session.getAttribute("user");
 
+		
 		if (request.getParameter("emailBearbeiten") != null) {
 
 			String email = request.getParameter("email");
@@ -169,7 +171,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 				if (rs.next()) {
 
 					for (int i = 1; i <= spalten; i++) {
-
+					
 						if (rs.getString(i).equals(pw)) {
 							rueckgabe = true;
 						} else {

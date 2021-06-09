@@ -12,11 +12,11 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<noscript> Sie haben JavaScript deaktiviert.</noscript>
+
 </head>
 <body>
 	<header>
-
+	<noscript> Sie haben JavaScript deaktiviert.</noscript>
 	
 
 		<h1>Flaschen Lieferservice</h1>

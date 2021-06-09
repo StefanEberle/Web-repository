@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,16 +20,12 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import modell.ArtikelBean;
-import modell.ArtikelBildBean;
 
 /**
  * Servlet implementation class ArtikelServlet
  */
 @WebServlet("/ArtikelServlet")
-@MultipartConfig(maxFileSize =  1024*1024*5,
-								maxRequestSize=1024*1024*5*5,
-								location= "/tmp",
-								fileSizeThreshold=1024*1024)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5, fileSizeThreshold = 1024 * 1024)
 
 public class ArtikelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,10 +39,10 @@ public class ArtikelServlet extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
+
 		ArtikelBean artikel = new ArtikelBean();
 //		ArtikelBildBean artikelBild = new ArtikelBildBean();
-		
+
 		/** Parameter holen **/
 		final String marke = request.getParameter("marke");
 		final int kategorie = Integer.parseInt(request.getParameter("kategorie"));
@@ -58,13 +53,13 @@ public class ArtikelServlet extends HttpServlet {
 		final BigDecimal gesamtpreis = new BigDecimal(request.getParameter("gesamtpreis"));
 		final BigDecimal pfandProFlasche = new BigDecimal(request.getParameter("pfandProFlasche"));
 		final BigDecimal pfandKasten = new BigDecimal(request.getParameter("pfandKasten"));
-		
+
 		BigDecimal epJeLiter = fuellmenge.multiply(new BigDecimal(stueckzahl));
 		epJeLiter = gesamtpreis.divide(epJeLiter, 2, RoundingMode.HALF_EVEN);
 		BigDecimal pfandGesamt = pfandProFlasche.multiply(new BigDecimal(stueckzahl)).add(pfandKasten);
-		
+
 		final Part image = request.getPart("artikelBild");
-	
+
 		/** ArtikelBean füllen **/
 		artikel.setMarke(marke);
 		artikel.setFkkategorieID(kategorie);
@@ -78,47 +73,39 @@ public class ArtikelServlet extends HttpServlet {
 		artikel.setEpJeLiter(epJeLiter);
 		artikel.setPfandGesamt(pfandGesamt);
 
-	
-		
-		artikel = sicherArtikel(artikel); //Artikel in die Datenbank schreiben
-		
-		//Quelle Bild Upload: https://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql
-		
+		artikel = sicherArtikel(artikel); // Artikel in die Datenbank schreiben
+
+		// Quelle Bild Upload:
+		// https://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql
+
 		InputStream inputStream = null;
-//		String message = null;
-		
+
 		if (image != null) {
-			
+
 			inputStream = image.getInputStream();
 		}
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
 		try (Connection conn = ds.getConnection("root", "root");
 				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query)) {
-			
-			if(inputStream != null) {
-				
+
+			if (inputStream != null) {
+
 				stm.setInt(1, artikel.getArtikelID());
 				stm.setBlob(2, inputStream);
 			}
 			stm.executeUpdate();
-//			int row = stm.executeUpdate();
-//			if(row > 0) {
-//				message = "Gespeichert in DB";
-//			}
+
 			conn.close();
-//			inputStream.close();
+
 		}
 
 		catch (SQLException e) {
-			//message = "Error: " + e.getMessage();
+			// message = "Error: " + e.getMessage();
 			e.printStackTrace();
 		}
-		//request.setAttribute("Message", message);
-		
 
 		response.sendRedirect("html/artikelErzeugen.jsp");
-		
-	
+
 	}
 
 	private ArtikelBean sicherArtikel(ArtikelBean artikel) {
@@ -160,5 +147,5 @@ public class ArtikelServlet extends HttpServlet {
 		}
 		return artikel;
 	}
-	
+
 }

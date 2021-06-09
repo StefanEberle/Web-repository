@@ -2,7 +2,7 @@
 
 #registrieren{
   dispaly:table;
-  background: #4CAF50;
+  background: #095484;
   padding: 2em 2em 5em;
   max-width: 800px;
   margin: 20px;
@@ -40,4 +40,37 @@
 }
 .geb p{
 	display:inline-block;
+}
+/* https://www.w3schools.com/css/tryit.asp?filename=trycss_form_focus2 */
+main input[type=text],input[type=number],
+input[type=password], input[type=email]
+{
+  width: 60%;
+  height:40px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid black;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  font-size:18px;
+}
+
+main input[type=text]:focus,input[type=number]:focus,
+input[type=password]:focus, input[type=email]:focus, textarea:focus{
+  border: 3px solid #B73225;
+}
+label{
+  font-size:20px;
+}
+main textarea{
+  width: 60%;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border: 3px solid black;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  font-size:18px;
 }

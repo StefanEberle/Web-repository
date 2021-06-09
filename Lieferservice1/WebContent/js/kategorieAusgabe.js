@@ -13,8 +13,10 @@ function init() {
 
 function kategorieArray(){
 	
+	// Artikel - delete und erzeugen jsp
+	// Kategorien anzeigen
+	
 	var xmlhttp = new XMLHttpRequest();
-	//var data = "BezeichnungsKat";
 	xmlhttp.onreadystatechange = function() {
 	
 	
@@ -42,25 +44,26 @@ function kategorieArray(){
 				}
 				
 				
-				//Kategorie und Unterkategorie und ID von beiden id als value in option und Bezeichnung als auswahl
+			
 			}
+			//Für Unterkategorie Hinzufügen - (Kategorie auswählen und neue UK erstellen)
 			if(document.getElementById("kategorie") !== null){
 				document.getElementById("kategorie").innerHTML = ausgabe;
 			}
 			
-			document.getElementById("kategorie2").innerHTML = ausgabe;
+			document.getElementById("kategorie2").innerHTML = ausgabe; //Erzeugen und Delete JSP 
 			
 		}
 	}
 	xmlhttp.open("GET", "../../GetKategorieBezServlet", true);
-	//xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xmlhttp.send();
 	
 }
 
 function unterKategorie(){
 	
-	
+	// Sobald Kategorie ausgewählt 
+	// werden die dazugehörigen Unterkategorien angezeigt
 	
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 import modell.ArtikelBean;
 
@@ -34,7 +32,8 @@ public class AuswahlArtikelServlet extends HttpServlet {
   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		// Filter artikelAuswahl.jsp 
+		// Abhängig von Parameter Query erstellen
 	
 		String gebinde = "";
 		String uKate = "";
@@ -55,9 +54,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 			query += "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ? AND " + uKate;
 		}
 		
-		
-		
-		
+
 		if(glas != null && pet != null) {
 			 gebinde = "";
 		}
@@ -102,7 +99,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 			throw new ServletException(ex.getMessage());
 		}
 		
-		//request.setAttribute("artikelList", artikelList);
+		
 		
 		
 		HttpSession session = request.getSession();
@@ -111,7 +108,8 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		
 		response.setContentType("text/html");
 		
-		
+		//session Zugriff für JSP-EL
+		//URL für AJAX (filter.js)
 		if(uKate.length() <= 1) {
 			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + kategorie);
 		}else {
@@ -124,6 +122,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//Artikel holen über header oder Suche (marke)
 		
 		String kategorie = request.getParameter("kategorie");
 		String unterKategorie = request.getParameter("unterKategorie"); 
@@ -148,8 +147,10 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		}
 		
 		
+		
 		response.setContentType("text/html");
 		
+		//wenn dropdown Menü verwendet wird
 		if(artikelList.get(0).getFkkategorieID() < 1) {
 			
 			request.setAttribute("artikelList", artikelList);
@@ -157,10 +158,11 @@ public class AuswahlArtikelServlet extends HttpServlet {
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
 			dispatcher.forward(request, response);
 		}
-		
+		//filter.js benötigt kategorie in URL
+		//wenn Suche verwendet wird
 		if(artikelList.get(0).getFkkategorieID() > 0) {
 			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(10);
+			session.setMaxInactiveInterval(10); // 10 Sekunden
 			session.setAttribute("artikelList", artikelList);
 			
 			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + artikelList.get(0).getFkkategorieID());

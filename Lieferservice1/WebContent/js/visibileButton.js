@@ -68,7 +68,7 @@ function navBar(){
 				var tmp = 1;
 				for(var i = 0; i < erg.length; i++){
 
-					if(tmp < erg[i].fkKategorieID){ //Neue Kategorie in Liste --> div schließen
+					if(tmp < erg[i].fkKategorieID){ 	//Neue Kategorie in Liste --> div schließen
 						ausgabe += "</div>";
 						ausgabe += "</div>";
 						tmp++;
@@ -82,9 +82,7 @@ function navBar(){
 						ausgabe += "</button>";
 						ausgabe += "<div class=" + "dropdown-content" + ">";
 					}
-					
-//					ausgabe += erg[i].fkKategorieID;
-//					ausgabe += "</li><li>";
+
 					
 					ausgabe += "<a href="+ "../../AuswahlArtikelServlet?unterKategorie=" + erg[i].unterkategorieID +"&kategorie=" +
 								erg[i].fkKategorieID +">";
@@ -98,23 +96,8 @@ function navBar(){
 					
 				}
 				
-				
-//				var ausgabe = "";
-////					"<table class='navigation'><tr><td class='suche'>Deine Suchergebnisse</td></tr>"
-//					
-//				
-//				for (var i=0; i < erg.length; i++) {
-//					
-//						ausgabe += "<li>";
-//						ausgabe += erg[i].kategorieID;
-//						ausgabe += "</li><li>";
-//						ausgabe += erg[i].bezeichnungKat;
-//						ausgabe += "</li>"
-//					}
-				
-//				ausgabe += "</table>";
+
 				document.getElementById("navigationBar").innerHTML = ausgabe;
-//				document.getElementById("emailTest").value = erg.originalText;
 				
 
 			}

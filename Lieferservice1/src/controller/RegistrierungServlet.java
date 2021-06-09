@@ -99,8 +99,11 @@ public class RegistrierungServlet extends HttpServlet {
 			}
 
 		} else {
-			response.setStatus(HttpServletResponse.SC_OK);
-			response.sendRedirect("html/registrierung.jsp");
+		
+			response.setContentType("text/html");
+	        response.setCharacterEncoding("UTF-8");
+	        response.sendRedirect("html/registrierung.jsp?Registrierung=false");
+	        return;
 		}
 	}
 

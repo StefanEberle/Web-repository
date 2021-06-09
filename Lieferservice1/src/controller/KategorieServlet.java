@@ -33,7 +33,7 @@ public class KategorieServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+		// Add Kategorie 
 		
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");

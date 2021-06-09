@@ -1,7 +1,7 @@
 package modell;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+
 
 public class ArtikelBean {
 

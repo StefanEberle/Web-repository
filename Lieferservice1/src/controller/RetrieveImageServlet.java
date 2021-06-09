@@ -42,7 +42,7 @@ public class RetrieveImageServlet extends HttpServlet {
 
 		ServletOutputStream output = response.getOutputStream();
 
-//		ArtikelBildBean artikelBild = new ArtikelBildBean();
+
 
 		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
 
@@ -50,42 +50,7 @@ public class RetrieveImageServlet extends HttpServlet {
 			try (ResultSet rs = stm.executeQuery()) {
 
 				
-//				
-//				if(rs.next()){
-//					Blob foto = rs.getBlob("ArtikelBild");
-//					response.reset();
-//					int length = (int) foto.length();
-//					response.setHeader("Content-Length", String.valueOf(length));
-//					try (InputStream in = foto.getBinaryStream()) {
-//						final int bufferSize = 256;
-//						byte[] buffer = new byte[bufferSize];
-//						response.setContentType("image/gif");
-//						ServletOutputStream out = response.getOutputStream();
-//						while((length=in.read(buffer)) != -1){
-//							out.write(buffer,0,length);
-//						}
-//						out.flush();
-//					}
-//				}
-				
-				
-				
-//				if (rs.next()) {
-//
-//					Blob image = rs.getBlob("ArtikelBild");
-//					int length = (int) image.length();
-//
-//					response.setContentType("image/gif");
-//					InputStream in = image.getBinaryStream();
-//
-//					byte[] buffer = new byte[4096];
-//
-//					while ((length = in.read(buffer)) != -1) {
-////	                System.out.println("writing " + length + " bytes");
-//						output.write(buffer, 0, length);
-//					}
-//					in.close();
-//					output.flush();
+
 
 				
 				if (rs.next()) {

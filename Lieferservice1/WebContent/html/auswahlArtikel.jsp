@@ -47,6 +47,7 @@
 </form>
 </aside>
 
+<div>
 <table id="artikelListe">
 	
 	<c:if test="${not empty artikelList}">
@@ -81,7 +82,7 @@
 			
 		</td>
 		
-		<c:if test="${(counter.count mod 3) == 0}">
+		<c:if test="${(counter.count mod 3) == 0 && counter.last}">
 			</tr> 
 		</c:if>
 			

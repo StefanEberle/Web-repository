@@ -66,7 +66,7 @@
 </article>
 
 <article id="erzeugen2">
-<input type="text" name="marke"  maxlength="40" placeholder="Marke" requierd>
+<input type="text" name="marke"  maxlength="40" placeholder="Marke" required>
 <br>
 <input type="number" step="0.01" name="fuelmenge"  min="0.19" max="99999" maxlength="5" placeholder="Füllmenge" required>
 <br>
@@ -74,11 +74,11 @@
 <br>
 <input type="number" step="0.01" name="gesamtpreis" min="0.1" max="99999" maxlength="5" placeholder="Gesamtpreis pro Kasten" required>
 <br>
-<input type="number" step="0.01" name="pfandProFlasche"  min="0.08" max="99999" maxlength="5" placeholder="Pfand pro Flasche">
+<input type="number" step="0.01" name="pfandProFlasche"  min="0" max="99999" maxlength="5" placeholder="Pfand pro Flasche">
 <br>
-<input type="number" step="0.01" name="pfandKasten" min="1" max="99999" maxlength="5" placeholder="Pfand pro Kasten">
+<input type="number" step="0.01" name="pfandKasten" min="0" max="99999" maxlength="5" placeholder="Pfand pro Kasten">
 <br>
-<input type="file" id="bild" name="artikelBild" accept="image/*" required>
+<input type="file" id="bild" name="artikelBild" accept="image/gif, image/jpeg, image/png" required>
 <br>
 </article>
 

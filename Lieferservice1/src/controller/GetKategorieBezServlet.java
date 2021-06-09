@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import modell.KategorieBean;
-import modell.TextBean;
+
 import modell.UnterKategorieBean;
 
 /**
@@ -36,17 +36,21 @@ public class GetKategorieBezServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String holeKategorieBezeichnung = request.getParameter("kategorieNamenHolen");
-		ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
+		//String holeKategorieBezeichnung = request.getParameter("kategorieNamenHolen");
+		//ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
+		//kategorieAusgabe.js 
+		// KategorieID und Bezeichnung
 
 		
-
+		/** Liste mit Kategorien füllen ID und Bez  **/
+		
 			ArrayList<KategorieBean> listKategorie = new ArrayList<KategorieBean>();
 			listKategorie = getKategorie();
 
 		
 			request.setAttribute("listKategorie", listKategorie);
 
+			/** Zugriff auf JSON Dokument - über XMLHttpRequest-Obj (responseText) **/
 			RequestDispatcher dispatcher = request.getRequestDispatcher("html/holKateg.jsp");
 			dispatcher.forward(request, response);
 		
@@ -61,21 +65,17 @@ public class GetKategorieBezServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+/** 
 		String holeKategorieBezeichnung = request.getParameter("kategorieNamenHolen");
-		ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
-
+		//ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
 		if (holeKategorieBezeichnung != null) {
-
 			ArrayList<KategorieBean> listKategorie = new ArrayList<KategorieBean>();
-			listKategorie = getKategorie();
-
-		
+			listKategorie = getKategorie();		
 			request.setAttribute("listKategorie", listKategorie);
-
 			RequestDispatcher dispatcher = request.getRequestDispatcher("html/holKateg.jsp");
 			dispatcher.forward(request, response);
 		}
-
+**/
 	}
 	
 private ArrayList<KategorieBean> getKategorie() throws ServletException{

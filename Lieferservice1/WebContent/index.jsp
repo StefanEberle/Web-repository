@@ -6,14 +6,14 @@
 <base href="${pageContext.request.requestURI}/">
 <meta charset="UTF-8">
 <title>Getränke Lieferdienst</title>
-<noscript> Sie haben JavaScript deaktiviert.</noscript>
+
 <link rel="stylesheet" type="text/css" href="../css/index.css">
 <link rel="stylesheet" type="text/css" href="../css/dropdownHeader.css">
 
-<noscript>Sie haben JavaScript deaktiviert.</noscript>
+
 </head>
 <body>
-
+	<noscript> Sie haben JavaScript deaktiviert.</noscript>
 	<header>
 
 		<h3>Um zu unserem Angebot zu gelangen musst du registriert sein!
