@@ -9,7 +9,7 @@
 <script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/artikelErzeugen.css">
 </head>
-<%@ include file="../jspf/header.jsp"%>
+<%@ include file="../jspf/header.jspf"%>
 <main>
 
 <aside>
@@ -18,7 +18,7 @@
 
 <section class="kategorieAdd">
 
-<form action="../../KategorieServlet" method="POST">
+<form action="../../CreateKategorieServlet" method="POST">
 <h3>Kategorie hinzufügen</h3>
 <label>Kategorie:</label>
 <input type="text" name="kategorieBezeichnung" maxlength="80" placeholder="Name der Kategorie" required>
@@ -27,7 +27,7 @@
 </section>
 
 <section class="unterKategorieAdd">
-<form action="../../UnterKategorieServlet" method="POST">
+<form action="../../CreateUnterKategorieServlet" method="POST">
 <h3>Unterkategorie hinzufügen</h3>
 
 <label>Zugehörige Kategorie auswählen :</label>
@@ -44,7 +44,7 @@
 
 
 <section class="artikelAdd">
-<form action="../../ArtikelServlet" method="POST" enctype="multipart/form-data">
+<form action="../../CreateArtikelServlet" method="POST" enctype="multipart/form-data">
 <h3>Artikel hinzufügen</h3>
 <article id="erzeugen1">
 <label>Kategorie:</label>
@@ -87,5 +87,5 @@
 </section>
 
 </main>
-<%@ include file="../jspf/footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>
 </html>

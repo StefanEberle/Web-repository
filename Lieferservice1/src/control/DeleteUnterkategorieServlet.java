@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -22,8 +22,8 @@ import modell.ArtikelBildBean;
 /**
  * Servlet implementation class DeleteServlet
  */
-@WebServlet("/DeleteServlet")
-public class DeleteServlet extends HttpServlet {
+@WebServlet("/DeleteUnterkategorieServlet")
+public class DeleteUnterkategorieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")

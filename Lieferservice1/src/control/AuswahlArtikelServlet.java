@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -127,7 +127,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String kategorie = request.getParameter("kategorie");
 		String unterKategorie = request.getParameter("unterKategorie"); 
 		String marke = request.getParameter("marke");
-	
+
 		
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 		
@@ -142,38 +142,37 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		}
 		if(marke != null) {	
 			artikelList = getMarke(marke);
-			
-			
+	
 		}
-		
-		
-		
+	
 		response.setContentType("text/html");
 		
-		//wenn dropdown Menü verwendet wird
-		if(artikelList.get(0).getFkkategorieID() < 1) {
+		
+		if(artikelList.size() < 1) {
+			
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		
+		//wenn dropdown Menü verwendet wird - wert kleiner 1
+		if(artikelList.size() > 0 && artikelList.get(0).getFkkategorieID() < 1) {
 			
 			request.setAttribute("artikelList", artikelList);
 			
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
 			dispatcher.forward(request, response);
 		}
+		
 		//filter.js benötigt kategorie in URL
-		//wenn Suche verwendet wird
-		if(artikelList.get(0).getFkkategorieID() > 0) {
+		//wenn Suche verwendet wird - wert größter 0
+		if(artikelList.size() > 0 && artikelList.get(0).getFkkategorieID() > 0) {
+			
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(10); // 10 Sekunden
 			session.setAttribute("artikelList", artikelList);
-			
 			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + artikelList.get(0).getFkkategorieID());
 		}
-		
-		
-
-	
-		
-		
-		
 		
 		
 	}
@@ -181,12 +180,15 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 	private List<ArtikelBean> getMarke(String marke) throws ServletException{
 		
+		String replace = marke.replace("_", " ");
+		
+		
 		String query = "SELECT * FROM thidb.Artikel WHERE Marke = ?";
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 		
 		try (Connection conn = ds.getConnection("root","root"); PreparedStatement stm = conn.prepareStatement(query)) {
 
-			stm.setString(1, marke);
+			stm.setString(1, replace);
 			try (ResultSet rs = stm.executeQuery()) {
 
 				while(rs.next()) {
@@ -223,8 +225,8 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 			stm.setString(1, unterKategorie);
 			try (ResultSet rs = stm.executeQuery()) {
-
-				while(rs.next()) {
+				
+				while(rs.next() && rs != null) {
 					ArtikelBean artikel = new ArtikelBean();
 					
 					artikel.setArtikelID(rs.getInt("ArtikelID"));

@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../../js/konto.js"></script>
 <script type="text/javascript" src="../../js/passwortPruefen.js"></script>
 </head>
-<%@ include file="../jspf/header.jsp"%>
+<%@ include file="../jspf/header.jspf"%>
 <main>
 
 	<section class="mainTitel">
@@ -97,5 +97,5 @@
 
 
 </main>
-<%@ include file="../jspf/footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>
 </html>

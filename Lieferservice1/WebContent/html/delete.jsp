@@ -9,14 +9,14 @@
 <script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/delete.css">
 </head>
-<%@ include file="../jspf/header.jsp"%>
+<%@ include file="../jspf/header.jspf"%>
 <main>
 <aside>
 <a href="../artikelErzeugen.jsp">Zum Hinzufügen</a>
 </aside>
 
 <section>
-<form action="../../DeleteServlet" method="POST">
+<form action="../../DeleteUnterkategorieServlet" method="POST">
 <h3>Unterkategorie und dazugehörige Artikel löschen!</h3>
 <article>
 <label>Kategorie:</label>
@@ -38,5 +38,5 @@
 
 
 </main>
-<%@ include file="../jspf/footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>
 </html>

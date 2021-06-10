@@ -13,7 +13,7 @@
 	href="../../css/artikelAuswahl.css">
 
 </head>
-<%@ include file="../jspf/header.jsp"%>
+<%@ include file="../jspf/header.jspf"%>
 
 <main>
 
@@ -47,7 +47,7 @@
 </form>
 </aside>
 
-<div>
+
 <table id="artikelListe">
 	
 	<c:if test="${not empty artikelList}">
@@ -96,5 +96,5 @@
 
 
 </main>
-<%@ include file="../jspf/footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>
 </html>

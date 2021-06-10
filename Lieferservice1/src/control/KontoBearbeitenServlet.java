@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,7 +53,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			String passwort = request.getParameter("passwort");
 
 			try {
-				if (passwortUeberpruefen(user, passwort) && checkEmail(email)) {
+				if (passwortUeberpruefen(user, passwort) && isEmail(email)) {
 
 					sicherEmail(user, email);
 					
@@ -98,7 +98,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			String telefonnummer =request.getParameter("telefonnummer");
 			String geburtstag = request.getParameter("geburtstag");
 			String hinweis = request.getParameter("hinweis");
-			System.out.println(geburtstag);
+			
 			AdresseBean adresse = new AdresseBean();
 			
 			adresse.setUserid(user.getUserid());
@@ -225,28 +225,26 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		}
 	}
 
-	public boolean checkEmail(String email) throws ServletException, IOException {
+	public boolean isEmail(String email) throws ServletException, IOException {
 
-		boolean rueckgabe;
+		boolean exist = true;
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 
 		try (Connection conn = ds.getConnection("root", "root");
-				PreparedStatement stm = conn.prepareStatement(query);) {
+				PreparedStatement pstm = conn.prepareStatement(query);) {
 
-			stm.setString(1, email);
+			pstm.setString(1, email);
 
-			try (ResultSet rs = stm.executeQuery()) {
+			try (ResultSet rs = pstm.executeQuery()) { //resultset Liefert Tabelle bzw. Teil von einer Tabelle
 
-				if (!rs.isBeforeFirst()) {
-					rueckgabe = true;
-				} else {
-					rueckgabe = false;
+				while(rs.next()) { //solange es eine Zeile gibt liefert true 
+					exist = false;
 				}
 			}
 			conn.close();
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
-		return rueckgabe;
+		return exist;
 	}
 }

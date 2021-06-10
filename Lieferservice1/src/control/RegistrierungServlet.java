@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -40,19 +40,11 @@ public class RegistrierungServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 
-		final String vorname = request.getParameter("vorname");
-		final String nachname = request.getParameter("nachname");
+		
 		final String email = request.getParameter("email");
-		final String passwort = request.getParameter("passwort");
-		final String passwort2 = request.getParameter("passwort2");
+		
 
-		final String strasse = request.getParameter("strasse");
-		final String hausNr = request.getParameter("hausnummer");
-		final int plz = Integer.parseInt(request.getParameter("plz"));
-		final String stadt = request.getParameter("stadt");
-		final String etage = request.getParameter("etage");
-		final String telNummer = request.getParameter("telefonnummer");
-		final String hinweis = request.getParameter("lieferhinweise");
+		
 
 		final String jahr = request.getParameter("jahr");
 		final String monat = request.getParameter("monat");
@@ -60,12 +52,24 @@ public class RegistrierungServlet extends HttpServlet {
 
 		String geb = tag + "." + monat + "." + jahr;
 
-		if (checkEmail(email)) {
-
+		if (isEmail(email)) {
+			final String passwort = request.getParameter("passwort");
+			final String passwort2 = request.getParameter("passwort2");
+			
 			if (!passwort.equals(passwort2)) {
 				response.sendRedirect("html/registrierung.jsp");
 			} else {
-
+				
+				final String vorname = request.getParameter("vorname");
+				final String nachname = request.getParameter("nachname");
+				final String strasse = request.getParameter("strasse");
+				final String hausNr = request.getParameter("hausnummer");
+				final int plz = Integer.parseInt(request.getParameter("plz"));
+				final String stadt = request.getParameter("stadt");
+				final String etage = request.getParameter("etage");
+				final String telNummer = request.getParameter("telefonnummer");
+				final String hinweis = request.getParameter("lieferhinweise");
+				
 				UserBean user = new UserBean();
 				AdresseBean adresse = new AdresseBean();
 
@@ -85,10 +89,10 @@ public class RegistrierungServlet extends HttpServlet {
 				adresse.setVorname(vorname);
 				adresse.setNachname(nachname);
 
-				user = userEintragDB(user);
+				user = addUser(user);
 				adresse.setUserid(user.getUserid());
 
-				adresse = adresseEintragDB(adresse);
+				adresse = addAdresse(adresse);
 
 				HttpSession session = request.getSession();
 
@@ -99,7 +103,7 @@ public class RegistrierungServlet extends HttpServlet {
 			}
 
 		} else {
-		
+
 			response.setContentType("text/html");
 	        response.setCharacterEncoding("UTF-8");
 	        response.sendRedirect("html/registrierung.jsp?Registrierung=false");
@@ -107,32 +111,30 @@ public class RegistrierungServlet extends HttpServlet {
 		}
 	}
 
-	public boolean checkEmail(String email) throws ServletException, IOException {
+	public boolean isEmail(String email) throws ServletException, IOException {
 
-		boolean rueckgabe;
+		boolean exist = true;
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 
 		try (Connection conn = ds.getConnection("root", "root");
-				PreparedStatement stm = conn.prepareStatement(query);) {
+				PreparedStatement pstm = conn.prepareStatement(query);) {
 
-			stm.setString(1, email);
+			pstm.setString(1, email);
 
-			try (ResultSet rs = stm.executeQuery()) {
+			try (ResultSet rs = pstm.executeQuery()) { //resultset Liefert Tabelle bzw. Teil von einer Tabelle
 
-				if (!rs.isBeforeFirst()) {
-					rueckgabe = true;
-				} else {
-					rueckgabe = false;
+				while(rs.next()) { //solange es eine Zeile gibt liefert true 
+					exist = false;
 				}
 			}
 			conn.close();
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
-		return rueckgabe;
+		return exist;
 	}
 
-	public UserBean userEintragDB(UserBean user) {
+	public UserBean addUser(UserBean user) throws ServletException {
 
 		String query = "INSERT INTO thidb.User (Email, Passwort, isLogin, isAdmin) values(?,?,?,?)";
 
@@ -140,55 +142,56 @@ public class RegistrierungServlet extends HttpServlet {
 															// (werden)
 
 		try (Connection conn = ds.getConnection("root", "root");
-				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
+				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
-			stm.setString(1, user.getEmail());
-			stm.setString(2, user.getPasswort());
-			stm.setBoolean(3, true);
-			stm.setBoolean(4, false);
+			pstm.setString(1, user.getEmail());
+			pstm.setString(2, user.getPasswort());
+			pstm.setBoolean(3, true);
+			pstm.setBoolean(4, false);
 
-			stm.executeUpdate();
+			pstm.executeUpdate();
 
 			// Generierte(n) Schlüssel auslesen
-			ResultSet rsKeys = stm.getGeneratedKeys();
-			while (rsKeys.next()) {
-				user.setUserid(rsKeys.getInt(1));
+			try(ResultSet rsKeys = pstm.getGeneratedKeys()){
+				while (rsKeys.next()) {
+					user.setUserid(rsKeys.getInt(1));
+			}
+			
 			}
 
 			conn.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
 		return user;
 	}
 
-	private AdresseBean adresseEintragDB(AdresseBean adresse) {
+	private AdresseBean addAdresse(AdresseBean adresse) throws ServletException {
 
 		String query = "INSERT INTO thidb.Adresse (FKUserID, Strasse, Hausnummer, PLZ, Stadt, Etage, Telefonnummer, "
 				+ "Geburtstag, Hinweis, Vorname, Nachname)  values(?,?,?,?,?,?,?,?,?,?,?)";
 
 		try (Connection conn = ds.getConnection("root", "root");
-				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query)) {
+				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
-			stm.setInt(1, adresse.getUserid());
-			stm.setString(2, adresse.getStrasse());
-			stm.setString(3, adresse.getHausnummer());
-			stm.setInt(4, adresse.getPlz());
-			stm.setString(5, adresse.getStadt());
-			stm.setString(6, adresse.getEtage());
-			stm.setString(7, adresse.getTelefonnummer());
-			stm.setString(8, adresse.getGeburtstag());
-			stm.setString(9, adresse.getHinweis());
-			stm.setString(10, adresse.getVorname());
-			stm.setString(11, adresse.getNachname());
+			
+			pstm.setInt(1, adresse.getUserid());
+			pstm.setString(2, adresse.getStrasse());
+			pstm.setString(3, adresse.getHausnummer());
+			pstm.setInt(4, adresse.getPlz());
+			pstm.setString(5, adresse.getStadt());
+			pstm.setString(6, adresse.getEtage());
+			pstm.setString(7, adresse.getTelefonnummer());
+			pstm.setString(8, adresse.getGeburtstag());
+			pstm.setString(9, adresse.getHinweis());
+			pstm.setString(10, adresse.getVorname());
+			pstm.setString(11, adresse.getNachname());
 
-			stm.executeUpdate();
+			pstm.executeUpdate();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServletException(e.getMessage());
 		}
 		return adresse;
 	}

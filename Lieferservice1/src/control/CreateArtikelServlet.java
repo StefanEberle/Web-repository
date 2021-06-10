@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,10 +24,10 @@ import modell.ArtikelBean;
 /**
  * Servlet implementation class ArtikelServlet
  */
-@WebServlet("/ArtikelServlet")
+@WebServlet("/CreateArtikelServlet")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5, fileSizeThreshold = 1024 * 1024)
 
-public class ArtikelServlet extends HttpServlet {
+public class CreateArtikelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
@@ -38,7 +38,7 @@ public class ArtikelServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8");
 
 		ArtikelBean artikel = new ArtikelBean();
 //		ArtikelBildBean artikelBild = new ArtikelBildBean();

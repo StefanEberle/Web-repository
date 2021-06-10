@@ -55,7 +55,7 @@ function kategorieArray(){
 			
 		}
 	}
-	xmlhttp.open("GET", "../../GetKategorieBezServlet", true);
+	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 	
 }
@@ -104,6 +104,6 @@ function unterKategorie(){
 			
 		}
 	}
-	xmlhttp.open("GET", "../../HoleKategorieServlet", true);
+	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 }

@@ -91,7 +91,7 @@ function unterKategorieFilter() {
 			document.getElementById("unterKategorie").innerHTML = ausgabe;
 		}
 	}
-	xmlhttp.open("GET", "../../HoleKategorieServlet", true);
+	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 }
 
@@ -263,7 +263,7 @@ function sucheMarkenAuswahl() {
 
 	}
 
-	xmlhttp.open("POST", "../../HoleKategorieServlet", true);
+	xmlhttp.open("POST", "../../sucheAjax", true);
 	xmlhttp.setRequestHeader("Content-Type",
 			"application/x-www-form-urlencoded");
 	if (id2 == null) {

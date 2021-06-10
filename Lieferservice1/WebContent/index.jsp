@@ -25,7 +25,7 @@
 
 	<section id="kundenLogin">
 		<h1>Kundenlogin</h1>
-		<form action="../LoginServlet" method="POST" id="login">
+		<form action="../LogInOutServlet" method="POST" id="login">
 
 
 			<input type="text" id="emailAdresse" name=email maxlength="250"

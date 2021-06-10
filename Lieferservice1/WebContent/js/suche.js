@@ -27,9 +27,8 @@ function suchErgebnisse(){
 				var ausgabe = "";
 				
 				for(var i = 0; i < erg.length; i++){
-					
-					
-						ausgabe +=  "<a class=" + "ausgabeMarke " + "href="+ "../../AuswahlArtikelServlet?marke="+ erg[i].originalText +"> " + erg[i].originalText + "</a>";
+					var string = erg[i].originalText.replace(/\s+/g, '_');
+						ausgabe +=  "<a class=" + "ausgabeMarke " + "href="+ "../../AuswahlArtikelServlet?marke="+ string +"> " + erg[i].originalText + "</a>";
 						ausgabe +=  "<br>"
 			
 				}
@@ -41,7 +40,7 @@ function suchErgebnisse(){
 		
 	}
 	
-	xmlhttp.open("POST", "../../HoleKategorieServlet", true);
+	xmlhttp.open("POST", "../../sucheAjax", true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xmlhttp.send("markenBez="+suche);
 }

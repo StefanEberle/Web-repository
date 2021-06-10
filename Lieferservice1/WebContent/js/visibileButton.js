@@ -104,7 +104,7 @@ function navBar(){
 
 		}
 	}
-	xmlhttp.open("GET", "../../HoleKategorieServlet", true);
+	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 	
 }

@@ -53,7 +53,7 @@
 			</div>	
 				
 	<div class="log">
-		<form action="../../LoginServlet" method="GET" id="ausloggen">
+		<form action="../../LogInOutServlet" method="GET" id="ausloggen">
 				<button type="submit" id="abmeldeButton" name="abmeldeButton">Abmelden</button>
 			</form>
 

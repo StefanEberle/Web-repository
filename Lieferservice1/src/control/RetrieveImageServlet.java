@@ -1,10 +1,6 @@
-package controller;
+package control;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import modell.ArtikelBildBean;
+
 
 /**
  * Servlet implementation class RetrieveImageServlet
@@ -49,10 +45,6 @@ public class RetrieveImageServlet extends HttpServlet {
 			stm.setInt(1, artikelID);
 			try (ResultSet rs = stm.executeQuery()) {
 
-				
-
-
-				
 				if (rs.next()) {
 					byte[] imageData = rs.getBytes("ArtikelBild");
 					

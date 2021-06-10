@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,53 +14,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-
-import modell.UnterKategorieBean;
+import modell.KategorieBean;
 
 /**
- * Servlet implementation class UnterKategorieServlet
+ * Servlet implementation class KategorieServlet
  */
-@WebServlet("/UnterKategorieServlet")
-public class UnterKategorieServlet extends HttpServlet {
+@WebServlet("/CreateKategorieServlet")
+public class CreateKategorieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
 	private DataSource ds;
 
-
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Add Kategorie 
 		
-		//UK erzeugen
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		int kategorieID = Integer.parseInt(request.getParameter("kategorieBezeichnungAuswahl"));
-		String unterKategorie = request.getParameter("unterKategorieErzeugen");
+		KategorieBean kategorie = new KategorieBean();
+		String kategorieBez = request.getParameter("kategorieBezeichnung");
 		
 		
-		UnterKategorieBean unterkategorie = new UnterKategorieBean();
-		
-		
-		
-		if(unterKategorie != null) {
+		if(kategorieBez != null) {
 			
-			String query = "INSERT INTO thidb.UnterKategorie (FKKategorieID,UnterkategorieBez)  values(?,?)";
+			String query = "INSERT INTO thidb.Kategorie (BezeichnungKat)  values(?)";
 
-			String[] generatedKeys = new String[] { "UnterkategorieID" }; // Name der Spalte(n), die automatisch generiert wird
+			String[] generatedKeys = new String[] { "KategorieID" }; // Name der Spalte(n), die automatisch generiert wird
 																	// (werden)
 
 			try (Connection conn = ds.getConnection("root", "root");
 					PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
-				stm.setInt(1, kategorieID);
-				stm.setString(2, unterKategorie);
+				stm.setString(1, kategorieBez);
 				
 
 				stm.executeUpdate();
@@ -68,7 +61,7 @@ public class UnterKategorieServlet extends HttpServlet {
 				// Generierte(n) Schlüssel auslesen
 				ResultSet rsKeys = stm.getGeneratedKeys();
 				while (rsKeys.next()) {
-					unterkategorie.setUnterkategorieID(rsKeys.getInt(1));
+					kategorie.setKategorieID(rsKeys.getInt(1));
 				}
 
 				conn.close();
@@ -81,8 +74,6 @@ public class UnterKategorieServlet extends HttpServlet {
 		}
 		
 		response.sendRedirect("html/artikelErzeugen.jsp");
-	
-		
 	}
 
 }

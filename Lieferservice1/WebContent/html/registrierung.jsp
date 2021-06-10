@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../../css/registrierung.css">
 </head>
-<%@ include file="../jspf/header.jsp"%>
+<%@ include file="../jspf/header.jspf"%>
 
 <main>
 
@@ -106,5 +106,5 @@
 
 
 </main>
-<%@ include file="../jspf/footer.jsp"%>
+<%@ include file="../jspf/footer.jspf"%>
 </html>
