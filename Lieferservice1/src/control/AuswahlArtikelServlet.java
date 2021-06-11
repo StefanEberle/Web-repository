@@ -182,10 +182,10 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		// wenn Suche verwendet wird - wert größter 0
 		if (artikelList.size() > 0 && artikelList.get(0).getFkkategorieID() > 0) {
 
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(1); // 1 Sekunden
-			session.setAttribute("artikelList", artikelList);
-			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + artikelList.get(0).getFkkategorieID());
+			request.setAttribute("artikelList", artikelList);
+
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	}
