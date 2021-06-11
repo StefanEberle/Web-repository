@@ -51,7 +51,6 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		
 		try {
 			deleteImg(unterKategorie);
-			deleteArtikel(unterKategorie);
 			deleteUnterKategorie(unterKategorie);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -87,8 +86,9 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
-
-		String deleteQuery = "Delete FROM thidb.ArtikelBild WHERE (FKartikelID = ?)";
+		//Bild anhand der ID aus der Tabelle löschen und wenn bei Artikel die gleiche ID vorhanden ist - diese ebenfalls löschen
+		// Quelle: https://stackoverflow.com/questions/1233451/delete-from-two-tables-in-one-query Autor: angry kiwi  
+		String deleteQuery = "DELETE ab.* , a.* FROM thidb.ArtikelBild ab LEFT JOIN Artikel a ON a.ArtikelID = ab.FKartikelID WHERE ab.FKartikelID = ?";
 
 		for (int i = 0; i < artikelList.size(); i++) {
 
@@ -110,27 +110,6 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 
 	}
 
-	private void deleteArtikel(int unterkategorie) throws ServletException {
-
-		
-		String deleteQuery = "Delete FROM thidb.Artikel WHERE (FKUnterkategorieID = ?)";	
-
-			try (Connection conn = ds.getConnection("root", "root");
-					PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(deleteQuery)) {
-
-				
-				pstm.setInt(1, unterkategorie);
-
-				pstm.executeUpdate();
-				
-				conn.close();
-			} catch (Exception ex) {
-				throw new ServletException(ex.getMessage());
-			}
-
-		
-		
-	}
 
 	private void deleteUnterKategorie(int unterkategorie) throws ServletException {
 
