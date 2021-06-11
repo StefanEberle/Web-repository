@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
 	/* Asynchron laden */
-
+	
+	
+	
 	unterKategorieFilter();
 	
 	
@@ -54,6 +56,8 @@ function init() {
 
 //Aside Filter
 function unterKategorieFilter() {
+	
+	var id = document.getElementById("filterKategorie").value;
 
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
@@ -66,10 +70,11 @@ function unterKategorieFilter() {
 				var ausgabe = "";
 
 				// https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-				const queryString = window.location.search;
-				const urlParams = new URLSearchParams(queryString);
-				const id = urlParams.get("kategorie");
-
+//				const queryString = window.location.search;
+//				const urlParams = new URLSearchParams(queryString);
+//				const id = urlParams.get("kategorie");
+				
+				
 				
 				for (var i = 0; i < erg.length; i++) {
 					
@@ -98,11 +103,15 @@ function unterKategorieFilter() {
 function sucheMarkenAuswahl() {
 
 	
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const id = urlParams.get('kategorie');
-	const id2 = urlParams.get("unterKategorie");
+//	const queryString = window.location.search;
+//	const urlParams = new URLSearchParams(queryString);
+//	const id = urlParams.get('kategorie');
+//	const id2 = urlParams.get("unterKategorie");
+	var id = document.getElementById("filterKategorie").value;
+	var id2 = document.getElementById("filterUnterKategorie").value;
 
+	var isEquals = "nonValue";
+	
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 
@@ -136,10 +145,10 @@ function sucheMarkenAuswahl() {
 	xmlhttp.open("POST", "../../sucheAjax", true);
 	xmlhttp.setRequestHeader("Content-Type",
 			"application/x-www-form-urlencoded");
-	if (id2 == null) {
+	if (id2 == isEquals) {
 		xmlhttp.send("kategorie=" + id);
 	}
-	if (id2 != null) {
+	if (id2 != isEquals) {
 		xmlhttp.send("unterKategorie=" + id2);
 	}
 }

@@ -45,10 +45,11 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String pet = request.getParameter("pet");
 		String glas = request.getParameter("glas");
 		String marken = request.getParameter("marken");
-
-		if (unterKategorie.length() < 1) {
+		
+		
+		if (unterKategorie.equals("nonValue")) {
 			query += "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ? ";
-		} else if (unterKategorie.length() >= 1) {
+		} else  {
 			uKate += "FKUnterkategorieID = " + unterKategorie;
 			query += "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ? AND " + uKate;
 		}
@@ -93,26 +94,32 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 					artikelList.add(artikel);
 				}
-			}
+			} 
 			conn.close();
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
 
-		HttpSession sessionArtikel = request.getSession();
-		sessionArtikel.setAttribute("artikelList", artikelList);
-		sessionArtikel.setMaxInactiveInterval(1); // Dauer 1 Sekunde
+		request.setAttribute("artikelList", artikelList);
+		
+//		HttpSession sessionArtikel = request.getSession();
+//		sessionArtikel.setAttribute("artikelList", artikelList);
+//		sessionArtikel.setMaxInactiveInterval(1); // Dauer 1 Sekunde
 		
 		response.setContentType("text/html");
 
+		
+		final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
+		dispatcher.forward(request, response);
+		
 		// session Zugriff für JSP-EL
 		// URL für AJAX (filter.js)
-		if (uKate.length() <= 1) {
-			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + kategorie);
-		} else {
-			response.sendRedirect(
-					"html/auswahlArtikel.jsp?unterKategorie=" + unterKategorie + "&kategorie=" + kategorie);
-		}
+//		if (uKate.length() <= 1) {
+//			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + kategorie);
+//		} else {
+//			response.sendRedirect(
+//					"html/auswahlArtikel.jsp?unterKategorie=" + unterKategorie + "&kategorie=" + kategorie);
+//		}
 
 	}
 
@@ -209,7 +216,8 @@ public class AuswahlArtikelServlet extends HttpServlet {
 					artikel.setPfandKasten(rs.getBigDecimal("PfandKasten"));
 					artikel.setPfandGesamt(rs.getBigDecimal("PfandGesamt"));
 					artikel.setFkkategorieID(rs.getInt("FKKategorieID"));
-
+					
+					
 					artikelList.add(artikel);
 				}
 			}
@@ -278,7 +286,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 					artikel.setPfandProFlasche(rs.getBigDecimal("PfandproFlasche"));
 					artikel.setPfandKasten(rs.getBigDecimal("PfandKasten"));
 					artikel.setPfandGesamt(rs.getBigDecimal("PfandGesamt"));
-
+					artikel.setFkunterkategorieID(rs.getInt("FKUnterkategorieID"));
 					artikelList.add(artikel);
 				}
 			}

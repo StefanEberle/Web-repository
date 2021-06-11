@@ -20,8 +20,14 @@
 <aside>
 <form action="../../AuswahlArtikelServlet" method="POST">
 	<p>Sorten</p>
-	<input type="hidden" name="kategorie" value="${param.kategorie}" >
-	<input type="hidden" name="unterKategorie" value="${param.unterKategorie}" >
+	<input type="hidden" name="kategorie" id="filterKategorie" value="${param.kategorie}" >
+	
+	<c:if test="${not empty param.unterKategorie}">
+		<input type="hidden" name="unterKategorie" id="filterUnterKategorie" value="${param.unterKategorie}" >
+	</c:if>
+	<c:if test="${empty param.unterKategorie}">
+		<input type="hidden" name="unterKategorie" id="filterUnterKategorie" value="nonValue" >
+	</c:if>
 	
 	<section id="unterKategorie">
 	
