@@ -40,8 +40,15 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		
 		/* wenn Zeit zusätzlich - Artikel einzeln löschen */
 		
-		int unterKategorie = Integer.parseInt(request.getParameter("unterKategorieDelete"));
+		String unterK = request.getParameter("unterKategorieDelete");
 
+		if(unterK.equals("Unterkategorie")) {
+			response.sendRedirect("html/delete.jsp");
+			return;
+		}
+		
+		int unterKategorie = Integer.parseInt(unterK);
+		
 		try {
 			deleteImg(unterKategorie);
 			deleteArtikel(unterKategorie);

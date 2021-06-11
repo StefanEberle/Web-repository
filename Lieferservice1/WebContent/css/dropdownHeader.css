@@ -3,11 +3,12 @@ body{
   background-color:#FFFFF;
   font-family:Georgia, Times, "Times New Roman", serif;
   height:100%;
-  max-width: 1400px;
+  max-width: 1500px;
   margin: auto;
 }
 main{
 	height:80%;
+	width:1500px;
 	margin-bottom:60px;
 }
 header > h1{
@@ -25,7 +26,7 @@ header > h3{
 	background-color: #095484;
 	padding:none;
 	height:51px;
-	width:100%;
+	width:105%;
 	border: black solid 1px;
 }
 /* Dropdown Button */

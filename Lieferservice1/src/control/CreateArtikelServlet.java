@@ -1,7 +1,7 @@
 package control;
 
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -38,7 +38,7 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		//request.setCharacterEncoding("UTF-8");
+		// request.setCharacterEncoding("UTF-8");
 
 		ArtikelBean artikel = new ArtikelBean();
 //		ArtikelBildBean artikelBild = new ArtikelBildBean();
@@ -75,25 +75,19 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		artikel = sicherArtikel(artikel); // Artikel in die Datenbank schreiben
 
-		// Quelle Bild Upload:
-		// https://www.codejava.net/coding/upload-files-to-database-servlet-jsp-mysql
+		if (image == null) {
+			response.sendRedirect("html/artikelErzeugen.jsp");
+			return;
 
-		InputStream inputStream = null;
-
-		if (image != null) {
-
-			inputStream = image.getInputStream();
 		}
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
 		try (Connection conn = ds.getConnection("root", "root");
-				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query)) {
+				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
-			if (inputStream != null) {
+			pstm.setInt(1, artikel.getArtikelID());
+			pstm.setBinaryStream(2, image.getInputStream());
 
-				stm.setInt(1, artikel.getArtikelID());
-				stm.setBlob(2, inputStream);
-			}
-			stm.executeUpdate();
+			pstm.executeUpdate();
 
 			conn.close();
 

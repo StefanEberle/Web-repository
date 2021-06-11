@@ -1,6 +1,8 @@
 package control;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,17 +47,33 @@ public class RetrieveImageServlet extends HttpServlet {
 			stm.setInt(1, artikelID);
 			try (ResultSet rs = stm.executeQuery()) {
 
-				if (rs.next()) {
-					byte[] imageData = rs.getBytes("ArtikelBild");
+				if (rs != null && rs.next()) {
 					
-					//response.setHeader("Content-Type", "image/gif");
-					response.setContentType("image/gif");
-					response.setContentLength(imageData.length);
-					output = response.getOutputStream();
-					output.write(imageData);
-					output.flush();
-					output.close(); 
-					// Quelle https://stackoverflow.com/questions/15829367/how-to-display-an-image-from-mysql-database-on-a-jsp-page
+					Blob img = rs.getBlob("ArtikelBild");
+					response.reset();
+					long length = img.length();
+					response.setHeader("Conten-Length", String.valueOf(length));
+					
+					try(InputStream input = img.getBinaryStream();){
+						final int bufferSize = 256;
+						byte [] buffer = new byte[bufferSize];
+						
+						ServletOutputStream out = response.getOutputStream();
+						while((length = input.read(buffer)) != -1) {
+							out.write(buffer,0,(int) length);
+						}
+						out.flush();
+					}
+//					byte[] imageData = rs.getBytes("ArtikelBild");
+//					
+//					//response.setHeader("Content-Type", "image/gif");
+//					response.setContentType("image/gif");
+//					response.setContentLength(imageData.length);
+//					output = response.getOutputStream();
+//					output.write(imageData);
+//					output.flush();
+//					output.close(); 
+//					// Quelle https://stackoverflow.com/questions/15829367/how-to-display-an-image-from-mysql-database-on-a-jsp-page
 				}
 
 			}

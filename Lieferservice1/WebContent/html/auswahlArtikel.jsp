@@ -39,10 +39,13 @@
 	
 	</section>
 	
+	<section>
+	<p>Marken</p>  <!-- <div id="marken"></div>  -->
+	<article id="marken">
 	
-	<!-- <p>Marken</p> <div id="marken"></div>  -->
 	
-	   
+	</article>
+	  </section> 
 <button type="submit" name="filtern">Filtern</button>
 </form>
 </aside>

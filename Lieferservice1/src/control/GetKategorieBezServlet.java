@@ -47,11 +47,11 @@ public class GetKategorieBezServlet extends HttpServlet {
 			ArrayList<KategorieBean> listKategorie = new ArrayList<KategorieBean>();
 			listKategorie = getKategorie();
 
-		
+			
 			request.setAttribute("listKategorie", listKategorie);
 
 			/** Zugriff auf JSON Dokument - über XMLHttpRequest-Obj (responseText) **/
-			RequestDispatcher dispatcher = request.getRequestDispatcher("html/holKateg.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("html/json/holKateg.jsp");
 			dispatcher.forward(request, response);
 		
 

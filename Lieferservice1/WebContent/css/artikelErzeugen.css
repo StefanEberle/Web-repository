@@ -18,6 +18,12 @@ main input{
 }
 aside{
 	margin-bottom:40px;
+	padding:10px;
+}
+aside a{
+	display:flex;
+	margin-top:20px;
+	text-decoration:underline;
 }
 label{
     display:block;
@@ -89,7 +95,6 @@ main button{
     display:table-cell;
     padding-left:50px;
     padding-right:50px;
-
     margin:10px;
     border:black solid 2px;
    

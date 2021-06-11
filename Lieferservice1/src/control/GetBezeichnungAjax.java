@@ -67,7 +67,7 @@ public class GetBezeichnungAjax extends HttpServlet {
 
 		request.setAttribute("kategorieList", kategorieList);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("html/dynKateg.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("html/json/dynKateg.jsp");
 		dispatcher.forward(request, response);
 	}
 

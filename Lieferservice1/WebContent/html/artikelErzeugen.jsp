@@ -13,7 +13,8 @@
 <main>
 
 <aside>
-<a href="../delete.jsp">Zum Löschen</a>
+<a href="../delete.jsp">Unterkategorie löschen</a>
+<a href="../deleteArtikel.jsp">Artikel löschen</a>
 </aside>
 
 <section class="kategorieAdd">

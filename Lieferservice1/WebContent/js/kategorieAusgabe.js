@@ -29,23 +29,30 @@ function kategorieArray(){
 				
 				var ausgabe = "";
 				
-				
+				var katBezListe = new Array();
 				
 				for(var i = 0; i < erg.length; i++){
 					
 					if(i == 0){
 						ausgabe += "<option>" + "Kategorie" + "</option>"
 					}
-					
-						ausgabe += "<option value=" + erg[i].kategorieID +">";
-						ausgabe += erg[i].bezeichnungKat;
-						ausgabe += "</option>";
-					
+					if(!katBezListe.includes(erg[i].bezeichnungKat)){
+						
+						
+ 						katBezListe.push(erg[i].bezeichnungKat);
+ 						ausgabe += "<option value=" + erg[i].kategorieID +">";
+
+ 						
+ 						ausgabe += erg[i].bezeichnungKat;
+ 						ausgabe += "</option>";
+ 					}
+
 				}
 				
 				
 			
 			}
+			//document.getElementById("kategorie").innerHTML = ausgabe;
 			//Für Unterkategorie Hinzufügen - (Kategorie auswählen und neue UK erstellen)
 			if(document.getElementById("kategorie") !== null){
 				document.getElementById("kategorie").innerHTML = ausgabe;
@@ -55,7 +62,7 @@ function kategorieArray(){
 			
 		}
 	}
-	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
+	xmlhttp.open("GET", "../../GetKategorieBezServlet", true);
 	xmlhttp.send();
 	
 }
@@ -79,7 +86,6 @@ function unterKategorie(){
 				
 				var ausgabe = "";
 				
-			
 				
 				for(var i = 0; i < erg.length; i++){
 					if(i == 0){
@@ -98,9 +104,6 @@ function unterKategorie(){
 			}
 			
 				document.getElementById("unterkategorie").innerHTML = ausgabe;
-			
-			
-			
 			
 		}
 	}

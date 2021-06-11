@@ -12,7 +12,8 @@
 <%@ include file="../jspf/header.jspf"%>
 <main>
 <aside>
-<a href="../artikelErzeugen.jsp">Zum Hinzufügen</a>
+<a href="../artikelErzeugen.jsp">Hinzufügen</a>
+<a href="../deleteArtikel.jsp">Artikel löschen</a>
 </aside>
 
 <section>
@@ -35,6 +36,9 @@
 <button type="submit" name="deleteButton">Löschen</button>
 </form>
 </section>
+
+
+
 
 
 </main>

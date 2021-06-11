@@ -41,30 +41,30 @@ public class sucheAjax extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String suche = request.getParameter("markenBez"); 	//Input 
+	String suche = request.getParameter("markenBez"); 	//Input 
 
 		/*		Für Marken Filter  */ 
 	
-	//String katID = request.getParameter("kategorie");
-	//String unterKatID = request.getParameter("unterKategorie");
+	String katID = request.getParameter("kategorie");
+	String unterKatID = request.getParameter("unterKategorie");
 	
 	ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
 
 	if(suche != null) {
 		sucheList = getMarke(suche);
 	}
-//
-//	if(katID != null && unterKatID == null) {
-//		sucheList = getFilterMarken(katID,"FKKategorieID");
-//	}
-//	if(katID == null && unterKatID != null) {
-//		sucheList = getFilterMarken(unterKatID, "FKUnterkategorieID");
-//	}
-//	
+
+	if(katID != null && unterKatID == null) {
+		sucheList = getFilterMarken(katID,"FKKategorieID");
+	}
+	if(katID == null && unterKatID != null) {
+		sucheList = getFilterMarken(unterKatID, "FKUnterkategorieID");
+	}
+	
 
 	request.setAttribute("sucheList", sucheList);
 
-	RequestDispatcher dispatcher = request.getRequestDispatcher("html/suche.jsp");
+	RequestDispatcher dispatcher = request.getRequestDispatcher("html/json/suche.jsp");
 	dispatcher.forward(request, response);
 	}
 	
@@ -103,38 +103,38 @@ public class sucheAjax extends HttpServlet {
 		return list;
 	}
 
-//private ArrayList<TextBean> getFilterMarken(String bez, String tmp) throws ServletException {
-//		
-//
-//		ArrayList<TextBean> list = new ArrayList<TextBean>();
-//
-//		
-//		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE "+ tmp + "= ?";
-//
-//		try (Connection conn = ds.getConnection("root", "root");
-//				PreparedStatement stm = conn.prepareStatement(query);) {
-//
-//			stm.setString(1, bez);
-//
-//			try (ResultSet rs = stm.executeQuery()) {
-//
-//				while (rs != null && rs.next()) {
-//
-//					
-//						TextBean name = new TextBean();
-//						name.setOriginalText(rs.getString("Marke"));
-//
-//						list.add(name);
-//					
-//				}
-//
-//			}
-//			conn.close();
-//		} catch (Exception ex) {
-//			throw new ServletException(ex.getMessage());
-//		}
-//
-//		return list;
-//	}
+private ArrayList<TextBean> getFilterMarken(String bez, String tmp) throws ServletException {
+		
+
+		ArrayList<TextBean> list = new ArrayList<TextBean>();
+
+		
+		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE "+ tmp + "= ?";
+
+		try (Connection conn = ds.getConnection("root", "root");
+				PreparedStatement stm = conn.prepareStatement(query);) {
+
+			stm.setString(1, bez);
+
+			try (ResultSet rs = stm.executeQuery()) {
+
+				while (rs != null && rs.next()) {
+
+					
+						TextBean name = new TextBean();
+						name.setOriginalText(rs.getString("Marke"));
+
+						list.add(name);
+					
+				}
+
+			}
+			conn.close();
+		} catch (Exception ex) {
+			throw new ServletException(ex.getMessage());
+		}
+
+		return list;
+	}
 
 }

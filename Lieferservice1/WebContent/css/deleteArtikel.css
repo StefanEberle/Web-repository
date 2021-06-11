@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+
+main a{
+    font-size:30px;
+    color:black;
+}
+label{
+    display:block;
+    font-size:25px;
+}
+main aside{
+	padding:10px;
+	width:500px;
+	height:150px;
+	padding:0px;
+	margin:0px;
+
+}
+aside a{
+	display:flex;
+	margin-top:20px;
+	text-decoration:underline;
+}
+main button{
+    position:relative;
+    margin:5px;
+    margin-bottom:100px;
+    background-color: #095484;
+	padding: 16px;
+	font-size: 16px;
+	width:220px;
+	border: none;
+}
+select{
+    width:300px;
+    height:50px;
+    margin:5px;
+   font-size:25px;
+}
+
+.artikelDelete{
+	position:relative;
+	display:flex;
+	top:140px;
+    right:500px;
+    margin-bottom:30px;
+    margin-top:30px;
+}
+#deleteIcon{
+    height: 50px;
+    width: 58px;
+    font-size:20px;
+}

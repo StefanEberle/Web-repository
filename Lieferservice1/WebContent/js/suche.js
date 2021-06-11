@@ -27,7 +27,9 @@ function suchErgebnisse(){
 				var ausgabe = "";
 				
 				for(var i = 0; i < erg.length; i++){
+					
 					var string = erg[i].originalText.replace(/\s+/g, '_');
+					
 						ausgabe +=  "<a class=" + "ausgabeMarke " + "href="+ "../../AuswahlArtikelServlet?marke="+ string +"> " + erg[i].originalText + "</a>";
 						ausgabe +=  "<br>"
 			

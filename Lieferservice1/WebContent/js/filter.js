@@ -8,7 +8,7 @@ function init() {
 	unterKategorieFilter();
 	
 	
-	//sucheMarkenAuswahl();
+	sucheMarkenAuswahl();
 	
 	/*
 	var glas = document.getElementById("filterGlas");
@@ -50,6 +50,7 @@ function init() {
 	}
 	*/
 }
+
 
 //Aside Filter
 function unterKategorieFilter() {
@@ -94,6 +95,56 @@ function unterKategorieFilter() {
 	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 }
+function sucheMarkenAuswahl() {
+
+	
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const id = urlParams.get('kategorie');
+	const id2 = urlParams.get("unterKategorie");
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+
+		if (xmlhttp.readyState == 4) {
+
+			if (xmlhttp.status == 200) {
+
+				var erg = JSON.parse(xmlhttp.responseText);
+				var ausgabe = "";
+
+				for (var i = 0; i < erg.length; i++) {
+					
+					var string = erg[i].originalText.replace(/\s+/g, '_');
+					
+					if(i == 0){
+						ausgabe += "<select name="+ "marken" + " method=" + "POST " + "size=" + "6 " + ">";
+					}
+					
+					ausgabe += "<option " + "value=" + string + " />"
+							+ erg[i].originalText + "</option>";
+
+				}
+				   ausgabe += "</select>";
+				document.getElementById("marken").innerHTML = ausgabe;
+			}
+
+		}
+
+	}
+
+	xmlhttp.open("POST", "../../sucheAjax", true);
+	xmlhttp.setRequestHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+	if (id2 == null) {
+		xmlhttp.send("kategorie=" + id);
+	}
+	if (id2 != null) {
+		xmlhttp.send("unterKategorie=" + id2);
+	}
+}
+
+
 
 
 /**
@@ -228,53 +279,10 @@ function nachMarkenFiltern(value){
 	
 	
 }
-
-function sucheMarkenAuswahl() {
-
-	
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const id = urlParams.get('kategorie');
-	const id2 = urlParams.get("unterKategorie");
-
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-
-		if (xmlhttp.readyState == 4) {
-
-			if (xmlhttp.status == 200) {
-
-				var erg = JSON.parse(xmlhttp.responseText);
-				var ausgabe = "";
-
-				for (var i = 0; i < erg.length; i++) {
-
-					ausgabe += "<p>";
-					ausgabe += "<input type=" + "radio " + "name="
-							+ "marke " + "value=" + erg[i].originalText +" " + " onchange=nachMarkenFiltern(this.value) " + " />"
-							+ erg[i].originalText + "</p>";
-
-				}
-
-				document.getElementById("marken").innerHTML = ausgabe;
-			}
-
-		}
-
-	}
-
-	xmlhttp.open("POST", "../../sucheAjax", true);
-	xmlhttp.setRequestHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-	if (id2 == null) {
-		xmlhttp.send("kategorie=" + id);
-	}
-	if (id2 != null) {
-		xmlhttp.send("unterKategorie=" + id2);
-	}
-}
-
 */
+
+
+
 
 
 
