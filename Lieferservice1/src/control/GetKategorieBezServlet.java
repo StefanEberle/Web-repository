@@ -36,12 +36,7 @@ public class GetKategorieBezServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//String holeKategorieBezeichnung = request.getParameter("kategorieNamenHolen");
-		//ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
-		//kategorieAusgabe.js 
-		// KategorieID und Bezeichnung
 
-		
 		/** Liste mit Kategorien füllen ID und Bez  **/
 		
 			ArrayList<KategorieBean> listKategorie = new ArrayList<KategorieBean>();

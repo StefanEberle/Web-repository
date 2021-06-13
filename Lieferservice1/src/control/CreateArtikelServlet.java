@@ -80,6 +80,8 @@ public class CreateArtikelServlet extends HttpServlet {
 			return;
 
 		}
+		
+		
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
 		try (Connection conn = ds.getConnection("root", "root");
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {

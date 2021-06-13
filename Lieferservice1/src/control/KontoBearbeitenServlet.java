@@ -60,9 +60,6 @@ public class KontoBearbeitenServlet extends HttpServlet {
 					user.setEmail(email);
 					session.setAttribute("user", user);
 				}else {
-				
-					out.println("<h3> Falsche Passwort </h3>");
-				
 					response.sendRedirect("html/konto.jsp");
 				}
 			} catch (SQLException e) {

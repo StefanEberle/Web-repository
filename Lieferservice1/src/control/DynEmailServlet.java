@@ -42,7 +42,7 @@ public class DynEmailServlet extends HttpServlet {
 		}
 		
 		// JSON - Email verfügbar oder nicht 
-		// Ausgabe neben INput Felder
+		// Ausgabe neben Input Felder
 		RequestDispatcher dispatcher = request.getRequestDispatcher("html/json/textBean.jsp");
 		dispatcher.forward(request, response);
 	}

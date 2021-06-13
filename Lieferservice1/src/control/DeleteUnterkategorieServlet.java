@@ -63,6 +63,8 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 
 	private void deleteImg(int unterKategorie) throws ServletException, SQLException {
 
+		//FKartikelID der entsprechenden UK in Liste speichern
+		
 		String query = "SELECT FKUnterkategorieID, FKartikelID, ArtikelBild  FROM thidb.Artikel A INNER JOIN ArtikelBild\n"
 				+ "WHERE FKUnterkategorieID = ? \n" + "AND ArtikelID = FKartikelID";
 

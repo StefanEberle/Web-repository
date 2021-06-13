@@ -98,8 +98,6 @@ public class LogInOutServlet extends HttpServlet {
 	public boolean isRegistriert(String mail, String passwort) throws SQLException, ServletException {
 
 		boolean isLogged;
-		boolean result;
-
 		String query = "Select * from thidb.User where Email = ? and Passwort = ?";
 
 		try (Connection conn = ds.getConnection("root", "root");
@@ -109,9 +107,8 @@ public class LogInOutServlet extends HttpServlet {
 			pstm.setString(2, passwort);
 			
 			ResultSet rs = pstm.executeQuery();
-			result = rs.next();
-
-			if (result) {
+			
+			if (rs.next() == true && rs != null) {
 				isLogged = true;
 			} else {
 				isLogged = false;

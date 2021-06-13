@@ -33,7 +33,7 @@
 				<div id="emailBearbeiten">
 				<h5>Email bearbeiten:</h5>
 				<form action="../../KontoBearbeitenServlet" method="POST" name="emailBearbeiten">
-				 	<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" value="${user.email}" onchange="loadPwVerfuegbar()"> <br> <label id="emailTest"> </label>    				 	 
+				 	<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" value="${user.email}" onchange="loadEmailVerfuegbar()"> <br> <label id="emailTest"> </label>    				 	 
 					<br>
 					<input type="password" name="passwort" size="60" maxlength="60" placeholder="Passwort">
 					<br>

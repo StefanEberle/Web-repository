@@ -34,7 +34,7 @@
 <option></option>
 </select>
 </article>
-<button type="submit" name="deleteArtikelButton" value="artikelDelete">Löschen</button>
+<button type="submit" name="deleteArtikelButton" value="artikelDelete">Suche</button>
 </form>
 </section>
 

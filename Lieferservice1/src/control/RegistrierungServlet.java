@@ -43,9 +43,6 @@ public class RegistrierungServlet extends HttpServlet {
 		
 		final String email = request.getParameter("email");
 		
-
-		
-
 		final String jahr = request.getParameter("jahr");
 		final String monat = request.getParameter("monat");
 		final String tag = request.getParameter("tag");
@@ -123,7 +120,7 @@ public class RegistrierungServlet extends HttpServlet {
 
 			try (ResultSet rs = pstm.executeQuery()) { //resultset Liefert Tabelle bzw. Teil von einer Tabelle
 
-				while(rs.next()) { //solange es eine Zeile gibt liefert true 
+				if(rs.next() == true) { //solange es eine Zeile gibt liefert true 
 					exist = false;
 				}
 			}

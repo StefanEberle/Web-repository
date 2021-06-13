@@ -52,6 +52,7 @@ function kategorieArray(){
 				
 			
 			}
+			
 			//document.getElementById("kategorie").innerHTML = ausgabe;
 			//Für Unterkategorie Hinzufügen - (Kategorie auswählen und neue UK erstellen)
 			if(document.getElementById("kategorie") !== null){

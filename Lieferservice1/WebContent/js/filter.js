@@ -6,11 +6,24 @@ function init() {
 	/* Asynchron laden */
 	
 	
-	
 	unterKategorieFilter();
-	
-	
+
 	sucheMarkenAuswahl();
+	
+	
+	
+	
+	var select = document.getElementById("selectForSearch");
+	
+	if(select != null){
+		select.selectedIndex = "0";
+		
+	}
+	
+	
+	
+	
+	
 	
 	/*
 	var glas = document.getElementById("filterGlas");
@@ -100,6 +113,8 @@ function unterKategorieFilter() {
 	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
 	xmlhttp.send();
 }
+
+
 function sucheMarkenAuswahl() {
 
 	
@@ -127,7 +142,7 @@ function sucheMarkenAuswahl() {
 					var string = erg[i].originalText.replace(/\s+/g, '_');
 					
 					if(i == 0){
-						ausgabe += "<select name="+ "marken" + " method=" + "POST " + "size=" + "6 " + ">";
+						ausgabe += "<select name="+ "marken" + " id=" + "selectForSearchAjax "+ "method=" + "POST " + "size=" + "6 " + ">";
 					}
 					
 					ausgabe += "<option " + "value=" + string + " />"
@@ -136,6 +151,11 @@ function sucheMarkenAuswahl() {
 				}
 				   ausgabe += "</select>";
 				document.getElementById("marken").innerHTML = ausgabe;
+				
+				var selectedList = document.getElementById("selectForSearchAjax");
+				if(selectedList != null){
+					selectedList.selectedIndex = "0";
+				}
 			}
 
 		}

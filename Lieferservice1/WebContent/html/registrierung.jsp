@@ -28,7 +28,7 @@
 		<fieldset class="user">
 
 
-			<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" onchange="loadPwVerfuegbar()"> 
+			<input type="text" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" onchange="loadEmailVerfuegbar()"> 
 			<label id="emailTest"> </label> 
 			<br> 
 			<input type="password" name="passwort" id="pw" pattern=".{8,}" 
