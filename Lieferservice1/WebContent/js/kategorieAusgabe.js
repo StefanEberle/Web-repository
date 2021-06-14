@@ -34,7 +34,7 @@ function kategorieArray(){
 				for(var i = 0; i < erg.length; i++){
 					
 					if(i == 0){
-						ausgabe += "<option>" + "Kategorie" + "</option>"
+						ausgabe += "<option value=" + "0" + ">" + "Kategorie" + "</option>"
 					}
 					if(!katBezListe.includes(erg[i].bezeichnungKat)){
 						
@@ -90,7 +90,7 @@ function unterKategorie(){
 				
 				for(var i = 0; i < erg.length; i++){
 					if(i == 0){
-						ausgabe += "<option>" + "Unterkategorie" + "</option>"
+						ausgabe += "<option value=" + "0" + ">" + "Unterkategorie" + "</option>"
 					}
 					if(kategorieID == erg[i].fkKategorieID){
 						

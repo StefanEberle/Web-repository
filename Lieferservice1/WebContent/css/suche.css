@@ -56,7 +56,7 @@
 	padding:none;
     font-size:16px;
     background-color:#DCE1E3;
-    width:284px;
+    width:286px;
     height:auto;
     z-index: 10;
     top: 12px;
@@ -67,6 +67,7 @@
 }
 #searchErg a{
     color:black;
+    font-size:25px;
     text-decoration:none;
 }
 .divLupe{   
@@ -90,7 +91,7 @@
 }
 #anmeldeButton, #abmeldeButton {
 	background-color: #095484;
-	color: black;
+	color: white;
 	border: none;
 	font-size:20px;
 	text-align:center;
@@ -127,4 +128,7 @@
 	margin-left:10px;
 	margin-right:10px;
 	padding-left:10px;
+}
+.fa{
+	color:white;
 }

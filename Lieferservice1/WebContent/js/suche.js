@@ -25,10 +25,17 @@ function suchErgebnisse(){
 				
 				
 				var ausgabe = "";
+				document.getElementById("searchErg").innerHTML = ausgabe;
 				
 				for(var i = 0; i < erg.length; i++){
 					
-					var string = erg[i].originalText.replace(/\s+/g, '_');
+					if( i > 4){
+						break;
+					}
+					var string = erg[i].originalText;
+					if(string.indexOf(' ') >= 0){
+						string = erg[i].originalText.replace(/\s+/g, '_');
+					}
 					
 						ausgabe +=  "<a class=" + "ausgabeMarke " + "href="+ "../../AuswahlArtikelServlet?marke="+ string +"> " + erg[i].originalText + "</a>";
 						ausgabe +=  "<br>"

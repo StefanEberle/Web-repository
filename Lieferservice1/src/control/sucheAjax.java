@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import modell.ArtikelBean;
 import modell.TextBean;
 
 /**
@@ -52,6 +53,7 @@ public class sucheAjax extends HttpServlet {
 
 	if(suche != null) {
 		sucheList = getMarke(suche);
+	
 	}
 
 	if(katID != null && unterKatID == null) {

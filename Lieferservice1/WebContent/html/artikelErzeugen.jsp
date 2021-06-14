@@ -67,17 +67,44 @@
 </article>
 
 <article id="erzeugen2">
-<input type="text" name="marke"  maxlength="40" placeholder="Marke" required>
-<br>
-<input type="number" step="0.01" name="fuelmenge"  min="0.19" max="99999" maxlength="5" placeholder="Füllmenge" required>
-<br>
-<input type="number" step="1" name="stueckzahl"  min="1" max="99999" maxlength="5" placeholder="Stückzahl Kasten" required>
+<input type="text" name="marke"  maxlength="40" placeholder="Markennamen" required>
 <br>
 <input type="number" step="0.01" name="gesamtpreis" min="0.1" max="99999" maxlength="5" placeholder="Gesamtpreis pro Kasten" required>
 <br>
-<input type="number" step="0.01" name="pfandProFlasche"  min="0" max="99999" maxlength="5" placeholder="Pfand pro Flasche">
+<input type="number" step="0.01" name="fuelmenge"  min="0.1" max="6.0" maxlength="5" placeholder="Füllmenge" required>
 <br>
-<input type="number" step="0.01" name="pfandKasten" min="0" max="99999" maxlength="5" placeholder="Pfand pro Kasten">
+
+<label>Stückzahl</label>
+<select name="stueckzahl" required>
+<option value="1"> 1 </option>
+<option value="2"> 2 </option>
+<option value="3"> 3 </option>
+<option value="4"> 4 </option>
+<option value="6"> 6 </option>
+<option value="8"> 8 </option>
+<option value="10"> 10 </option>
+<option value="12"> 12 </option>
+<option value="16"> 16 </option>
+<option value="20"> 20 </option>
+<option value="24"> 24 </option>
+</select>
+
+<br>
+
+<label>Pfand pro Flasche</label>
+<select name="pfandProFlasche" required>
+<option value="0.00"> 0.00 </option>
+<option value="0.08"> 0.08 </option>
+<option value="0.15"> 0.15 </option>
+<option value="0.25"> 0.25 </option>
+</select>
+<br>
+
+<label>Pfand Kasten</label>
+<select name="pfandKasten" required>
+<option value="0.00"> 0.00 </option>
+<option value="1.50"> 1.50 </option>
+</select>
 <br>
 <input type="file" id="bild" name="artikelBild" accept="image/gif, image/jpeg, image/png" required>
 <br>

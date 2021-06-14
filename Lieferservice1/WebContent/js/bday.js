@@ -21,7 +21,36 @@ function init() {
 	var monat = document.getElementById("monat");
 	monat.addEventListener("change", selectedTag);
 
+	
+	var tag = document.getElementById("tag");
+	var absendeButton = document.getElementById("absendeButton");
+	
+	monat.addEventListener("change",function(){
+		if(jahr.value > 1949 && monat.value > 0 && tag.value > 0){
+			absendeButton.removeAttribute("disabled");
+		}else{
+			absendeButton.setAttribute("disabled", "disabled");
+		}
+	});
+	
+	jahr.addEventListener("change",function(){
+		if(jahr.value > 1949 && monat.value > 0 && tag.value > 0){
+			absendeButton.removeAttribute("disabled");
+		}else{
+			absendeButton.setAttribute("disabled", "disabled");
+		}
+	});
+	
+	tag.addEventListener("change",function(){
+		if(jahr.value > 1949 && monat.value > 0 && tag.value > 0){
+			absendeButton.removeAttribute("disabled");
+		}else{
+			absendeButton.setAttribute("disabled", "disabled");
+		}
+	});
 
+	
+	
 }
 
 function hiddenMonUndTag(){ //Jahr ausgewählt counter++

@@ -7,29 +7,30 @@ function init() {
 	var repeatPW = document.getElementById("repeatPW");
 	repeatPW.disabled = true;
 	
-	document.getElementById("pw").addEventListener("click", function() {
+	document.getElementById("pw").addEventListener("keypress", function() {
 		repeatPW.disabled = false;
 		});
 	
 	repeatPW.addEventListener("change", correctPW);
 
-}
 
+	
+}
+function gebButtonFreigeben(jahr,monat,tag){
+	
+}
 
 function correctPW() {
 
 	var pw = document.getElementById("pw").value;
 	var repeatPW = document.getElementById("repeatPW").value;
 	var status = document.getElementById("meldungPW2");
-	var absendeButton = document.getElementById("absendeButton");
+	
 
 	if (pw === repeatPW) {
 		status.innerHTML = "Stimmen überein!";
-		absendeButton.removeAttribute("disabled");
-
 	} else {
 		status.innerHTML = "Stimmen nicht überein!";
-		absendeButton.setAttribute("disabled", "disabled");
 	}
 
 	

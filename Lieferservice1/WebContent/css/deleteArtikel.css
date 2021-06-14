@@ -10,11 +10,13 @@ label{
     font-size:25px;
 }
 main aside{
+	position:static;
 	padding:10px;
-	width:500px;
+	width:1500px;
 	height:150px;
 	padding:0px;
-	margin:0px;
+	margin-top:30px;
+	
 
 }
 aside a{
@@ -24,7 +26,7 @@ aside a{
 }
 main button{
     position:relative;
-    margin:5px;
+    margin:10px;
     margin-bottom:100px;
     background-color: #095484;
 	padding: 16px;
@@ -40,12 +42,17 @@ select{
 }
 
 .artikelDelete{
-	position:relative;
+	position:static;
+	display:inline-block;
+	height:305px;
 	display:flex;
 	top:140px;
     right:500px;
     margin-bottom:30px;
     margin-top:30px;
+    padding-left:40px;
+    padding-bottom:40px;
+    border:4px solid black;
 }
 #deleteIcon{
     height: 50px;

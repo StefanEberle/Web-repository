@@ -60,10 +60,10 @@
 main button{
   padding:16px;
   background-color: #095484;
-  color:black;
-  font-size: 16px;
+  color:white;
+  font-size: 20px;
   margin:5px;
-  width: 200px;
+  width: 210px;
 }
 /* https://www.w3schools.com/css/tryit.asp?filename=trycss_form_focus2 */
 main input[type=text],input[type=number],

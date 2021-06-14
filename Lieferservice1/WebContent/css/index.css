@@ -3,7 +3,7 @@
 
 
 #emailAdresse, #passwort{
-  border-radius: 4px;
+  border-radius: 10px;
   box-sizing: border-box;
   margin: 31px 0 0 29px;
   width: 350px;
@@ -66,8 +66,6 @@ button[name="loginButton"]{
   text-align:center;;
   font-size:30px;
   top:100px;
-  left:6%;
-
 }
 
 header{

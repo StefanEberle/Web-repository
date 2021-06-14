@@ -1,35 +1,56 @@
 @charset "UTF-8";
 
+form p {
+	display:inline-block;
+	width:100px;
+	padding-right:30px;
+	margin:10px;
+	font-size:25px;
+}
+header{
+ margin-top:50px;
+ margin-left:50px;
+}
+main {
+	margin-top:50px;
+	margin-left:150px;
+}
+main h1, h3{
+	font-size:30px;
+}
+fieldset{
+	border:none;
+}
 #registrieren{
-  dispaly:table;
   background: #095484;
   padding: 2em 2em 5em;
-  max-width: 800px;
-  margin: 20px;
+  max-width: 850px;
+  margin-left:200px;
   box-shadow: 0 0 4em #222;
   border-radius: 10px;
   font-size: 20px;
  
 }
- #registrieren input{
+#registrieren input{
    height: 30px
    
  }
- #registrieren textarea{
+  #registrieren textarea{
    height:80px;
-   width: 380px;
+   width: 457px;
  }
 #registrieren button{
-   background-color: #8c8c8c;
-	color: white;
+	margin-top:20px;
+   background-color: #F5F5F5;
+	color: black;
 	padding: 16px;
-	font-size: 16px;
+	font-size: 25px;
 	border: none;
+	width:250px;
+	border-radius: 15px 15px 15px 15px;
+	
  }
-  .geb{
-     position: relative;
- }
- .geb select{
+  .geb select{
   background-color: white;
   color: grey;
   padding: 12px;
@@ -37,9 +58,6 @@
   border: none;
   font-size: 15px;
   outline: none;
-}
-.geb p{
-	display:inline-block;
 }
 /* https://www.w3schools.com/css/tryit.asp?filename=trycss_form_focus2 */
 main input[type=text],input[type=number],
@@ -56,16 +74,13 @@ input[type=password], input[type=email]
   outline: none;
   font-size:18px;
 }
-
 main input[type=text]:focus,input[type=number]:focus,
 input[type=password]:focus, input[type=email]:focus, textarea:focus{
   border: 3px solid #B73225;
 }
-label{
-  font-size:20px;
-}
 main textarea{
   width: 60%;
+  height:100px;
   padding: 5px 10px;
   box-sizing: border-box;
   border: 3px solid black;
@@ -73,4 +88,18 @@ main textarea{
   transition: 0.5s;
   outline: none;
   font-size:18px;
+  margin-left:155px;
+}
+
+button[name="login"]{
+  width:350px;
+  height: 80px;
+  background: #095484;
+  font-size: 20px;
+  text-align:center;
+  font-size:30px;
+  position:relative;
+  margin-left:200px;
+  margin-top:50px;
+  border-radius: 15px 15px 15px 15px;
 }

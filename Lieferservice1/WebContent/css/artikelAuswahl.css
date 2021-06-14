@@ -98,3 +98,6 @@ li{
 option{
   font-size:16px;
 }
+#marken > select{
+  width:130px
+}

@@ -50,16 +50,27 @@ public class CreateArtikelServlet extends HttpServlet {
 		final String gebinde = request.getParameter("gebinde");
 		final BigDecimal fuellmenge = new BigDecimal(request.getParameter("fuelmenge"));
 		final int stueckzahl = Integer.parseInt(request.getParameter("stueckzahl"));
+
 		final BigDecimal gesamtpreis = new BigDecimal(request.getParameter("gesamtpreis"));
+
 		final BigDecimal pfandProFlasche = new BigDecimal(request.getParameter("pfandProFlasche"));
+
 		final BigDecimal pfandKasten = new BigDecimal(request.getParameter("pfandKasten"));
 
+		
+		
 		BigDecimal epJeLiter = fuellmenge.multiply(new BigDecimal(stueckzahl));
 		epJeLiter = gesamtpreis.divide(epJeLiter, 2, RoundingMode.HALF_EVEN);
 		BigDecimal pfandGesamt = pfandProFlasche.multiply(new BigDecimal(stueckzahl)).add(pfandKasten);
 
 		final Part image = request.getPart("artikelBild");
 
+		if(kategorie == 0 || unterKategorie == 0) {
+			response.sendRedirect("html/artikelErzeugen.jsp?Erzeugen=false");
+			return;
+		}
+		
+		
 		/** ArtikelBean füllen **/
 		artikel.setMarke(marke);
 		artikel.setFkkategorieID(kategorie);

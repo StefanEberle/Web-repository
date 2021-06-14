@@ -44,9 +44,14 @@ public class CreateUnterKategorieServlet extends HttpServlet {
 		int kategorieID = Integer.parseInt(request.getParameter("kategorieBezeichnungAuswahl"));
 		String unterKategorie = request.getParameter("unterKategorieErzeugen");
 		
+
+		if(kategorieID == 0) {
+			response.sendRedirect("html/artikelErzeugen.jsp?Erzeugen=false");
+			return;
+		}
 		
 		UnterKategorieBean unterkategorie = new UnterKategorieBean();
-		
+	
 		
 		
 		if(unterKategorie != null) {

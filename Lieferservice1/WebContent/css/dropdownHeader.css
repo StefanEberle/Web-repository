@@ -32,7 +32,7 @@ header > h3{
 /* Dropdown Button */
 .dropbtn{
 	background-color:#095484;
-	color: black;
+	color: white;
 	padding: 13px;
 	font-size: 18px;
 	width:125px;
@@ -45,8 +45,8 @@ header > h3{
 .dropdown {
 	position: relative;
 	display: inline-block;
-	border-right:black solid 1px;
-
+	border-right:black solid 2px;
+    height:52px;
 }
 
 
