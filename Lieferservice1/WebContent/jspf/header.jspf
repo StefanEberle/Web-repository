@@ -23,7 +23,6 @@
 		<h3>Direkt bis zu Ihrer Haustür</h3>
 
 
-
 		<nav class="navBar">
 
 			<form action="../../AuswahlArtikelServlet" method="GET">

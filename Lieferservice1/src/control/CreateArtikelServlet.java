@@ -65,11 +65,8 @@ public class CreateArtikelServlet extends HttpServlet {
 		final String gebinde = request.getParameter("gebinde");
 		final BigDecimal fuellmenge = new BigDecimal(request.getParameter("fuelmenge"));
 		final int stueckzahl = Integer.parseInt(request.getParameter("stueckzahl"));
-
 		final BigDecimal gesamtpreis = new BigDecimal(request.getParameter("gesamtpreis"));
-
 		final BigDecimal pfandProFlasche = new BigDecimal(request.getParameter("pfandProFlasche"));
-
 		final BigDecimal pfandKasten = new BigDecimal(request.getParameter("pfandKasten"));
 
 		BigDecimal epJeLiter = fuellmenge.multiply(new BigDecimal(stueckzahl));
