@@ -61,7 +61,7 @@ public class CreateUnterKategorieServlet extends HttpServlet {
 			String[] generatedKeys = new String[] { "UnterkategorieID" }; // Name der Spalte(n), die automatisch generiert wird
 																	// (werden)
 
-			try (Connection conn = ds.getConnection("root", "root");
+			try (Connection conn = ds.getConnection();
 					PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
 				stm.setInt(1, kategorieID);

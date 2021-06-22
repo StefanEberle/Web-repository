@@ -54,7 +54,7 @@ public boolean checkEmail(String email) throws ServletException, IOException {
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 		
 		//Email Verfügbarkeit testen
-		try (Connection conn = ds.getConnection("root","root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 			
 			stm.setString(1, email);

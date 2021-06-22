@@ -70,7 +70,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 
 		List<ArtikelBildBean> artikelList = new ArrayList<ArtikelBildBean>();
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setInt(1, unterKategorie);
 			try (ResultSet rs = stm.executeQuery()) {
@@ -94,7 +94,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 
 		for (int i = 0; i < artikelList.size(); i++) {
 
-			try (Connection conn = ds.getConnection("root", "root");
+			try (Connection conn = ds.getConnection();
 					PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(deleteQuery)) {
 
 				ArtikelBildBean artikel = new ArtikelBildBean();
@@ -117,7 +117,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 
 		String deleteQuery = "Delete FROM thidb.UnterKategorie WHERE (UnterkategorieID = ?)";	
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(deleteQuery)) {
 
 			

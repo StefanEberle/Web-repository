@@ -113,7 +113,7 @@ public class RegistrierungServlet extends HttpServlet {
 		boolean exist = true;
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query);) {
 
 			pstm.setString(1, email);
@@ -138,7 +138,7 @@ public class RegistrierungServlet extends HttpServlet {
 		String[] generatedKeys = new String[] { "UserID" }; // Name der Spalte(n), die automatisch generiert wird
 															// (werden)
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
 			pstm.setString(1, user.getEmail());
@@ -169,7 +169,7 @@ public class RegistrierungServlet extends HttpServlet {
 		String query = "INSERT INTO thidb.Adresse (FKUserID, Strasse, Hausnummer, PLZ, Stadt, Etage, Telefonnummer, "
 				+ "Geburtstag, Hinweis, Vorname, Nachname)  values(?,?,?,?,?,?,?,?,?,?,?)";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
 			

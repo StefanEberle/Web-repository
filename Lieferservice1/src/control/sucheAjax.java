@@ -78,7 +78,7 @@ public class sucheAjax extends HttpServlet {
 		
 		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE Marke LIKE ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			stm.setString(1, bez);
@@ -113,7 +113,7 @@ private ArrayList<TextBean> getFilterMarken(String bez, String tmp) throws Servl
 		
 		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE "+ tmp + "= ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			stm.setString(1, bez);

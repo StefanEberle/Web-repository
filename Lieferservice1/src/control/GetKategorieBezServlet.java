@@ -79,7 +79,7 @@ private ArrayList<KategorieBean> getKategorie() throws ServletException{
 
 		String query = "SELECT * FROM thidb.Kategorie";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			try (ResultSet rs = stm.executeQuery()) {

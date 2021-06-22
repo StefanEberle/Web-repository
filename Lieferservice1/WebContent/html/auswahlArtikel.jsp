@@ -117,10 +117,14 @@
 					<li>Gesamtpreis: ${a.gesamtpreis}</li>
 					<li>Pfand: ${a.pfandGesamt}</li>
 					<li>Preis pro Liter: ${a.epJeLiter} €/Liter</li>
-				</ul> <input type="number" id="menge" name="menge" min="1" max="10"
+				</ul>
+				
+				<form action="../../AddWarenkorbArtikelServlet" method="POST">
+				 <input type="number" id="menge" name="menge" min="1" max="10"
 				value="1">
 				<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon"
-					value="${a.artikelID}" onclick="addShoppingCart(this.value)"></button>
+					value="${a.artikelID}" name ="artikelID"></button>
+					</form>
 
 			</td>
 

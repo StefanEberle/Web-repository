@@ -115,7 +115,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)) {
 			if (!kategorie.equals("noValue")) {
 				pstm.setString(1, kategorie);
@@ -247,7 +247,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String query = "SELECT * FROM thidb.Artikel WHERE Marke = ?";
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setString(1, replace);
 			try (ResultSet rs = stm.executeQuery()) {
@@ -283,7 +283,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String query = "SELECT * FROM thidb.Artikel WHERE FKUnterkategorieID = ?";
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setString(1, unterKategorie);
 			try (ResultSet rs = stm.executeQuery()) {
@@ -317,7 +317,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		String query = "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ?";
 		List<ArtikelBean> artikelList = new ArrayList<ArtikelBean>();
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setString(1, kategorie);
 			try (ResultSet rs = stm.executeQuery()) {
@@ -355,7 +355,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 		String query = "SELECT Marke, FKKategorieID, FKUnterkategorieID FROM thidb.Artikel WHERE Marke = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)) {
 
 			pstm.setString(1, markenBez);
@@ -381,7 +381,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 			for (int i = 0; i < artikelList.size(); i++) {
 
-				try (Connection conn = ds.getConnection("root", "root");
+				try (Connection conn = ds.getConnection();
 						PreparedStatement pstm = conn.prepareStatement(ukQuery)) {
 
 					ArtikelBean artikel = new ArtikelBean();

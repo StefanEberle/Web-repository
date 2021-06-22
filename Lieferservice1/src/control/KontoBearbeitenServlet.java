@@ -127,7 +127,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		String query = "UPDATE thidb.Adresse SET Strasse = ?, Hausnummer = ?, PLZ = ?, Stadt = ?, Etage = ?, Telefonnummer = ?, Geburtstag = ?, "
 				+ "Hinweis = ?, Vorname = ?, Nachname = ? WHERE FKUserID = ?";
 		System.out.println(adresse.getGeburtstag());
-		try(Connection conn = ds.getConnection("root", "root"); PreparedStatement pstm = conn.prepareStatement(query);) {
+		try(Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query);) {
 			
 			pstm.setString(1, adresse.getStrasse());
 			pstm.setString(2, adresse.getHausnummer());
@@ -157,7 +157,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 		String query = "SELECT Passwort FROM User WHERE UserID = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query);) {
 
 			pstm.setInt(1, user.getUserid());
@@ -191,7 +191,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 		String query = "UPDATE thidb.User SET Passwort = ? WHERE UserID = ?";
 
-		try (Connection conn = ds.getConnection("root","root"); PreparedStatement pstm = conn.prepareStatement(query);) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query);) {
 
 			pstm.setString(1, pw);
 			pstm.setInt(2, userID);
@@ -208,7 +208,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 		String query = "UPDATE thidb.User SET Email = ? Where UserID = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query);) {
 
 			pstm.setString(1, emailNeu);
@@ -227,7 +227,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		boolean exist = true;
 		String query = "SELECT * FROM thidb.User WHERE Email = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query);) {
 
 			pstm.setString(1, email);

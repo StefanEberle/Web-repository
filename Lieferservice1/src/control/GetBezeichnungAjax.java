@@ -42,7 +42,7 @@ public class GetBezeichnungAjax extends HttpServlet {
 				+ "FROM thidb.UnterKategorie, thidb.Kategorie K\n" + "WHERE FKKategorieID = K.KategorieID\n"
 				+ "ORDER BY FKKategorieID";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			try (ResultSet rs = stm.executeQuery()) {

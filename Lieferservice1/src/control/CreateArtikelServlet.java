@@ -94,7 +94,7 @@ public class CreateArtikelServlet extends HttpServlet {
 		
 		
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
 			pstm.setInt(1, artikel.getArtikelID());
@@ -123,7 +123,7 @@ public class CreateArtikelServlet extends HttpServlet {
 		String[] generatedKeys = new String[] { "ArtikelID" }; // Name der Spalte(n), die automatisch generiert wird
 																// (werden)
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
 			stm.setString(1, artikel.getMarke());

@@ -42,7 +42,7 @@ public class RetrieveImageServlet extends HttpServlet {
 
 
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setInt(1, artikelID);
 			try (ResultSet rs = stm.executeQuery()) {

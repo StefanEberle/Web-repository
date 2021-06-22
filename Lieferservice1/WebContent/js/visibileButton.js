@@ -3,20 +3,6 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
 	
-	var logInOutButton = document.getElementById("valueTest").value;
-	var anmeldeButton = document.getElementById("anmeldeButton");
-	var abmeldeButton = document.getElementById("abmeldeButton");
-	var benutzerKonto = document.getElementById("benutzerKonto");
-	
-	if(logInOutButton == null ||  logInOutButton == 0){
-		abmeldeButton.style.visibility = "hidden";
-		benutzerKonto.style.visibility = "hidden";
-	}
-	if(logInOutButton == "true"){
-		anmeldeButton.style.visibility = "hidden";
-		abmeldeButton.style.visibility = "visible";
-		benutzerKonto.style.visibility = "visible";
-	}
 	navBar();
 	
 	
