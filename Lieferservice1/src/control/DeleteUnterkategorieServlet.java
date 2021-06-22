@@ -43,7 +43,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		String unterK = request.getParameter("unterKategorieDelete");
 
 		if(unterK.equals("Unterkategorie")) {
-			response.sendRedirect("html/delete.jsp");
+			response.sendRedirect("html/deleteUnterKategorie.jsp");
 			return;
 		}
 		
@@ -57,7 +57,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("html/delete.jsp");
+		response.sendRedirect("html/deleteUnterKategorie.jsp");
 
 	}
 

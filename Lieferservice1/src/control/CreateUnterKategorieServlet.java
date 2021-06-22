@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,9 @@ public class CreateUnterKategorieServlet extends HttpServlet {
 		
 
 		if(kategorieID == 0) {
-			response.sendRedirect("html/artikelErzeugen.jsp?Erzeugen=false");
+			request.setAttribute("errorRequest", "Artikel create failed!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
 		

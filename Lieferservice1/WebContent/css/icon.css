@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+#warenkorbIcon {
+  position: relative;
+  font-size: 20px;
+}
+#warenkorbIcon:hover {
+  color: #b73225;
+}
+
+#warenkorb {
+  position: relative;
+}
+
+/*********************************************/
+
+#deleteIcon {
+  height: 50px;
+  width: 58px;
+  font-size: 20px;
+}
+#deleteIcon:hover {
+  color: #b73225;
+}
+
+/*********************************************/
+
+#benutzerKonto {
+  position: relative;
+  background-color: #095484;
+  border: none;
+  padding: 0;
+}
+#userIcon {
+  height: 100%;
+  position: relative;
+  font-size: 20px;
+}
+#userIcon:hover {
+  color: #b73225;
+}
+/*********************************************/
+
+.fa {
+  color: white;
+}

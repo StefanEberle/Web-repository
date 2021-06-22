@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,8 +38,6 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
-		final PrintWriter out = response.getWriter();
-		
 			
 		
 		HttpSession session = request.getSession();
@@ -56,11 +53,15 @@ public class KontoBearbeitenServlet extends HttpServlet {
 				if (passwortUeberpruefen(user, passwort) && isEmail(email)) {
 
 					sicherEmail(user, email);
-					
 					user.setEmail(email);
 					session.setAttribute("user", user);
-				}else {
+					
 					response.sendRedirect("html/konto.jsp");
+				}else {
+					request.setAttribute("errorRequest", "Änderung Email failed!");
+					final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+					dispatcher.forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
 				
@@ -74,9 +75,13 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			try {
 				if(passwortUeberpruefen(user, passwort) && passwortNeu.equals(passwortNeu2)) {
 					sicherPW(passwortNeu, user.getUserid());
+					response.sendRedirect("html/konto.jsp");
 					
 				}else {
-					response.sendRedirect("html/konto.jsp");
+					request.setAttribute("errorRequest", "Passwort change failed");
+					final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+					dispatcher.forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
 			
@@ -110,23 +115,35 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			adresse.setGeburtstag(geburtstag);
 			adresse.setHinweis(hinweis);
 			
+			
+			
 			try {
 				sicherAdresse(adresse);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			session.setAttribute("adresse", adresse);
+			
+			response.sendRedirect("html/konto.jsp");
+			
+		}else {
+			
+			request.setAttribute("errorRequest", "Change Failed");
+			final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+			dispatcher.forward(request, response);
+		
+			return;
+
 		}
 
-		final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
-		dispatcher.forward(request, response);
+
 
 	}
 	private void sicherAdresse(AdresseBean adresse) throws SQLException {
 		
 		String query = "UPDATE thidb.Adresse SET Strasse = ?, Hausnummer = ?, PLZ = ?, Stadt = ?, Etage = ?, Telefonnummer = ?, Geburtstag = ?, "
 				+ "Hinweis = ?, Vorname = ?, Nachname = ? WHERE FKUserID = ?";
-		System.out.println(adresse.getGeburtstag());
+		
 		try(Connection conn = ds.getConnection("root", "root"); PreparedStatement pstm = conn.prepareStatement(query);) {
 			
 			pstm.setString(1, adresse.getStrasse());
@@ -165,7 +182,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 				int spalten = rs.getMetaData().getColumnCount(); // https://www.straub.as/java/jdbc/resultset.html
 
-				if (rs.next()) {
+				if (rs.next() && rs != null) {
 
 					for (int i = 1; i <= spalten; i++) {
 					
@@ -234,8 +251,9 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 			try (ResultSet rs = pstm.executeQuery()) { //resultset Liefert Tabelle bzw. Teil von einer Tabelle
 
-				while(rs.next()) { //solange es eine Zeile gibt liefert true 
+				if(rs.next()) { //solange es eine Zeile gibt liefert true 
 					exist = false;
+					System.out.println("isFalse");
 				}
 			}
 			conn.close();

@@ -85,6 +85,8 @@ public class LogInOutServlet extends HttpServlet {
 				}
 
 			} else {
+				
+				request.setAttribute("errorRequest", "Login Failed");
 				final RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			}

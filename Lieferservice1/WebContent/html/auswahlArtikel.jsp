@@ -47,10 +47,7 @@
 				<c:forEach var="a" items="${unterKategorienList}"
 					varStatus="counter">
 
-					<a
-						href="../../AuswahlArtikelServlet?unterKategorie=${a.unterkategorieID}
-			&kategorie=${a.fkKategorieID}">
-						${a.unterkategorieBez} </a>
+					<a href="../../AuswahlArtikelServlet?unterKategorie=${a.unterkategorieID}&kategorie=${a.fkKategorieID}"> ${a.unterkategorieBez} </a>
 						<br>
 
 				</c:forEach>
@@ -91,7 +88,7 @@
 </aside>
 
 
-<table id="artikelListe">
+<div id="artikelListe">
 
 	<c:if test="${not empty artikelList}">
 
@@ -99,34 +96,30 @@
 
 
 
-			<c:if test="${(counter.index mod 3) == 0 }">
-				<tr>
-			</c:if>
+		
 
 
 
-			<td class="${a.gebinde}" id="artikel"><img
+			<div class="${a.gebinde}" id="artikel"><img
 				src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
 				class="artikelBild">
 
 				<ul class="artikelBeschreibung">
 					<li>Marke: ${a.marke}</li>
 					<li>Gebinde: ${a.gebinde}</li>
-					<li>Füllmenge: ${a.fuellmenge}</li>
+					<li>Füllmenge: ${a.fuellmenge} Liter</li>
 					<li>Stückzahl: ${a.stueckzahl}</li>
-					<li>Gesamtpreis: ${a.gesamtpreis}</li>
-					<li>Pfand: ${a.pfandGesamt}</li>
-					<li>Preis pro Liter: ${a.epJeLiter} €/Liter</li>
+					<li>Gesamtpreis: ${a.gesamtpreis} €</li>
+					<li>zzgl. ${a.pfandGesamt} Pfand</li>
+					<li>Pro Liter: ${a.epJeLiter} €/Liter</li>
 				</ul> <input type="number" id="menge" name="menge" min="1" max="10"
 				value="1">
 				<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon"
 					value="${a.artikelID}" onclick="addShoppingCart(this.value)"></button>
 
-			</td>
+			</div>
 
-			<c:if test="${(counter.count mod 3) == 0 && counter.last}">
-				</tr>
-			</c:if>
+		
 
 
 		</c:forEach>
@@ -134,7 +127,7 @@
 
 	</c:if>
 
-</table>
+</div>
 
 
 </main>

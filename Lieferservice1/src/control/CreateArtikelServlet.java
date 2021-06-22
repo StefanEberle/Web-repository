@@ -1,7 +1,14 @@
 package control;
 
-import java.io.IOException;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -10,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -25,10 +34,16 @@ import modell.ArtikelBean;
  * Servlet implementation class ArtikelServlet
  */
 @WebServlet("/CreateArtikelServlet")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5, fileSizeThreshold = 1024 * 1024)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5
+		* 5, location = "/Users/stefaneberle/DEV/servers/wildfly-16.0.0.Final/standalone/deployments/Lieferservice1.war/WEB-INF/", fileSizeThreshold = 1024
+				* 1024)
 
 public class CreateArtikelServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
+	private static final int IMG_WIDTH = 200;
+	private static final int IMG_HEIGHT = 200;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
 	private DataSource ds;
@@ -38,7 +53,7 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		// request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 
 		ArtikelBean artikel = new ArtikelBean();
 //		ArtikelBildBean artikelBild = new ArtikelBildBean();
@@ -57,20 +72,44 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		final BigDecimal pfandKasten = new BigDecimal(request.getParameter("pfandKasten"));
 
-		
-		
 		BigDecimal epJeLiter = fuellmenge.multiply(new BigDecimal(stueckzahl));
 		epJeLiter = gesamtpreis.divide(epJeLiter, 2, RoundingMode.HALF_EVEN);
 		BigDecimal pfandGesamt = pfandProFlasche.multiply(new BigDecimal(stueckzahl)).add(pfandKasten);
 
 		final Part image = request.getPart("artikelBild");
 
-		if(kategorie == 0 || unterKategorie == 0) {
-			response.sendRedirect("html/artikelErzeugen.jsp?Erzeugen=false");
+		if (kategorie == 0 || unterKategorie == 0) {
+			request.setAttribute("errorRequest", "Artikel create failed!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
+
+		if (image == null) {
+			request.setAttribute("errorRequest", "Artikel create failed!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
+			return;
+
+		}
+
+		/* Type */
+
+		BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
+		int imgWidth = bufferedImage.getWidth();
+		int imgHeight = bufferedImage.getHeight();
+
 		
 		
+		if (!checkSize(imgWidth, imgHeight)) {
+
+			request.setAttribute("errorRequest", "Bild Verhältnis Weite/Höhe muss kleiner 1.5 und Weite & Höhe größer 200 sein!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
+			return;
+
+		}
+
 		/** ArtikelBean füllen **/
 		artikel.setMarke(marke);
 		artikel.setFkkategorieID(kategorie);
@@ -84,21 +123,86 @@ public class CreateArtikelServlet extends HttpServlet {
 		artikel.setEpJeLiter(epJeLiter);
 		artikel.setPfandGesamt(pfandGesamt);
 
-		artikel = sicherArtikel(artikel); // Artikel in die Datenbank schreiben
+		sicherArtikel(artikel); // Artikel in die Datenbank schreiben
 
-		if (image == null) {
-			response.sendRedirect("html/artikelErzeugen.jsp");
-			return;
+		BufferedImage resized = resize(bufferedImage, IMG_HEIGHT, IMG_WIDTH);
 
+		
+		String imageType = "";
+		String imageName = image.getSubmittedFileName();
+		
+		// Index von Punkt
+		int i = imageName.lastIndexOf(".");
+		if (i > 0) {
+			imageType = imageName.substring(i + 1);
+		}
+
+		/**********
+		 * https://newbedev.com/how-to-convert-bufferedimage-to-inputstream
+		 ***********/
+
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(resized, imageType, os);
+		InputStream outputImage = new ByteArrayInputStream(os.toByteArray());
+
+		/******
+		 * drei Zeilen
+		 ********************************************************************/
+
+		sicherArtikelBild(artikel.getArtikelID(), outputImage);
+
+		response.sendRedirect("html/artikelErzeugen.jsp");
+
+	}
+
+	private boolean checkSize(int width, int height) {
+
+		double w = width;
+		double h = height;
+		double diff;
+		if(w < 200 || h < 200) {
+			return false;
+		}
+		if(w > h) {
+			diff = w/h;
+		}else if( h > w) {
+			diff = h/w;
+		}else {
+			diff = 1;
 		}
 		
-		
+		if(diff > 1.5) {
+			return false;
+		}else {
+			return true;
+		}
+
+
+	}
+
+	/*
+	 * https://www.baeldung.com/java-resize-image Abschnitt - 2.2
+	 * ImagegetScaledInstance()
+	 */
+	private static BufferedImage resize(BufferedImage img, int height, int width) {
+
+		Image resultingImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		BufferedImage outputImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = outputImage.createGraphics();
+		g.drawImage(resultingImage, 0, 0, width, height, null);
+		g.dispose();
+//		outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+		return outputImage;
+	}
+
+	private void sicherArtikelBild(int artikelID, InputStream image) {
+
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
 		try (Connection conn = ds.getConnection("root", "root");
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
-			pstm.setInt(1, artikel.getArtikelID());
-			pstm.setBinaryStream(2, image.getInputStream());
+			pstm.setInt(1, artikelID);
+			pstm.setBinaryStream(2, image);
 
 			pstm.executeUpdate();
 
@@ -111,11 +215,9 @@ public class CreateArtikelServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("html/artikelErzeugen.jsp");
-
 	}
 
-	private ArtikelBean sicherArtikel(ArtikelBean artikel) {
+	private void sicherArtikel(ArtikelBean artikel) {
 
 		String query = "INSERT INTO thidb.Artikel (Marke, FKKategorieID, FKUnterkategorieID, Gebinde, "
 				+ "Fuellmenge, Stueckzahl, Gesamtpreis, EPjeLiter, PfandproFlasche, PfandKasten, PfandGesamt)  values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -152,7 +254,7 @@ public class CreateArtikelServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return artikel;
+
 	}
 
 }

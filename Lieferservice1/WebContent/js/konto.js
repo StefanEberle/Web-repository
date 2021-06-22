@@ -62,5 +62,6 @@ function zeigeAdresse(){
 	var adresseForm = document.getElementById("mainAdresse");
 	adresseForm.style.display = "block";
 	
+	var adresseButton = document.getElementById("adresseButton");
 	adresseButton.style.display = "none";
 }

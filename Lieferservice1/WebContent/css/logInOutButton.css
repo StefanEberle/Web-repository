@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.log {
+  position: relative;
+}
+/* Abmelde button position */
+.log #abmeldeButton {
+  position: relative;
+}
+/* LogInOut Button */
+#anmeldeButton,
+#abmeldeButton {
+  background-color: #095484;
+  color: white;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+  height: 50px;
+}

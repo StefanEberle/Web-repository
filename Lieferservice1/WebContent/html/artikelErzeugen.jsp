@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,13 @@
 <main>
 
 <aside>
-<a href="../delete.jsp">Unterkategorie löschen</a>
+<a href="../deleteUnterKategorie.jsp">Unterkategorie löschen</a>
 <a href="../deleteArtikel.jsp">Artikel löschen</a>
 </aside>
 
+<c:if test="${not empty errorRequest}">
+		<c:out value="${errorRequest}" />
+	</c:if>
 <section class="kategorieAdd">
 
 <form action="../../CreateKategorieServlet" method="POST">
@@ -69,7 +73,7 @@
 <article id="erzeugen2">
 <input type="text" name="marke"  maxlength="40" placeholder="Markennamen" required>
 <br>
-<input type="number" step="0.01" name="gesamtpreis" min="0.1" max="99999" maxlength="5" placeholder="Gesamtpreis pro Kasten" required>
+<input type="number" step="0.01" name="gesamtpreis" min="0.1" max="999.99" maxlength="5" placeholder="Gesamtpreis pro Kasten" required>
 <br>
 <input type="number" step="0.01" name="fuelmenge"  min="0.1" max="6.0" maxlength="5" placeholder="Füllmenge" required>
 <br>
