@@ -38,7 +38,7 @@ public class RetrieveImageServlet extends HttpServlet {
 
 		int artikelID = Integer.parseInt(request.getParameter("artikelID"));
 
-		ServletOutputStream output = response.getOutputStream();
+	
 
 
 
@@ -64,16 +64,7 @@ public class RetrieveImageServlet extends HttpServlet {
 						}
 						out.flush();
 					}
-//					byte[] imageData = rs.getBytes("ArtikelBild");
-//					
-//					//response.setHeader("Content-Type", "image/gif");
-//					response.setContentType("image/gif");
-//					response.setContentLength(imageData.length);
-//					output = response.getOutputStream();
-//					output.write(imageData);
-//					output.flush();
-//					output.close(); 
-//					// Quelle https://stackoverflow.com/questions/15829367/how-to-display-an-image-from-mysql-database-on-a-jsp-page
+
 				}
 
 			}

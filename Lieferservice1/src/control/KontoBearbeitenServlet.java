@@ -180,18 +180,14 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			pstm.setInt(1, user.getUserid());
 			try (ResultSet rs = pstm.executeQuery()) {
 
-				int spalten = rs.getMetaData().getColumnCount(); // https://www.straub.as/java/jdbc/resultset.html
-
 				if (rs.next() && rs != null) {
-
-					for (int i = 1; i <= spalten; i++) {
+					String aktuellesPW = rs.getString("Passwort");
 					
-						if (rs.getString(i).equals(pw)) {
-							rueckgabe = true;
-						} else {
-							rueckgabe = false;
-						
-						}
+					if( aktuellesPW.equals(pw)) {
+						rueckgabe = true;
+					
+					}else {
+						rueckgabe = false;
 					}
 				}
 			}

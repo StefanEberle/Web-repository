@@ -1,6 +1,5 @@
 package control;
 
-
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -96,11 +95,10 @@ public class CreateArtikelServlet extends HttpServlet {
 		int imgWidth = bufferedImage.getWidth();
 		int imgHeight = bufferedImage.getHeight();
 
-		
-		
 		if (!checkSize(imgWidth, imgHeight)) {
 
-			request.setAttribute("errorRequest", "Bild Verhältnis Weite/Höhe muss kleiner 1.5 und Weite & Höhe größer 200 sein!");
+			request.setAttribute("errorRequest",
+					"Bild Verhältnis Weite/Höhe muss kleiner 1.5 und Weite & Höhe größer 200 sein!");
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
 			dispatcher.forward(request, response);
 			return;
@@ -124,10 +122,9 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		BufferedImage resized = resize(bufferedImage, IMG_HEIGHT, IMG_WIDTH);
 
-		
 		String imageType = "";
 		String imageName = image.getSubmittedFileName();
-		
+
 		// Index von Punkt
 		int i = imageName.lastIndexOf(".");
 		if (i > 0) {
@@ -149,31 +146,6 @@ public class CreateArtikelServlet extends HttpServlet {
 		sicherArtikelBild(artikel.getArtikelID(), outputImage);
 
 		response.sendRedirect("html/artikelErzeugen.jsp");
-
-	}
-
-	private boolean checkSize(int width, int height) {
-
-		double w = width;
-		double h = height;
-		double diff;
-		if(w < 200 || h < 200) {
-			return false;
-		}
-		if(w > h) {
-			diff = w/h;
-		}else if( h > w) {
-			diff = h/w;
-		}else {
-			diff = 1;
-		}
-		
-		if(diff > 1.5) {
-			return false;
-		}else {
-			return true;
-		}
-
 
 	}
 
@@ -250,6 +222,30 @@ public class CreateArtikelServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+	}
+
+	private boolean checkSize(int width, int height) {
+
+		double w = width;
+		double h = height;
+		double diff;
+		if (w < 200 || h < 200) {
+			return false;
+		}
+		if (w > h) {
+			diff = w / h;
+		} else if (h > w) {
+			diff = h / w;
+		} else {
+			diff = 1;
+		}
+
+		if (diff > 1.5) {
+			return false;
+		} else {
+			return true;
 		}
 
 	}

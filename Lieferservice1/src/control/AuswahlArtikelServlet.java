@@ -76,25 +76,12 @@ public class AuswahlArtikelServlet extends HttpServlet {
 			String replace = marken.replace("_", " ");
 			query += " Marke = " + "'" + replace + "'";
 		}
+		
 		// Über Dropdown Menü und Marke ausgewählt
 		if (marken != null && !kategorie.equals("noValue")) {
 			String replace = marken.replace("_", " ");
 			query += " AND Marke = " + "'" + replace + "' ";
 		}
-
-		
-//		if (marken == null && !kategorie.equals("noValue")) {
-//
-//			if (glas != null && pet == null || pet != null && glas == null) {
-//				query += " AND ";
-//			}
-//		}
-//		if (marken != null) {
-//
-//			if (glas != null && pet == null || pet != null && glas == null) {
-//				query += " AND ";
-//			}
-//		}
 		
 		//Weder glas noch pet ausgewählt
 		if (glas != null && pet != null) {
@@ -173,14 +160,6 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
 		dispatcher.forward(request, response);
 
-		// session Zugriff für JSP-EL
-		// URL für AJAX (filter.js)
-//		if (uKate.length() <= 1) {
-//			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + kategorie);
-//		} else {
-//			response.sendRedirect(
-//					"html/auswahlArtikel.jsp?unterKategorie=" + unterKategorie + "&kategorie=" + kategorie);
-//		}
 
 	}
 
