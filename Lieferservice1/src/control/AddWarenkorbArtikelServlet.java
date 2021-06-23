@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import modell.ArtikelBean;
+import modell.UserBean;
+import modell.WarenkorbArtikelBean;
+import modell.WarenkorbBean;
 
 /**
  * Servlet implementation class WarenkorbArtikelServlet
@@ -34,60 +38,72 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String dieserArtikel = request.getParameter("artikelID");
 		Integer dieseAnzahl = Integer.parseInt(request.getParameter("menge"));
+		UserBean user = (UserBean) session.getAttribute("user");
+		
+		// Cookie holen und Params abfangen
+				Cookie dieserCookie[] = request.getCookies();
 
+				// Bisheriger Inhalt Warenkorb ausgeben lassen
+		
 		System.out.println("ArtikelNr, ¸bergeben von jsp_ " + dieserArtikel);
 		System.out.println("Anzahl, ¸bergeben von jsp: " + dieseAnzahl);
+		
+		
+		//Checken, ob User angemeldet ist und einen Warenkorb hat. Hat er KEINEN Warenkorb und ist NICHT angemeldet, Cookie zeugs. 
+		//Ist er angemeldet und hat keinen Warenkorb, dann Cookies
+		// Ist er angemeldet und HAT einen Warenkorb, dann direkt auf DB.
+		
+		//User angemeldet = check if Warenkorb vorhanden?
+		if (user.isLogin() == true) {
+			WarenkorbBean warenkorb = checkWarenkorbUserVorhanden(user.getUserid());
+			if (warenkorb==null) {
+				//User hat keinen Warenkorb -->Artikel als Cookies speichern
+				cookieHinzu(request, response, dieserCookie, dieserArtikel, dieseAnzahl);
+				
+			}
+			else {
+				//user Hat einen Warenkorb --> WarenkorbArtikel aus DB holen und Artikel dort hinein speichern
+				String query = "SELECT artikelid, anzahl FROM thidb.WarenkorbArtikel WHERE FkWarenkorbID = ?";
 
-		// Cookie holen und Params abfangen
-		Cookie dieserCookie[] = request.getCookies();
+				try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 
-		// Bisheriger Inhalt Warenkorb ausgeben lassen
+					pstm.setInt(1, warenkorb.getWarenkorbID());
 
-		if (dieserCookie != null) {
-			System.out.println("Es sind cookies Vorhanden.");
+					ResultSet rs = pstm.executeQuery(); 
+					
+					ArrayList<WarenkorbArtikelBean> warenkorbArtikel = new ArrayList<WarenkorbArtikelBean>();
 
-			boolean artikelVorhanden = false;
-
-			for (int i = 0; i < dieserCookie.length; i++) {
-
-				String artikelid = dieserCookie[i].getName();
-				String anzahl = dieserCookie[i].getValue();
-				System.out.println("Der bestehende Cookie aus Liste hat folgenden Namen/artikelID: " + artikelid);
-				System.out.println("der bestehende Cookie aus Liste hat folgenden Value/anzahl: " + anzahl);
-
-				if (dieserArtikel.equals(artikelid)) {
-
-					artikelVorhanden = true;
-					System.out.println(
-							"Der vo JSP ¸bergebene Artikel hat die selbe artikelID, wie der Cookie (Name), dieserArtikel = "
-									+ dieserArtikel + "artikelID= " + artikelid);
-
-					// falls artikelID Seite gleich wie artikelID Cookie, erhˆhe Anzahl
-					int number = Integer.parseInt(anzahl);
-					int pruef = dieseAnzahl + number;
-					System.out.println("der neue Value (anzahl + number) =  " + pruef);
-
-					if ((dieseAnzahl + number) < 50) {
-
-						dieserCookie[i].setValue(Integer.toString(pruef));
-						System.out.println("Artikel hat schon existiert, Anzahl erhoeht, ArtikelID= " + dieserArtikel
-								+ " neue Anzahl= " + pruef);
-
-						System.out.println(
-								"Der Artikel m¸sste nun ver‰nder sein. Gib mir den Ver‰nderten Cookie zur¸ck.");
-						System.out.println("Name :" + dieserCookie[i].getName());
-						System.out.println("NEUER Value:" + dieserCookie[i].getValue());
-
+					
+					while (rs.next()) {
+						WarenkorbArtikelBean neuerWarenkorbArtikel = new WarenkorbArtikelBean(); 
+						
+						neuerWarenkorbArtikel.setFkartikelID(rs.getInt("artikelID"));
+						neuerWarenkorbArtikel.setAnzahlArtikel(rs.getInt("anzahl"));
+						warenkorbArtikel.add(neuerWarenkorbArtikel);		
+						
 					}
+					
+				/*	for (int i = 0; i<warenkorbArtikel.size(); i++) {
+						warenkorbArtikel.get(i).getFkartikelID()
+						
+						if (warenkorbArtikel.get(i).getFkartikelID() ==
+					}*/
+
+					
+				} catch (Exception ex) {
+					throw new ServletException(ex.getMessage());
 				}
+				
+				
 			}
-
-			if (!artikelVorhanden) {
-
-				Cookie neuerCookie = new Cookie(dieserArtikel, Integer.toString(dieseAnzahl));
-				response.addCookie(neuerCookie);
-				System.out.println("new Cookie created, ArtikelID= " + dieserArtikel + " Anzahl= " + dieseAnzahl);
-			}
+			
+		}
+		
+		//User NICHT angemeldet --> Artikel als Cookies speichern
+		else {
+			if (dieserCookie != null) {
+				cookieHinzu(request, response, dieserCookie, dieserArtikel, dieseAnzahl);
+			
 
 		}
 
@@ -96,4 +112,80 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 
 	}
 
+}
+	private WarenkorbBean checkWarenkorbUserVorhanden(int userID) throws ServletException {
+
+		boolean hasResult;
+		WarenkorbBean warenkorb = new WarenkorbBean();
+
+		String query = "SELECT * FROM thidb.Warenkorb WHERE FKuserID = ?";
+
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
+
+			pstm.setInt(1, userID);
+
+			ResultSet rs = pstm.executeQuery(); // sendet das SQL-Query zum Server und √ºbergibt Ergebnisse an rs
+			hasResult = rs.next(); // geht jetzt durch die Datens√§tze der Tabelle User und √ºberpr√ºft Mail und
+									// Passwort
+
+			if (hasResult) {
+				warenkorb.setWarenkorbID(rs.getInt("WarenkorbID"));
+			} else {
+				warenkorb = null;
+			}
+		} catch (Exception ex) {
+			throw new ServletException(ex.getMessage());
+		}
+
+		return warenkorb;
+
+	}
+	
+	private void cookieHinzu(HttpServletRequest request, HttpServletResponse response, Cookie[] dieserCookie, String dieserArtikel, Integer dieseAnzahl) {
+		System.out.println("Es sind cookies Vorhanden.");
+
+		boolean artikelVorhanden = false;
+
+		for (int i = 0; i < dieserCookie.length; i++) {
+
+			String artikelid = dieserCookie[i].getName();
+			String anzahl = dieserCookie[i].getValue();
+			System.out.println("Der bestehende Cookie aus Liste hat folgenden Namen/artikelID: " + artikelid);
+			System.out.println("der bestehende Cookie aus Liste hat folgenden Value/anzahl: " + anzahl);
+
+			if (dieserArtikel.equals(artikelid)) {
+
+				artikelVorhanden = true;
+				System.out.println(
+						"Der vo JSP ¸bergebene Artikel hat die selbe artikelID, wie der Cookie (Name), dieserArtikel = "
+								+ dieserArtikel + "artikelID= " + artikelid);
+
+				// falls artikelID Seite gleich wie artikelID Cookie, erhˆhe Anzahl
+				int number = Integer.parseInt(anzahl);
+				int pruef = dieseAnzahl + number;
+				System.out.println("der neue Value (anzahl + number) =  " + pruef);
+
+				if ((dieseAnzahl + number) < 50) {
+
+					dieserCookie[i].setValue(Integer.toString(pruef));
+					System.out.println("Artikel hat schon existiert, Anzahl erhoeht, ArtikelID= " + dieserArtikel
+							+ " neue Anzahl= " + pruef);
+
+					System.out.println(
+							"Der Artikel m¸sste nun ver‰nder sein. Gib mir den Ver‰nderten Cookie zur¸ck.");
+					System.out.println("Name :" + dieserCookie[i].getName());
+					System.out.println("NEUER Value:" + dieserCookie[i].getValue());
+
+				}
+			}
+		}
+
+		if (!artikelVorhanden) {
+
+			Cookie neuerCookie = new Cookie(dieserArtikel, Integer.toString(dieseAnzahl));
+			response.addCookie(neuerCookie);
+			System.out.println("new Cookie created, ArtikelID= " + dieserArtikel + " Anzahl= " + dieseAnzahl);
+		}
+		
+	}
 }

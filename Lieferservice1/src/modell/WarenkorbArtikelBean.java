@@ -13,6 +13,7 @@ public class WarenkorbArtikelBean implements Serializable{
 	private int fkartikelID;
 	private int anzahlArtikel;
 	
+	
 	public int getWarenkorbArtikelID() {
 		return warenkorbArtikelID;
 	}
