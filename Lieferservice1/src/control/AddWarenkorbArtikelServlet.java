@@ -63,17 +63,16 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 			}
 			else {
 				//user Hat einen Warenkorb --> WarenkorbArtikel aus DB holen und Artikel dort hinein speichern
-				String query = "SELECT artikelid, anzahl FROM thidb.WarenkorbArtikel WHERE FkWarenkorbID = ?";
+				String query = "SELECT FKartikelID, AnzahlArtikel FROM thidb.WarenkorbArtikel WHERE FkWarenkorbID = ?";
+				
+				ArrayList<WarenkorbArtikelBean> warenkorbArtikel = new ArrayList<WarenkorbArtikelBean>();
 
 				try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 
 					pstm.setInt(1, warenkorb.getWarenkorbID());
 
 					ResultSet rs = pstm.executeQuery(); 
-					
-					ArrayList<WarenkorbArtikelBean> warenkorbArtikel = new ArrayList<WarenkorbArtikelBean>();
-
-					
+								
 					while (rs.next()) {
 						WarenkorbArtikelBean neuerWarenkorbArtikel = new WarenkorbArtikelBean(); 
 						
@@ -82,22 +81,51 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 						warenkorbArtikel.add(neuerWarenkorbArtikel);		
 						
 					}
-					
-				/*	for (int i = 0; i<warenkorbArtikel.size(); i++) {
-						warenkorbArtikel.get(i).getFkartikelID()
-						
-						if (warenkorbArtikel.get(i).getFkartikelID() ==
-					}*/
-
-					
-				} catch (Exception ex) {
+				}
+				catch(Exception ex) {
 					throw new ServletException(ex.getMessage());
 				}
-				
+					
+					
+					for (int i = 0; i<warenkorbArtikel.size(); i++) {
+						warenkorbArtikel.get(i).getFkartikelID();
+						Integer dieserArtikelInt = Integer.getInteger(dieserArtikel);
+						
+						if (warenkorbArtikel.get(i).getFkartikelID() == dieserArtikelInt){
+							int neueAnzahl = warenkorbArtikel.get(i).getAnzahlArtikel()+dieseAnzahl;
+							
+							//perform update in DB
+							String query2= "UPDATE thidb.WarenkorbArtikel SET AnzahlArtikel = ? WHERE FKWarenkorbID = ? AND FKartikelID = ?";
+							try (Connection conn2 = ds.getConnection(); PreparedStatement pstm2 = conn2.prepareStatement(query2)){
+								pstm2.setInt(1, neueAnzahl);
+								pstm2.setInt(2, warenkorb.getWarenkorbID());
+								pstm2.setInt(3, dieserArtikelInt);
+							}
+						
+						catch(Exception ex) {
+							throw new ServletException(ex.getMessage());
+						}
+							
+							
+						}
+						else {
+							String query3 = "INSERT INTO thidb.WarenkorbArtikel (FKwarenkorbID, FKartikelID, AnzahlArtikel) values (?,?,?,?)";
+							try (Connection conn3 =ds.getConnection(); PreparedStatement pstm3 = conn3.prepareStatement(query3)){
+								pstm3.setInt(1, warenkorb.getWarenkorbID());
+								pstm3.setInt(2,  dieserArtikelInt);
+								pstm3.setInt(3, dieseAnzahl);
+							}
+							catch(Exception ex) {
+								throw new ServletException(ex.getMessage());
+							}
+					}
+
 				
 			}
 			
 		}
+		}
+	
 		
 		//User NICHT angemeldet --> Artikel als Cookies speichern
 		else {
@@ -183,6 +211,7 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 		if (!artikelVorhanden) {
 
 			Cookie neuerCookie = new Cookie(dieserArtikel, Integer.toString(dieseAnzahl));
+			neuerCookie.setMaxAge(60*60*24*7);
 			response.addCookie(neuerCookie);
 			System.out.println("new Cookie created, ArtikelID= " + dieserArtikel + " Anzahl= " + dieseAnzahl);
 		}

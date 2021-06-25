@@ -61,7 +61,7 @@ public class WarenkorbErstellenServlet extends HttpServlet {
 				WarenkorbArtikelBean[] warenkorbArtikel = cookiesAsWarenkorb(warenkorbKunde, request, response);
 
 					// Warenkorb in Datenbank speichern
-					String query2 = "INSERT INTO thidb.Warenkorb (WarenkorbID, fkUserID) values(?,?)";
+					String query2 = "INSERT INTO thidb.Warenkorb (WarenkorbID, FKuserID) values(?,?)";
 					try (Connection conn2 = ds.getConnection();
 							PreparedStatement pstm2 = (PreparedStatement) conn2.prepareStatement(query2)) {
 
@@ -80,7 +80,7 @@ public class WarenkorbErstellenServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 
-				String query3 = "INSERT INTO thidb.WarenkorbArtikel (fkWarenkorbID, fkArtikelID, AnzahlArtikel) values(?,?,?)";
+				String query3 = "INSERT INTO thidb.WarenkorbArtikel (FKWarenkorbID, FKartikelID, AnzahlArtikel) values(?,?,?)";
 				try (Connection conn3 = ds.getConnection();
 						PreparedStatement pstm3 = (PreparedStatement) conn3.prepareStatement(query3)) {
 
@@ -106,7 +106,7 @@ public class WarenkorbErstellenServlet extends HttpServlet {
 				
 				//HIER JOIN MIT WARENKORBARTIKEL
 				
-				String query4 = "SELECT WarenkorbID from thidb.Warenkorb where FkuserID = ?";
+				String query4 = "SELECT WarenkorbID from thidb.Warenkorb where FKuserID = ?";
 				try (Connection conn4 = ds.getConnection();
 						PreparedStatement pstm4 = (PreparedStatement) conn4.prepareStatement(query4)) {
 
