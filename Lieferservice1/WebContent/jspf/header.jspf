@@ -6,7 +6,7 @@
 <head>
 <base href="${pageContext.request.requestURI}/">
 <meta charset="UTF-8">
-<script type="text/javascript" src="../../js/visibileButton.js"></script>
+<script type="text/javascript" src="../../js/navBar.js"></script>
 <script type="text/javascript" src="../../js/suche.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/dropdownHeader.css">
 <link rel="stylesheet"
@@ -47,7 +47,7 @@
           </div>
 
           <form action="../../html/konto.jsp">
-            <button type="submit" id="benutzerKonto" style="visibility: visible">
+            <button type="submit" id="benutzerKonto">
               <i class="fa fa-user" id="userIcon"></i>
             </button>
           </form>

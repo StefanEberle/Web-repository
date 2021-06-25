@@ -40,12 +40,12 @@ public class DeleteArtikelServlet extends HttpServlet {
 		
 		String delete = request.getParameter("deleteArtikel");
 		
+		
 
 		//Bild anhand der ID aus der Tabelle löschen und wenn bei Artikel die gleiche ID vorhanden ist - diese ebenfalls löschen
-		// Quelle: https://stackoverflow.com/questions/1233451/delete-from-two-tables-in-one-query Autor: angry kiwi  
 		String query = "DELETE ab.* , a.* FROM thidb.ArtikelBild ab LEFT JOIN Artikel a ON a.ArtikelID = ab.FKartikelID WHERE ab.FKartikelID = ?";
 		
-		try(Connection conn = ds.getConnection("root","root");
+		try(Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)){
 			
 			pstm.setString(1, delete);

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Artikel erzeugen</title>
 <base href="${pageContext.request.requestURI}/">
-<script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
+<script type="text/javascript" src="../../js/kategorie-Selected-Ausgabe.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/artikelErzeugen.css">
 </head>
 <%@ include file="../jspf/header.jspf"%>

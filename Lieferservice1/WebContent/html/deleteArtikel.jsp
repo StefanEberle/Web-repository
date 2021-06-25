@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Artikel löschen</title>
 <base href="${pageContext.request.requestURI}/">
-<script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
+<script type="text/javascript" src="../../js/kategorie-Selected-Ausgabe.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/deleteArtikel.css">
 <link rel="stylesheet" type="text/css"
 	href="../../css/artikelAuswahl.css">
@@ -22,7 +22,7 @@
 
 <section class="artikelDelete">
 <form action="../../AuswahlArtikelServlet" method="GET">
-<h3>Artikel Unterkategorie auswwählen:</h3>
+<h3>Artikel Unterkategorie auswählen:</h3>
 <article id="erzeugen1">
 <label>Kategorie:</label>
 <select id="kategorie2" name="kategorie" required>

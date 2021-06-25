@@ -71,7 +71,7 @@ public class WarenkorbServlet extends HttpServlet {
 
 		String query = "SELECT * FROM thidb.Warenkorb WHERE FKuserID = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)) {
 
 			pstm.setInt(1, userID);

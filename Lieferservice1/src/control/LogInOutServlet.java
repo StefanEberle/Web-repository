@@ -102,7 +102,7 @@ public class LogInOutServlet extends HttpServlet {
 		boolean isLogged;
 		String query = "Select * from thidb.User where Email = ? and Passwort = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)) {
 
 			pstm.setString(1, mail);
@@ -126,7 +126,7 @@ public class LogInOutServlet extends HttpServlet {
 
 		String query = "UPDATE thidb.User Set isLogin = ? WHERE UserID = ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query);) {
 			stm.setBoolean(1, isLogin);
 			stm.setInt(2, userID);
@@ -143,7 +143,7 @@ public class LogInOutServlet extends HttpServlet {
 
 		String query = "Select * from thidb.User where Email = ?";
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setString(1, mail);
 			try (ResultSet rs = stm.executeQuery()) {
@@ -166,7 +166,7 @@ public class LogInOutServlet extends HttpServlet {
 
 		String query = "Select * from thidb.Adresse where FKUserID = ?";
 
-		try (Connection conn = ds.getConnection("root", "root"); PreparedStatement stm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
 			stm.setInt(1, adresse.getUserid());
 			try (ResultSet rs = stm.executeQuery()) {

@@ -44,9 +44,11 @@ option{
 }
 /* weite select*/
 #marken > select{
-  width:180px
+  width:180px;
 }
-
+#selectForSearch{
+  width:180px;
+}
 /***************************************************/
 
 /* Img position */

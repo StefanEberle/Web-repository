@@ -34,8 +34,7 @@ import modell.ArtikelBean;
  */
 @WebServlet("/CreateArtikelServlet")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5
-		* 5, location = "/Users/stefaneberle/DEV/servers/wildfly-16.0.0.Final/standalone/deployments/Lieferservice1.war/WEB-INF/", fileSizeThreshold = 1024
-				* 1024)
+		* 5, location = "/Users/stefaneberle/DEV/servers/wildfly-22.0.0.Final/tmp", fileSizeThreshold = 1024 * 1024)
 
 public class CreateArtikelServlet extends HttpServlet {
 
@@ -131,7 +130,7 @@ public class CreateArtikelServlet extends HttpServlet {
 			imageType = imageName.substring(i + 1);
 		}
 
-		/**********
+		/***********
 		 * https://newbedev.com/how-to-convert-bufferedimage-to-inputstream
 		 ***********/
 
@@ -139,8 +138,8 @@ public class CreateArtikelServlet extends HttpServlet {
 		ImageIO.write(resized, imageType, os);
 		InputStream outputImage = new ByteArrayInputStream(os.toByteArray());
 
-		/******
-		 * drei Zeilen
+		/********************************************************************
+		 * Zitat Ende
 		 ********************************************************************/
 
 		sicherArtikelBild(artikel.getArtikelID(), outputImage);
@@ -150,7 +149,7 @@ public class CreateArtikelServlet extends HttpServlet {
 	}
 
 	/*
-	 * https://www.baeldung.com/java-resize-image Abschnitt - 2.2
+	 * https://www.baeldung.com/java-resize-image Abschnitt - 2.2 -
 	 * ImagegetScaledInstance()
 	 */
 	private static BufferedImage resize(BufferedImage img, int height, int width) {
@@ -164,10 +163,14 @@ public class CreateArtikelServlet extends HttpServlet {
 		return outputImage;
 	}
 
+	/***************************************************************
+	 * Zitat Ende
+	 ***************************************************************/
+
 	private void sicherArtikelBild(int artikelID, InputStream image) {
 
 		String query = "INSERT INTO thidb.ArtikelBild (FKartikelID, ArtikelBild) values(?,?)";
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
 
 			pstm.setInt(1, artikelID);
@@ -194,7 +197,7 @@ public class CreateArtikelServlet extends HttpServlet {
 		String[] generatedKeys = new String[] { "ArtikelID" }; // Name der Spalte(n), die automatisch generiert wird
 																// (werden)
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = (PreparedStatement) conn.prepareStatement(query, generatedKeys)) {
 
 			stm.setString(1, artikel.getMarke());

@@ -21,8 +21,8 @@ import modell.TextBean;
 /**
  * Servlet implementation class sucheAjax
  */
-@WebServlet("/sucheAjax")
-public class sucheAjax extends HttpServlet {
+@WebServlet("/SucheAjaxServlet")
+public class SucheAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
@@ -77,10 +77,11 @@ public class sucheAjax extends HttpServlet {
 		ArrayList<TextBean> list = new ArrayList<TextBean>();
 
 		bez = "%" + bez + "%";
-
+		int tmp = 0;
+		
 		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE Marke LIKE ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			stm.setString(1, bez);
@@ -88,14 +89,15 @@ public class sucheAjax extends HttpServlet {
 			try (ResultSet rs = stm.executeQuery()) {
 
 				while (rs != null && rs.next()) {
-
+					
 					if (!bez.equals("%%")) {
-
+						
 						TextBean name = new TextBean();
 						name.setOriginalText(rs.getString("Marke"));
 
 						list.add(name);
 					}
+					
 				}
 
 			}
@@ -113,7 +115,7 @@ public class sucheAjax extends HttpServlet {
 
 		String query = "SELECT DISTINCT Marke FROM thidb.Artikel WHERE " + tmp + "= ?";
 
-		try (Connection conn = ds.getConnection("root", "root");
+		try (Connection conn = ds.getConnection();
 				PreparedStatement stm = conn.prepareStatement(query);) {
 
 			stm.setString(1, bez);

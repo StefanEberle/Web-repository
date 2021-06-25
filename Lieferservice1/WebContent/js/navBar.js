@@ -8,15 +8,7 @@ function init() {
 	
 }
 
-function hiddInput(){
-	var suche = document.getElementById("artikelSuche");
-	suche.style.visibility = "hidden";
-}
 
-function showInput() {
-	var suche = document.getElementById("artikelSuche");
-	suche.style.visibility = "visible";
-}
 
 function navBar(){
 	
@@ -37,19 +29,24 @@ function navBar(){
 				var tmp = 1;
 				for(var i = 0; i < erg.length; i++){
 
-					if(tmp < erg[i].fkKategorieID){ 	//Neue Kategorie in Liste --> div schließen
-						ausgabe += "</div>";
-						ausgabe += "</div>";
-						tmp++;
-					}
+				
 					
 					if(!katBezListe.includes(erg[i].bezeichnungKat)){
 						katBezListe.push(erg[i].bezeichnungKat);
+						
+						if(tmp < katBezListe.length){ 	//Neue Kategorie in Liste --> div schließen - solange kleiner bis neue Kategorie add
+
+							ausgabe += "</div>";
+							ausgabe += "</div>";
+							tmp = katBezListe.length; 
+						
+						}
+						
 						ausgabe += "<div class="+ "dropdown" + ">";
 						ausgabe += "<button + type=" + "submit"+ " "  + "class=" + "dropbtn" +" "+"name=" + "kategorie " + "value="+ erg[i].fkKategorieID + ">";
 						ausgabe += erg[i].bezeichnungKat;
 						ausgabe += "</button>";
-						ausgabe += "<div class=" + "dropdown-content" + ">";
+						ausgabe += "<div class=" + "dropdown-content" + ">"; //Für Unterkategorien
 					}
 
 					
@@ -58,7 +55,7 @@ function navBar(){
 					ausgabe += erg[i].unterkategorieBez + " ";
 					ausgabe += "</a>";
 					
-					if(i == erg.length-1){ // letzte UnterKategorie div schließen
+					if(i == erg.length-1){ // letzte UnterKategorie --> div schließen
 						ausgabe += "</div>";
 						ausgabe += "</div>";
 					}
@@ -73,7 +70,7 @@ function navBar(){
 
 		}
 	}
-	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
+	xmlhttp.open("GET", "../../GetKatUKatAjaxServlet", true);
 	xmlhttp.send();
 	
 }
