@@ -20,13 +20,13 @@ import modell.UserBean;
 /**
  * Servlet implementation class WarenkorbAnzeigen
  */
-@WebServlet("/WarenkorbAnzeigen")
-public class WarenkorbAnzeigen extends HttpServlet {
+@WebServlet("/WarenkorbAnzeigenServlet")
+public class WarenkorbAnzeigenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataSource ds;
        
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
@@ -34,13 +34,13 @@ public class WarenkorbAnzeigen extends HttpServlet {
 		UserBean user = (UserBean) session.getAttribute("user");
 		String userid = String.valueOf(user.getUserid());
 		
-		ArrayList<ArtikelBean> warenkorbArtikel = new ArrayList<ArtikelBean>(); 
 		
-		BigDecimal gesamtSumme;
+		System.out.println("Hello I am fucking working");
+		ArrayList<ArtikelBean> warenkorbArtikelList = new ArrayList<ArtikelBean>(); 
 		
+		BigDecimal gesamtSumme = BigDecimal.ZERO;
 		
 		String query = "SELECT thidb.Artikel.ArtikelID, Marke, Gebinde, Fuellmenge, Gesamtpreis, thidb.WarenkorbArtikel.AnzahlArtikel  FROM thidb.Artikel INNER JOIN thidb.WarenkorbArtikel ON thidb.Artikel.ArtikelID = thidb.WarenkorbArtikel.FKartikelID WHERE thidb.WarenkorbArtikel.FKUserID = ?";
-		
 		
 		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
@@ -59,22 +59,18 @@ public class WarenkorbAnzeigen extends HttpServlet {
 					BigDecimal preis = rs.getBigDecimal("Gesamtpreis");
 					BigDecimal gesamtpreisArtikel = (preis.multiply(BigDecimal.valueOf(anzahlArtikel)));
 					gesamtSumme = gesamtSumme.add(gesamtpreisArtikel);
-					
-					
 					artikel.setStueckzahl(rs.getInt("AnzahlArtikel"));
 					artikel.setGesamtpreis(gesamtpreisArtikel);
-					artikel.setEpJeLiter(rs.getBigDecimal("EPjeLiter"));
-					artikel.setPfandProFlasche(rs.getBigDecimal("PfandproFlasche"));
-					artikel.setPfandKasten(rs.getBigDecimal("PfandKasten"));
-					artikel.setPfandGesamt(rs.getBigDecimal("PfandGesamt"));
 
-					warenkorbArtikel.add(artikel);
+					warenkorbArtikelList.add(artikel);
 				}
 			}
 			conn.close();
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
+		request.setAttribute("warenkorbArtikelList", warenkorbArtikelList);
+		request.setAttribute("gesamtSumme", gesamtSumme);
 		
 	
 	}
@@ -84,9 +80,6 @@ public class WarenkorbAnzeigen extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+	
 
 }

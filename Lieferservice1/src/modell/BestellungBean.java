@@ -1,6 +1,7 @@
 package modell;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class  BestellungBean implements Serializable {
 	public enum Status {
@@ -11,7 +12,7 @@ public class  BestellungBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int BestellungsID;
 	private Status status;
-	private WarenkorbBean warenkorb;
+	private WarenkorbBean FKwarenkorbID;
 	
 	public BestellungBean(WarenkorbBean warenkorb) {
 		warenkorb = warenkorb;
@@ -27,14 +28,6 @@ public class  BestellungBean implements Serializable {
 		BestellungsID = bestellungsID;
 	}
 
-	public WarenkorbBean getWarenkorb() {
-		return warenkorb;
-	}
-
-	public void setWarenkorb(WarenkorbBean warenkorb) {
-		this.warenkorb = warenkorb;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -42,5 +35,12 @@ public class  BestellungBean implements Serializable {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
+	public WarenkorbBean getFKwarenkorbID() {
+		return FKwarenkorbID;
+	}
+
+	public void setFKwarenkorbID(WarenkorbBean fKwarenkorbID) {
+		FKwarenkorbID = fKwarenkorbID;
+	}
 }
