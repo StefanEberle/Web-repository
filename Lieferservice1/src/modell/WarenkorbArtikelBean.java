@@ -11,6 +11,7 @@ public class WarenkorbArtikelBean implements Serializable{
 	private int warenkorbArtikelID; //Für einen Warenkorb gibt es "X" warenkorbArtikel
 	private int fkwarenkorbID;		// Die Menge der WarenkorbArtikel in einem Warenkorb
 	private int fkartikelID;
+	private int fkbestellungID;
 	private int anzahlArtikel;
 	
 	
@@ -37,6 +38,12 @@ public class WarenkorbArtikelBean implements Serializable{
 	}
 	public void setAnzahlArtikel(int anzahlArtikel) {
 		this.anzahlArtikel = anzahlArtikel;
+	}
+	public int getFkbestellungID() {
+		return fkbestellungID;
+	}
+	public void setFkbestellungID(int fkbestellungID) {
+		this.fkbestellungID = fkbestellungID;
 	}
 	
 }

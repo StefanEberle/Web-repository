@@ -15,39 +15,13 @@
 
 
 <main>
-<jsp: include page = "../../WarenkorbAnzeigenServlet" flush ="true"/>
-	<table id="warenkorbArtikelList">
-	
-		<c:if test="${not empty warenkorbArtikelList}">
-	
-		<c:forEach var="a" items="${warenkorbArtikelList}" varStatus = "counter">
-		
-		<td class=${a.gebinde} id= "artikel"><img src=../../RetrieveImageServlet?artikelID=${a.artikelID}>
-		
-		<ul class = artikelBeschreibung>
-				<li>Marke: ${a.marke}</li>
-				<li>Gebinde: ${a.gebinde}</li>
-				<li>Füllmenge: ${a.fuellmenge}</li>
-				<li>Stückzahl: ${a.stueckzahl}</li>
-				<li>Preis pro Liter: ${a.epJeLiter} €/Liter</li>
-		</ul>
-		
-		<p>Gesamtpreis: </p>
-		
-		
-		</td>
-		
-		
-		</c:forEach>
-		</c:if>
-		
-		
-	
-	
-	</table>
-
+ <form action= "../../WarenkorbAnzeigenServlet" method = "POST" > 
+           <button type= "submit" name= "warenkorbAnzeigen">
+             <i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
+             </button> 
+             </form>
 
 </main>
 
-
+<%@ include file="../jspf/footer.jspf"%>
 </html>

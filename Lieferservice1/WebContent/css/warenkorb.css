@@ -9,7 +9,7 @@ a{
 p{
   border-bottom:black solid 1px;
   width:130px;
-  font-size:25px;
+  font-size:15px;
 }
 aside button {
   position:relative;
@@ -71,12 +71,12 @@ li{
    width: 45px;
  }
 #warenkorbArtikelList button{
-  position:relative;
+  position:center;
   background-color: #095484;
   color:whitesmoke;
-  text-align:center;
-  left:80px;
-  top:-160px
+  text-align:center
+/* left:80px;
+  top:-160px*/
 
 }
 

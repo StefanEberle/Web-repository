@@ -244,6 +244,7 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 				if ((dieseAnzahl + number) < 50) {
 
 					dieserCookie[i].setValue(Integer.toString(pruef));
+					response.addCookie(dieserCookie[i]);
 					System.out.println("Artikel hat schon existiert, Anzahl erhoeht, ArtikelID= " + dieserArtikel
 							+ " neue Anzahl= " + pruef);
 

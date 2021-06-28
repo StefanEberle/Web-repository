@@ -10,22 +10,26 @@ public class  BestellungBean implements Serializable {
 	};
 
 	private static final long serialVersionUID = 1L;
-	private int BestellungsID;
+	private int BestellungID;
+	private int FKuserID;
 	private Status status;
-	private WarenkorbBean FKwarenkorbID;
+	private int FKwarenkorbID;
 	
-	public BestellungBean(WarenkorbBean warenkorb) {
-		warenkorb = warenkorb;
+	public BestellungBean(int FKwarenkorbID) {
+		FKwarenkorbID = FKwarenkorbID;
 		Status status = Status.aufgegeben;
+	}
+	
+	public BestellungBean() {
 		
 	}
 
-	public int getBestellungsID() {
-		return BestellungsID;
+	public int getBestellungID() {
+		return BestellungID;
 	}
 
-	public void setBestellungsID(int bestellungsID) {
-		BestellungsID = bestellungsID;
+	public void setBestellungsID(int bestellungID) {
+		BestellungID = bestellungID;
 	}
 
 	public Status getStatus() {
@@ -36,11 +40,25 @@ public class  BestellungBean implements Serializable {
 		this.status = status;
 	}
 
-	public WarenkorbBean getFKwarenkorbID() {
+	public int getFKwarenkorbID() {
 		return FKwarenkorbID;
 	}
 
-	public void setFKwarenkorbID(WarenkorbBean fKwarenkorbID) {
+	public void setFKwarenkorbID(int fKwarenkorbID) {
 		FKwarenkorbID = fKwarenkorbID;
 	}
+
+	public int getFKuserID() {
+		return FKuserID;
+	}
+
+	public void setFKuserID(int fKuserID) {
+		FKuserID = fKuserID;
+	}
+
+	public void setBestellungID(int bestellungID) {
+		BestellungID = bestellungID;
+	}
+
 }
+

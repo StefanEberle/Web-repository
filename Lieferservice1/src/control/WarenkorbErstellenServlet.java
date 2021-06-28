@@ -87,6 +87,7 @@ public class WarenkorbErstellenServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+			
 			System.out.println("Es gibt Warenkorb oder Warenkorb wurde gerade erstellt. nun speichern in DB etc.");
 
 			getWarenkorbFromDB(warenkorbKunde);
@@ -94,10 +95,12 @@ public class WarenkorbErstellenServlet extends HttpServlet {
 			WarenkorbArtikelBean[] warenkorbArtikel = cookiesAsWarenkorb(warenkorbKunde, request, response);
 
 			speicherArtikelDB(warenkorbArtikel);
+			session.setAttribute("WarenkorbID", warenkorbKunde.getWarenkorbID());
 
 		}
 
 		System.out.println("It fucking worked, bitch! Dies ist deine WarenkorbID:");
+		
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		response.sendRedirect("html/WarenkorbAnzeigen.jsp");
