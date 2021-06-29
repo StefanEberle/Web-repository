@@ -60,7 +60,7 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 		rechnung.setSumme(summe);
 		rechnung.setFKuserID(user.getUserid());
 		rechnung.setFKbestellungID(bestellung.getBestellungID());
-		rechnung.setRechnungsStatus("offen");
+		rechnung.setRechnungsstatus("offen");
 		
 		System.out.println("Rechnung erstellt.");
 		

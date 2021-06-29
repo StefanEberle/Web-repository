@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 import modell.ArtikelBean;
 import modell.BestellungBean;
 import modell.RechnungBean;
+import modell.SuchergebnisBean;
 import modell.UserBean;
 import modell.WarenkorbArtikelBean;
 
@@ -29,58 +30,52 @@ import modell.WarenkorbArtikelBean;
 public class BestellungenAnzeigenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
-	private DataSource ds;  
-  
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private DataSource ds;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		UserBean user = (UserBean) session.getAttribute("user");
-		BestellungBean bestellung = new BestellungBean(); 
-		RechnungBean rechnung = new RechnungBean(); 
-		WarenkorbArtikelBean warenkorbArtikel = new WarenkorbArtikelBean();
-		
-		ArrayList<WarenkorbArtikelBean> warenkorbArtikelList = new ArrayList<WarenkorbArtikelBean>();
+
 		ArrayList<BestellungBean> bestellungList = new ArrayList<BestellungBean>();
 		ArrayList<RechnungBean> rechnungList = new ArrayList<RechnungBean>();
-		
-		
-		String query = "SELECT Bestellung.BestellungID, Bestellung.Status, Rechnung.summe, Rechnung.Status, Artikel.Marke, WarenkorbArtikel.FKartikelID, WarenkorbArtikel.AnzahlArtikel"
+
+		String query = "SELECT DISTINCT Bestellung.BestellungID, Bestellung.Status, Rechnung.summe, Rechnung.Status "
 				+ " FROM Rechnung INNER JOIN Bestellung ON Rechnung.FKbestellungID = Bestellung.BestellungID"
-				+ " INNER JOIN WarenkorbArtikel ON Bestellung.BestellungID = WarenkorbArtikel.FKBestellungID"
-				+ " INNER JOIN Artikel on WarenkorbArtikel.FKartikelID = Artikel.ArtikelID WHERE Bestellung.FKuserID=?";
+				+ " WHERE Bestellung.FKuserID=?";
 
 		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 
 			pstm.setInt(1, user.getUserid());
 
-			ResultSet rs = pstm.executeQuery(); 
-						
+			ResultSet rs = pstm.executeQuery();
+
 			while (rs.next()) {
+				BestellungBean bestellung = new BestellungBean();
+				RechnungBean rechnung = new RechnungBean();
+
 				bestellung.setBestellungID(rs.getInt("BestellungID"));
 				bestellung.setFKuserID(user.getUserid());
 				bestellung.setStatus(rs.getString("Bestellung.Status"));
 				rechnung.setFKbestellungID(bestellung.getBestellungID());
 				rechnung.setSumme(rs.getBigDecimal("summe"));
-				rechnung.setRechnungsStatus(rs.getString("RechnungsStatus"));
-				warenkorbArtikel.setAnzahlArtikel(rs.getInt("AnzahlArtikel"));
-				warenkorbArtikel.setFkartikelID(rs.getInt("FKartikelID"));
-				warenkorbArtikel.setFkbestellungID(rs.getInt("BestellungID"));
+				rechnung.setRechnungsstatus(rs.getString("Rechnung.Status"));
+
 				bestellungList.add(bestellung);
 				rechnungList.add(rechnung);
-				warenkorbArtikelList.add(warenkorbArtikel);
-				
+
 			}
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
-		
-		session.setAttribute("bestellungList", bestellungList);
-		session.setAttribute("rechnungList", rechnungList);
-		session.setAttribute("BestellungArtikelList", warenkorbArtikelList);
+
+		request.setAttribute("bestellungList", bestellungList);
+		request.setAttribute("rechnungList", rechnungList);
+
 		final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/BestellungenAnzeigen.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
 
 }

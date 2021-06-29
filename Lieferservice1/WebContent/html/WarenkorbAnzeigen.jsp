@@ -7,17 +7,17 @@
 <meta charset="UTF-8">
 <title>Test</title>
 <base href="${pageContext.request.requestURI}/">
-<link rel="stylesheet" type="text/css"
-	href="../../css/warenkorb.css">
+<link rel="stylesheet" type="text/css" href="../../css/warenkorb.css">
+<script type="text/javascript" src="../../js/warenkorb.js"></script>
 
 </head>
 <%@ include file="../jspf/header.jspf"%>
 <body>
-<main>
+	<main>
 
-<section>
-	<!--<article class="mainAdresse">	
-			<!--  	<h2>Adresse</h2>
+		<section>
+			<article class="mainAdresse">	
+			  	<h2>Adresse</h2>
 				<h5>Standardrechnungsadresse verwalten:</h5>
 			
 				
@@ -48,61 +48,57 @@
 	
 			
 			<button type="submit" name="adresseButton" id="adresseButton">Adresse bearbeiten</button>
-		</article>-->
-</section>
+		</article>
+		</section>
 
-<section>
-<table id="warenkorbArtikelList">
-	
-		<c:if test="${not empty warenkorbArtikelList}">
-	
-		
-		
-		<tr>
-		<th>Artikel</th>
-		<th>Gebinde</th>
-		<th>Anzahl</th>
-		<th>Preis</th>
-		<th>Menge ändern</th>
-		<tr>
-		
-		<c:forEach var="a" items="${warenkorbArtikelList}" varStatus = "counter">
-		 <tr>
-		<td class="dd" id="artikel"><img
-				src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
-				class="artikelBild">
-		</td>
-		<td>Gebinde: ${a.gebinde}</td>
-		<td> ${a.stueckzahl}</td>
-		<td>Preis pro Artikel: ${a.gesamtpreis} €/Artikel</td>
-		<td> 
-		<button>Anzahl erhöhen</button>
-				<button>Anzahl verringern</button>
+		<section>
+			<table id="warenkorbArtikelList">
+
+				<c:if test="${not empty warenkorbArtikelList}">
+
+					<tr>
+						<th>Artikel</th>
+						<th>Gebinde</th>
+						<th>Anzahl</th>
+						<th>Preis</th>
+						<th>Menge ändern</th>
+					<tr>
+
+						<c:forEach var="a" items="${warenkorbArtikelList}"
+							varStatus="counter">
+							<tr>
+								<td class="dd" id="artikel"><img
+									src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
+									class="artikelBild"></td>
+								<td>Gebinde: ${a.gebinde}</td>
+								<td>${a.stueckzahl}</td>
+								<td>Preis pro Artikel: ${a.gesamtpreis} €/Artikel</td>
+								<td>
+									<button>Anzahl erhöhen</button>
+									<button>Anzahl verringern</button>
+
+								</td>
+
+							</tr>
+
+						</c:forEach>
+				</c:if>
+
+			</table>
 			
-		</td>
+			
+
+		</section>
+	<button>Zahlungsart Auswählen (platzhalter)</button>
+	
+			<form action="../../createBestellungServlet" method="POST">
+				<button type="submit" name="warenkorbAnzeigen">
+					Zahlungspflichtig bestellen
+				</button>
+			</form>
 		
-		</tr>
-		
-		</c:forEach>
-		
-	
-		</c:if>
-	
-	</table>
-	
-	</section>
-	<section>
-	 <form action= "../../createBestellungServlet" method = "POST" > 
-           <button type= "submit" name= "warenkorbAnzeigen">
-             <i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
-             </button> 
-             </form>
-             </section>
-	
-				
-	
 
 
-</main>
+	</main>
 </body>
 </html>

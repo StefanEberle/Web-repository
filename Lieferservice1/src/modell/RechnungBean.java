@@ -11,7 +11,7 @@ public class RechnungBean  implements Serializable {
 	private int RechnungID;
 	private int FKbestellungID;
 	private int FKuserID;
-	private String RechnungsStatus; 
+	private String rechnungsstatus; 
 	private String bezahlung;
 	private BigDecimal summe;
 	
@@ -41,12 +41,13 @@ public class RechnungBean  implements Serializable {
 		FKuserID = fKuserID;
 	}
 
-	public String getRechnungsStatus() {
-		return RechnungsStatus;
+
+	public String getRechnungsstatus() {
+		return rechnungsstatus;
 	}
 
-	public void setRechnungsStatus(String rechnungsStatus) {
-		RechnungsStatus = rechnungsStatus;
+	public void setRechnungsstatus(String rechnungsstatus) {
+		this.rechnungsstatus = rechnungsstatus;
 	}
 
 	public String getBezahlung() {

@@ -5,18 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Test</title>
+<title>BestellungenAnzeigen</title>
 <base href="${pageContext.request.requestURI}/">
-<link rel="stylesheet" type="text/css"
-	href="../../css/warenkorb.css">
+<link rel="stylesheet" type="text/css" href="../../css/warenkorb.css">
 
 </head>
 <%@ include file="../jspf/header.jspf"%>
 <body>
-<main>
+	<main>
 
-<section>
-	<!--<article class="mainAdresse">	
+		<section>
+			<!--<article class="mainAdresse">	
 			<!--  	<h2>Adresse</h2>
 				<h5>Standardrechnungsadresse verwalten:</h5>
 			
@@ -49,56 +48,43 @@
 			
 			<button type="submit" name="adresseButton" id="adresseButton">Adresse bearbeiten</button>
 		</article>-->
-</section>
+		</section>
+		<h1>TESTESTEST</h1>
 
-<section>
-<table id="warenkorbArtikelList">
-	
-		<c:if test="${not empty warenkorbArtikelList}">
-	
-		
-		
-		<tr>
-		<th>BestellID</th>
-		<th>BestellStatus</th>
-		<th>Preis</th>
-		<th>Rechnungsstatus</th>
-		<th>BestellteArtikel</th>
-		<tr>
-		
-		<c:forEach var="a" items="${bestellungArtikelList}" varStatus = "counter">
-		<c:forEach var="b" items="${rechnungList}" varStatus="counter">
-				 <tr>
-		<td class="dd" id="artikel"><img
-				src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
-				class="artikelBild">
-		</td>
-		<td>Gebinde: ${a.gebinde}</td>
-		<td> ${a.stueckzahl}</td>
-		<td>Preis pro Artikel: ${a.gesamtpreis} €/Artikel</td>
-		<td> 
-		<button>Anzahl erhöhen</button>
-				<button>Anzahl verringern</button>
-			
-		</td>
-		
-		</tr>
-		
-		</c:forEach>
-		</c:forEach>
-		
-	
-		</c:if>
-	
-	</table>
-	
-	</section>
-	
-	
+		<section>
+			<table id="warenkorbArtikelList">
+
+				<tr>
+					<th>BestellungID</th>
+					<th>BestellStatus</th>
+					<th>Preis</th>
+					<th>Rechnungsstatus</th>
+				<tr>
+
+					<c:forEach var="a" items="${bestellungList}" varStatus="counter">
+
+						<tr>
+							<td>${a.bestellungID}</td>
+							<td>${a.status}</td>
+</c:forEach>
+							<c:forEach var="b" items="${rechnungList}" varStatus="counter">
+								<td>${b.summe}</td>
+								<td>${b.rechnungsstatus}</td>
+							</c:forEach>
+						</tr>
+
+
+					
 				
-	
+			</table>
+
+		</section>
 
 
-</main>
+
+
+
+
+	</main>
 </body>
 </html>

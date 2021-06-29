@@ -1,42 +1,32 @@
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
 
-function init() {
 
+function init(){
 	
+
+	var adresseForm = document.getElementById("mainAdresse");
+	adresseForm.style.display = "none";
+	
+	var adresseButton = document.getElementById("adresseButton");
+	adresseButton.addEventListener("click",zeigeAdresse);
 }
 
-function addShoppingCart(artikelID){
+
+
+
+function zeigeEmail(){
 	
-
-	var menge = document.getElementById("menge").value;
-	var sendURL = "artikelID=" + artikelID + "&" + "menge=" + menge;
+	var emailForm = document.getElementById("emailBearbeiten");
+	emailForm.style.display = "block";
 	
+	var pwForm = document.getElementById("pwBearbeiten");
+	pwForm.style.display = "none";
 	
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-
-		if (xmlhttp.readyState == 4) {
-
-			if (xmlhttp.status == 200) {
-
-				var erg = JSON.parse(xmlhttp.responseText);
-				var ausgabe = "";
-
-				alert("jo");
-			
-			}
-
-		}
-
-	}
-
-	xmlhttp.open("POST", "../../WarenkorbServlet", true);
-	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xmlhttp.send(sendURL);
-
+	var emailButton = document.getElementById("emailButton");
+	emailButton.style.display = "none";
 	
-	
-	
-	
+	var pwButton = document.getElementById("pwButton");
+	pwButton.style.display = "block";
+
 }
