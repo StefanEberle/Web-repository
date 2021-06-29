@@ -1,36 +1,21 @@
 package modell;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class RechnungBean {
+public class RechnungBean  implements Serializable {
 	
-	private enum Status {
-		erstellt, 
-		bezahlt
-	};
+
 	
-	private enum Bezahlung{
-		bar, 
-		ueberweisung
-	}
-	
+	private static final long serialVersionUID = 1L;
 	private int RechnungID;
 	private int FKbestellungID;
 	private int FKuserID;
-	private Status status; 
-	private Bezahlung bezahlung;
+	private String RechnungsStatus; 
+	private String bezahlung;
 	private BigDecimal summe;
 	
-	public RechnungBean (int FKbestellungID, int FKuserID) {
-		FKbestellungID = FKbestellungID; 
-		FKuserID = FKuserID;
-		status = Status.erstellt;
-		bezahlung = Bezahlung.bar;
-	}
-	
 	public RechnungBean() {}
-
-
 
 	public int getRechnungID() {
 		return RechnungID;
@@ -38,14 +23,6 @@ public class RechnungBean {
 
 	public void setRechnungID(int rechnungID) {
 		RechnungID = rechnungID;
-	}
-
-	public int getFKuserID() {
-		return FKuserID;
-	}
-
-	public void setFKuserID(int fKuserID) {
-		FKuserID = fKuserID;
 	}
 
 	public int getFKbestellungID() {
@@ -56,19 +33,27 @@ public class RechnungBean {
 		FKbestellungID = fKbestellungID;
 	}
 
-	public Status getStatus() {
-		return status;
+	public int getFKuserID() {
+		return FKuserID;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setFKuserID(int fKuserID) {
+		FKuserID = fKuserID;
 	}
 
-	public Bezahlung getBezahlung() {
+	public String getRechnungsStatus() {
+		return RechnungsStatus;
+	}
+
+	public void setRechnungsStatus(String rechnungsStatus) {
+		RechnungsStatus = rechnungsStatus;
+	}
+
+	public String getBezahlung() {
 		return bezahlung;
 	}
 
-	public void setBezahlung(Bezahlung bezahlung) {
+	public void setBezahlung(String bezahlung) {
 		this.bezahlung = bezahlung;
 	}
 
@@ -78,7 +63,8 @@ public class RechnungBean {
 
 	public void setSumme(BigDecimal summe) {
 		this.summe = summe;
-	};
+	}
+
 	
 	
 	

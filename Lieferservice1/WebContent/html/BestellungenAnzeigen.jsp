@@ -59,15 +59,16 @@
 		
 		
 		<tr>
-		<th>Artikel</th>
-		<th>Gebinde</th>
-		<th>Anzahl</th>
+		<th>BestellID</th>
+		<th>BestellStatus</th>
 		<th>Preis</th>
-		<th>Menge ändern</th>
+		<th>Rechnungsstatus</th>
+		<th>BestellteArtikel</th>
 		<tr>
 		
-		<c:forEach var="a" items="${warenkorbArtikelList}" varStatus = "counter">
-		 <tr>
+		<c:forEach var="a" items="${bestellungArtikelList}" varStatus = "counter">
+		<c:forEach var="b" items="${rechnungList}" varStatus="counter">
+				 <tr>
 		<td class="dd" id="artikel"><img
 				src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
 				class="artikelBild">
@@ -84,6 +85,7 @@
 		</tr>
 		
 		</c:forEach>
+		</c:forEach>
 		
 	
 		</c:if>
@@ -91,13 +93,7 @@
 	</table>
 	
 	</section>
-	<section>
-	 <form action= "../../createBestellungServlet" method = "POST" > 
-           <button type= "submit" name= "warenkorbAnzeigen">
-             <i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
-             </button> 
-             </form>
-             </section>
+	
 	
 				
 	

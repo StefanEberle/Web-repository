@@ -20,7 +20,10 @@
 	
 	<aside class="mainSideBar">
 			<h5>Mein Konto</h5>
-			<a>Bestellungen</a>
+			<form action ="../../BestellungenAnzeigenServlet" method="POST" name="bestellungenAnzeigen">
+			<button type ="submit" name="bestellungenAnzeigen">Meine Bestellungen</button>
+			</form>
+			
 	</aside>
 
 <section class="mainContent">

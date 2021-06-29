@@ -4,21 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class  BestellungBean implements Serializable {
-	public enum Status {
-		aufgegeben, 
-		geliefert
-	};
+
 
 	private static final long serialVersionUID = 1L;
 	private int BestellungID;
 	private int FKuserID;
-	private Status status;
-	private int FKwarenkorbID;
-	
-	public BestellungBean(int FKwarenkorbID) {
-		FKwarenkorbID = FKwarenkorbID;
-		Status status = Status.aufgegeben;
-	}
+	private String status;
+
 	
 	public BestellungBean() {
 		
@@ -32,20 +24,15 @@ public class  BestellungBean implements Serializable {
 		BestellungID = bestellungID;
 	}
 
-	public Status getStatus() {
+	
+
+
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public int getFKwarenkorbID() {
-		return FKwarenkorbID;
-	}
-
-	public void setFKwarenkorbID(int fKwarenkorbID) {
-		FKwarenkorbID = fKwarenkorbID;
 	}
 
 	public int getFKuserID() {

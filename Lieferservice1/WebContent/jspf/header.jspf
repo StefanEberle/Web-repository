@@ -48,7 +48,7 @@
           <div class="warenkorb" id="warenkorb">
           
           
-           <form action= "../../WarenkorbErstellen" method = "POST" > 
+           <form action= "../../WarenkorbAnzeigenServlet" method = "POST" > 
            <button type= "submit" name= "warenkorbAnzeigen">
              <i class="fa fa-shopping-cart" id="warenkorbIcon"></i>
              </button> 
