@@ -36,6 +36,7 @@ aside{
     padding-top:50px;
     padding-right:80px;
     margin:20px;
+    margin-bottom:150px;
 }
 
 /* Marken */
@@ -124,6 +125,7 @@ main li:last-child{
 }
 /* table size position */
 #artikelListe{
+    min-height:700px;
     display:grid;
     column-gap:4em;
     width:75%;

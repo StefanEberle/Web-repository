@@ -22,7 +22,9 @@
 		<h1>Getränke Lieferservice</h1>
 		<h3>Direkt bis zu Ihrer Haustür</h3>
 
-
+		<c:if test="${user.isAdmin}">
+			<a href="../artikelErzeugen.jsp" id="admin">Anpassungen</a>
+		</c:if>
 		<nav class="navBar">
 
 			<form action="../../AuswahlArtikelServlet" method="GET">

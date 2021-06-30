@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,10 +41,14 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		
 		/* wenn Zeit zusätzlich - Artikel einzeln löschen */
 		
+		
 		String unterK = request.getParameter("unterKategorieDelete");
 
-		if(unterK.equals("Unterkategorie")) {
-			response.sendRedirect("html/deleteUnterKategorie.jsp");
+		
+		if(unterK.equals("0")) {
+			request.setAttribute("errorRequest", "Unterkategorie auswählen");
+			final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/deleteUnterKategorie.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
 		

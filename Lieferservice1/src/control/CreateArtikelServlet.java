@@ -34,7 +34,7 @@ import modell.ArtikelBean;
  */
 @WebServlet("/CreateArtikelServlet")
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5
-		* 5, location = "/Users/stefaneberle/DEV/servers/wildfly-22.0.0.Final/tmp", fileSizeThreshold = 1024 * 1024)
+		* 5, location = "/tmp", fileSizeThreshold = 1024 * 1024)
 
 public class CreateArtikelServlet extends HttpServlet {
 
@@ -54,7 +54,19 @@ public class CreateArtikelServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		ArtikelBean artikel = new ArtikelBean();
-//		ArtikelBildBean artikelBild = new ArtikelBildBean();
+
+		
+		final Part image;
+		
+		try {
+			image = request.getPart("artikelBild");
+			
+		}catch (Exception e) {
+			request.setAttribute("errorRequest", "Artikel create failed!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
 
 		/** Parameter holen **/
 		final String marke = request.getParameter("marke");
@@ -71,8 +83,7 @@ public class CreateArtikelServlet extends HttpServlet {
 		epJeLiter = gesamtpreis.divide(epJeLiter, 2, RoundingMode.HALF_EVEN);
 		BigDecimal pfandGesamt = pfandProFlasche.multiply(new BigDecimal(stueckzahl)).add(pfandKasten);
 
-		final Part image = request.getPart("artikelBild");
-
+		
 		if (kategorie == 0 || unterKategorie == 0) {
 			request.setAttribute("errorRequest", "Artikel create failed!");
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
@@ -80,24 +91,13 @@ public class CreateArtikelServlet extends HttpServlet {
 			return;
 		}
 
-		if (image == null) {
-			request.setAttribute("errorRequest", "Artikel create failed!");
-			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
-			dispatcher.forward(request, response);
-			return;
-
-		}
-
-		/* Type */
 
 		BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
 		int imgWidth = bufferedImage.getWidth();
 		int imgHeight = bufferedImage.getHeight();
 
 		if (!checkSize(imgWidth, imgHeight)) {
-
-			request.setAttribute("errorRequest",
-					"Bild Verhältnis Weite/Höhe muss kleiner 1.5 und Weite & Höhe größer 200 sein!");
+			request.setAttribute("errorRequest", "Bild Verhältnis Weite/Höhe muss kleiner 1.5 und Weite & Höhe größer 200 sein!");
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
 			dispatcher.forward(request, response);
 			return;

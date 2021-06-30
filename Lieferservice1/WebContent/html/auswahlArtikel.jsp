@@ -21,24 +21,28 @@
 	<form action="../../AuswahlArtikelServlet" method="POST">
 		<p>Sorten</p>
 
-		<c:if test="${not empty param.kategorie}">
-			<input type="hidden" name="kategorie" id="filterKategorie"
-				value="${param.kategorie}">
-		</c:if>
-		<c:if test="${empty param.kategorie}">
-			<input type="hidden" name="kategorie" id="filterKategorie"
-				value="noValue">
-		</c:if>
 
+		<c:choose>
+          	<c:when test="${not empty param.kategorie}">
+          		<input type="hidden" name="kategorie" id="filterKategorie" value="${param.kategorie}">
+            </c:when>
+            <c:otherwise>
+            	<input type="hidden" name="kategorie" id="filterKategorie" value="noValue">
+			</c:otherwise>
+		</c:choose>
 
-		<c:if test="${not empty param.unterKategorie}">
-			<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
+	<c:choose>
+          	<c:when test="${not empty param.unterKategorie}">
+          		<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
 				value="${param.unterKategorie}">
-		</c:if>
-		<c:if test="${empty param.unterKategorie}">
-			<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
+            </c:when>
+            <c:otherwise>
+            	<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
 				value="nonValue">
-		</c:if>
+			</c:otherwise>
+		</c:choose>
+
+	
 
 		<section id="unterKategorie"></section>
 		<section>

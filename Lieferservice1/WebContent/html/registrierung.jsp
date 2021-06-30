@@ -46,9 +46,7 @@
 					placeholder="Passwort" required>
 
 				<!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
-				<!-- onchange="pwRules(this)"  
-			
-			pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  -->
+				<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  -->
 
 
 				<br>

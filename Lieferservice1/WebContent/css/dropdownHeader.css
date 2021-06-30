@@ -91,3 +91,13 @@
 #control_container i {
   padding: 0 10px;
 }
+
+
+#admin{
+  position:relative;
+  text-decoration:none;
+  color:black;
+  border: 1px solid black;
+  left:92%;
+  bottom:120px;
+}

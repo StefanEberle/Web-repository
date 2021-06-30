@@ -16,7 +16,14 @@
 <a href="../deleteArtikel.jsp">Artikel löschen</a>
 </aside>
 
+
+
 <section>
+
+<c:if test="${not empty errorRequest}">
+		<c:out value="${errorRequest}" />
+	</c:if>
+	
 <form action="../../DeleteUnterkategorieServlet" method="POST">
 <h3>Unterkategorie und dazugehörige Artikel löschen!</h3>
 <article>
