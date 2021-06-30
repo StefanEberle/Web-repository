@@ -38,7 +38,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String gebinde = "";
-		String uKate = "";
+		String unterKate = "";
 		String query = "";
 
 		String kategorie = request.getParameter("kategorie");
@@ -67,34 +67,21 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 		//Wenn eine Unterkategorie aufgerufen wurde (z.B. Spritzig, Helles etc.)
 		if (!unterKategorie.equals("nonValue") && !kategorie.equals("noValue")) {
-			uKate += "FKUnterkategorieID = " + unterKategorie;
-			query += "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ? AND " + uKate + " ";
+			unterKate += "FKUnterkategorieID = " + unterKategorie;
+			query += "SELECT * FROM thidb.Artikel WHERE FKKategorieID = ? AND " + unterKate + " ";
 		}
 		
 		//Wenn über die Suche - dann ist kategorie immer noValue
 		if (marken != null && kategorie.equals("noValue")) {
-			String replace = marken.replace("_", " ");
+			String replace = marken.replace("_", " "); 
 			query += " Marke = " + "'" + replace + "'";
 		}
+		
 		// Über Dropdown Menü und Marke ausgewählt
 		if (marken != null && !kategorie.equals("noValue")) {
 			String replace = marken.replace("_", " ");
 			query += " AND Marke = " + "'" + replace + "' ";
 		}
-
-		
-//		if (marken == null && !kategorie.equals("noValue")) {
-//
-//			if (glas != null && pet == null || pet != null && glas == null) {
-//				query += " AND ";
-//			}
-//		}
-//		if (marken != null) {
-//
-//			if (glas != null && pet == null || pet != null && glas == null) {
-//				query += " AND ";
-//			}
-//		}
 		
 		//Weder glas noch pet ausgewählt
 		if (glas != null && pet != null) {
@@ -117,6 +104,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)) {
+			
 			if (!kategorie.equals("noValue")) {
 				pstm.setString(1, kategorie);
 			}
@@ -147,7 +135,7 @@ public class AuswahlArtikelServlet extends HttpServlet {
 
 		request.setAttribute("artikelList", artikelList);
 
-			//Falls Anfrage über die Suche kommt - Ajax filter.js fehlt id
+			// Falls Anfrage über die Suche kommt - Ajax filter.js fehlt id
 			// Filter wird dann über die unterKategorienList, markenList erzeugt
 			if (kategorie.equals("noValue")) {
 
@@ -173,21 +161,13 @@ public class AuswahlArtikelServlet extends HttpServlet {
 		final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
 		dispatcher.forward(request, response);
 
-		// session Zugriff für JSP-EL
-		// URL für AJAX (filter.js)
-//		if (uKate.length() <= 1) {
-//			response.sendRedirect("html/auswahlArtikel.jsp?kategorie=" + kategorie);
-//		} else {
-//			response.sendRedirect(
-//					"html/auswahlArtikel.jsp?unterKategorie=" + unterKategorie + "&kategorie=" + kategorie);
-//		}
 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// Artikel holen über header oder Suche (marke)
+		// Artikel holen über navBar oder Suche 
 
 		String kategorie = request.getParameter("kategorie");
 		String unterKategorie = request.getParameter("unterKategorie");

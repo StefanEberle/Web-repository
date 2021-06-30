@@ -10,7 +10,7 @@ function init() {
 	//Aktuelles Jahr
 	selectedJahr();
 	
-	if(counterMonUndTag === 0){
+	if(counterMonUndTag === 0){ //nach auswahl Jahr sind Monat und Tag auswählbar
 		hiddenMonUndTag();
 	}
 
@@ -33,6 +33,7 @@ function init() {
 		}
 	});
 	
+	
 	jahr.addEventListener("change",function(){
 		if(jahr.value > 1949 && monat.value > 0 && tag.value > 0){
 			absendeButton.removeAttribute("disabled");
@@ -40,6 +41,7 @@ function init() {
 			absendeButton.setAttribute("disabled", "disabled");
 		}
 	});
+	
 	
 	tag.addEventListener("change",function(){
 		if(jahr.value > 1949 && monat.value > 0 && tag.value > 0){
@@ -102,7 +104,7 @@ function selectedTag(){
 	tage.innerHTML = options;
 }
 
-function selectedJahr(){
+function selectedJahr(){ // selected von 1950 bis aktuelles Jahr füllen
 	
 	
 	var end = new Date().getFullYear();

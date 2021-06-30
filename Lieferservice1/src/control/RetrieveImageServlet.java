@@ -32,48 +32,39 @@ public class RetrieveImageServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 
-		
+
 		response.setContentType("text/html;charset=UTF-8");
 		String query = "SELECT * FROM thidb.ArtikelBild WHERE FKartikelID = ?";
 
 		int artikelID = Integer.parseInt(request.getParameter("artikelID"));
 
-		ServletOutputStream output = response.getOutputStream();
 
 
 
-		try (Connection conn = ds.getConnection(); PreparedStatement stm = conn.prepareStatement(query)) {
 
-			stm.setInt(1, artikelID);
-			try (ResultSet rs = stm.executeQuery()) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
+
+			pstm.setInt(1, artikelID);
+			try (ResultSet rs = pstm.executeQuery()) {
 
 				if (rs != null && rs.next()) {
-					
+
 					Blob img = rs.getBlob("ArtikelBild");
 					response.reset();
 					long length = img.length();
 					response.setHeader("Conten-Length", String.valueOf(length));
-					
+
 					try(InputStream input = img.getBinaryStream();){
 						final int bufferSize = 256;
 						byte [] buffer = new byte[bufferSize];
-						
+
 						ServletOutputStream out = response.getOutputStream();
 						while((length = input.read(buffer)) != -1) {
 							out.write(buffer,0,(int) length);
 						}
 						out.flush();
 					}
-//					byte[] imageData = rs.getBytes("ArtikelBild");
-//					
-//					//response.setHeader("Content-Type", "image/gif");
-//					response.setContentType("image/gif");
-//					response.setContentLength(imageData.length);
-//					output = response.getOutputStream();
-//					output.write(imageData);
-//					output.flush();
-//					output.close(); 
-//					// Quelle https://stackoverflow.com/questions/15829367/how-to-display-an-image-from-mysql-database-on-a-jsp-page
+
 				}
 
 			}

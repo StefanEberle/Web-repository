@@ -20,10 +20,10 @@ import javax.sql.DataSource;
 @WebServlet("/DeleteArtikelServlet")
 public class DeleteArtikelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
 	private DataSource ds;
-   
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,24 +37,24 @@ public class DeleteArtikelServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String delete = request.getParameter("deleteArtikel");
-		
 
-		//Bild anhand der ID aus der Tabelle löschen und wenn bei Artikel die gleiche ID vorhanden ist - diese ebenfalls löschen
-		// Quelle: https://stackoverflow.com/questions/1233451/delete-from-two-tables-in-one-query Autor: angry kiwi  
+		String delete = request.getParameter("deleteArtikel");
+
+
+
+		//Bild anhand der ID aus der Tabelle lÃ¶schen und wenn bei Artikel die gleiche ID vorhanden ist - diese ebenfalls lÃ¶schen
 		String query = "DELETE ab.* , a.* FROM thidb.ArtikelBild ab LEFT JOIN Artikel a ON a.ArtikelID = ab.FKartikelID WHERE ab.FKartikelID = ?";
-		
+
 		try(Connection conn = ds.getConnection();
 				PreparedStatement pstm = conn.prepareStatement(query)){
-			
+
 			pstm.setString(1, delete);
 			pstm.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			throw new ServletException(e.getMessage());
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("html/deleteArtikel.jsp");
 		dispatcher.forward(request, response);
 	}

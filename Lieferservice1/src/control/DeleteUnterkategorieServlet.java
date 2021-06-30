@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,10 +41,14 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		
 		/* wenn Zeit zusätzlich - Artikel einzeln löschen */
 		
+		
 		String unterK = request.getParameter("unterKategorieDelete");
 
-		if(unterK.equals("Unterkategorie")) {
-			response.sendRedirect("html/delete.jsp");
+		
+		if(unterK.equals("0")) {
+			request.setAttribute("errorRequest", "Unterkategorie auswählen");
+			final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/deleteUnterKategorie.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
 		
@@ -57,7 +62,7 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("html/delete.jsp");
+		response.sendRedirect("html/deleteUnterKategorie.jsp");
 
 	}
 
@@ -88,8 +93,8 @@ public class DeleteUnterkategorieServlet extends HttpServlet {
 		} catch (Exception ex) {
 			throw new ServletException(ex.getMessage());
 		}
+		
 		//Bild anhand der ID aus der Tabelle löschen und wenn bei Artikel die gleiche ID vorhanden ist - diese ebenfalls löschen
-		// Quelle: https://stackoverflow.com/questions/1233451/delete-from-two-tables-in-one-query Autor: angry kiwi  
 		String deleteQuery = "DELETE ab.* , a.* FROM thidb.ArtikelBild ab LEFT JOIN Artikel a ON a.ArtikelID = ab.FKartikelID WHERE ab.FKartikelID = ?";
 
 		for (int i = 0; i < artikelList.size(); i++) {

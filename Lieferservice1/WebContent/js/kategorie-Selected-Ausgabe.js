@@ -2,8 +2,9 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
-
-	kategorieArray();
+	
+	//KategorieID und Bezeichnung
+	addKategorie();
 	
 	var kategorie = document.getElementById("kategorie2");
 	kategorie.addEventListener("change",unterKategorie);
@@ -11,11 +12,13 @@ function init() {
 	
 }
 
-function kategorieArray(){
+function addKategorie(){
 	
-	// Artikel - delete und erzeugen jsp
-	// Kategorien anzeigen
-	
+// bei artikelErzeugen.jsp zwei Selected einmal für UK hinzufügen und einmal für Artikel hinzufügen
+// Deshalb kategorie und kategorie2
+
+// ansonsten benutzt bei deleteArtikel.jsp und deleteUnterkategorie.jsp
+
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 	
@@ -53,17 +56,16 @@ function kategorieArray(){
 			
 			}
 			
-			//document.getElementById("kategorie").innerHTML = ausgabe;
-			//Für Unterkategorie Hinzufügen - (Kategorie auswählen und neue UK erstellen)
+			
 			if(document.getElementById("kategorie") !== null){
 				document.getElementById("kategorie").innerHTML = ausgabe;
 			}
 			
-			document.getElementById("kategorie2").innerHTML = ausgabe; //Erzeugen und Delete JSP 
+			document.getElementById("kategorie2").innerHTML = ausgabe; 
 			
 		}
 	}
-	xmlhttp.open("GET", "../../GetKategorieBezServlet", true);
+	xmlhttp.open("GET", "../../AddKategorieAjaxServlet", true);
 	xmlhttp.send();
 	
 }
@@ -100,14 +102,12 @@ function unterKategorie(){
 					}
 				}
 				
-				
-				//Kategorie und Unterkategorie und ID von beiden id als value in option und Bezeichnung als auswahl
 			}
 			
 				document.getElementById("unterkategorie").innerHTML = ausgabe;
 			
 		}
 	}
-	xmlhttp.open("GET", "../../GetBezeichnungAjax", true);
+	xmlhttp.open("GET", "../../GetKatUKatAjaxServlet", true);
 	xmlhttp.send();
 }

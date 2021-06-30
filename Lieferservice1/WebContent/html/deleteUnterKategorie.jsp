@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Artikel erzeugen</title>
 <base href="${pageContext.request.requestURI}/">
-<script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
-<link rel="stylesheet" type="text/css" href="../../css/delete.css">
+<script type="text/javascript" src="../../js/kategorie-Selected-Ausgabe.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/delete-UK-undArtikel.css">
 </head>
 <%@ include file="../jspf/header.jspf"%>
 <main>
@@ -16,7 +16,14 @@
 <a href="../deleteArtikel.jsp">Artikel löschen</a>
 </aside>
 
+
+
 <section>
+
+<c:if test="${not empty errorRequest}">
+		<c:out value="${errorRequest}" />
+	</c:if>
+	
 <form action="../../DeleteUnterkategorieServlet" method="POST">
 <h3>Unterkategorie und dazugehörige Artikel löschen!</h3>
 <article>

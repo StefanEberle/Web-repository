@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,24 +14,26 @@
 
 </head>
 <body>
-	<noscript> Sie haben JavaScript deaktiviert.</noscript>
+	<noscript>Sie haben JavaScript deaktiviert.</noscript>
 	<header>
 
 		<h3>Um zu unserem Angebot zu gelangen musst du registriert sein!
 		</h3>
-	<hr>
+		<hr>
 	</header>
-	<main>
+	<main> 
 	
+	<c:if test="${not empty errorRequest}">
+		<c:out value="${errorRequest}" />
+	</c:if>
 
 	<section id="kundenLogin">
 		<h1>Kundenlogin</h1>
 		<form action="../LogInOutServlet" method="POST" id="login">
 
 
-			<input type="text" id="emailAdresse" name=email maxlength="250"
-				placeholder="E-mail"> 
-			<input type="password" id="passwort"
+			<input type="text" id="emailAdresse" name=email maxlength="50"
+				placeholder="E-mail"> <input type="password" id="passwort"
 				name="passwort" maxlength="50" placeholder="Passwort">
 
 			<button type="submit" name="loginButton">Anmelden</button>
@@ -39,7 +42,7 @@
 	</section>
 
 	<section id="reg">
-	<hr class="hr1">
+		<hr class="hr1">
 		<h3>Neue Kunden</h3>
 		<p>Hier kannst Du kostenlos ein Konto erstellen und von unserem
 			erstklassigen Angeboten provitieren!</p>
@@ -48,7 +51,7 @@
 			<button type="submit" id="registrierenButton" name="registrieren">Ein
 				Konto erstellen</button>
 		</form>
-	<hr class="hr2">	
+		<hr class="hr2">
 	</section>
 
 

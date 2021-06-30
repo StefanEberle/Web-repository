@@ -76,7 +76,8 @@ public class LogInOutServlet extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("adresse", adresse);
 
-				if (!user.isAdmin()) {
+				
+				if (!user.getIsAdmin()) {
 					final RequestDispatcher dispatcher = request.getRequestDispatcher("html/konto.jsp");
 					dispatcher.forward(request, response);
 				} else {
@@ -85,6 +86,8 @@ public class LogInOutServlet extends HttpServlet {
 				}
 
 			} else {
+				
+				request.setAttribute("errorRequest", "Login Failed");
 				final RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			}

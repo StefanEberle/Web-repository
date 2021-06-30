@@ -61,10 +61,10 @@ public boolean checkEmail(String email) throws ServletException, IOException {
 			
 			try (ResultSet rs = stm.executeQuery()) {
 				
-				if (!rs.isBeforeFirst()) {
-					rueckgabe = true;
-				} else {
+				if (rs.next() && rs != null) {
 					rueckgabe = false;
+				} else {
+					rueckgabe = true;
 				}
 			}
 			conn.close();

@@ -22,8 +22,8 @@ import modell.UnterKategorieBean;
 /**
  * Servlet implementation class HoleKategorieServlet
  */
-@WebServlet("/GetBezeichnungAjax")
-public class GetBezeichnungAjax extends HttpServlet {
+@WebServlet("/GetKatUKatAjaxServlet")
+public class GetKatUKatAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
@@ -32,9 +32,9 @@ public class GetBezeichnungAjax extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//visibileButton.js (navBar()) Dropdown
+		//navBar.js
 		//filter.js benötigt nur UK
-		//kategorieAusgabe.js für <option> UK ausählen
+		//kategorie-Selected-Ausgabe.js für <option> UK ausählen
 		
 		List<UnterKategorieBean> kategorieList = new ArrayList<UnterKategorieBean>();
 

@@ -5,6 +5,7 @@ function init() {
 	
 	var suche = document.getElementById("artikelSucheInput");
 	suche.addEventListener("keyup", suchErgebnisse);
+	
 }
 
 function suchErgebnisse(){
@@ -17,13 +18,9 @@ function suchErgebnisse(){
 		if (xmlhttp.readyState == 4) {
 			
 			if (xmlhttp.status == 200) {
-				
 
-				
 				var erg = JSON.parse(xmlhttp.responseText);
-				
-				
-				
+	
 				var ausgabe = "";
 				document.getElementById("searchErg").innerHTML = ausgabe;
 				
@@ -33,7 +30,7 @@ function suchErgebnisse(){
 						break;
 					}
 					var string = erg[i].originalText;
-					if(string.indexOf(' ') >= 0){
+					if(string.indexOf(' ') >= 0){ // Anführungszeichen schließt vor dem zweiten Word (z.B bei Coca Cola)  -.-
 						string = erg[i].originalText.replace(/\s+/g, '_');
 					}
 					
@@ -49,7 +46,7 @@ function suchErgebnisse(){
 		
 	}
 	
-	xmlhttp.open("POST", "../../sucheAjax", true);
+	xmlhttp.open("POST", "../../SucheAjaxServlet", true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xmlhttp.send("markenBez="+suche);
 }

@@ -21,24 +21,28 @@
 	<form action="../../AuswahlArtikelServlet" method="POST">
 		<p>Sorten</p>
 
-		<c:if test="${not empty param.kategorie}">
-			<input type="hidden" name="kategorie" id="filterKategorie"
-				value="${param.kategorie}">
-		</c:if>
-		<c:if test="${empty param.kategorie}">
-			<input type="hidden" name="kategorie" id="filterKategorie"
-				value="noValue">
-		</c:if>
 
+		<c:choose>
+          	<c:when test="${not empty param.kategorie}">
+          		<input type="hidden" name="kategorie" id="filterKategorie" value="${param.kategorie}">
+            </c:when>
+            <c:otherwise>
+            	<input type="hidden" name="kategorie" id="filterKategorie" value="noValue">
+			</c:otherwise>
+		</c:choose>
 
-		<c:if test="${not empty param.unterKategorie}">
-			<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
+	<c:choose>
+          	<c:when test="${not empty param.unterKategorie}">
+          		<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
 				value="${param.unterKategorie}">
-		</c:if>
-		<c:if test="${empty param.unterKategorie}">
-			<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
+            </c:when>
+            <c:otherwise>
+            	<input type="hidden" name="unterKategorie" id="filterUnterKategorie"
 				value="nonValue">
-		</c:if>
+			</c:otherwise>
+		</c:choose>
+
+
 
 		<section id="unterKategorie"></section>
 		<section>
@@ -47,10 +51,7 @@
 				<c:forEach var="a" items="${unterKategorienList}"
 					varStatus="counter">
 
-					<a
-						href="../../AuswahlArtikelServlet?unterKategorie=${a.unterkategorieID}
-			&kategorie=${a.fkKategorieID}">
-						${a.unterkategorieBez} </a>
+					<a href="../../AuswahlArtikelServlet?unterKategorie=${a.unterkategorieID}&kategorie=${a.fkKategorieID}"> ${a.unterkategorieBez} </a>
 						<br>
 
 				</c:forEach>
@@ -71,7 +72,7 @@
 			<p>Marken</p>
 			<!-- <div id="marken"></div>  -->
 			<article id="marken">
-			
+
 			</article>
 			<article>
 			  <c:if test="${not empty markenList}">
@@ -81,7 +82,7 @@
 						<option value="${a.marke}">${a.marke}</option>
 
 					</c:forEach>
-				
+
 				</select>
 			  </c:if>
 			</article>
@@ -91,7 +92,7 @@
 </aside>
 
 
-<table id="artikelListe">
+<div id="artikelListe">
 
 	<c:if test="${not empty artikelList}">
 
@@ -99,38 +100,31 @@
 
 
 
-			<c:if test="${(counter.index mod 3) == 0 }">
-				<tr>
-			</c:if>
 
 
 
-			<td class="${a.gebinde}" id="artikel"><img
+
+			<div class="${a.gebinde}" id="artikel"><img
 				src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
 				class="artikelBild">
 
 				<ul class="artikelBeschreibung">
 					<li>Marke: ${a.marke}</li>
 					<li>Gebinde: ${a.gebinde}</li>
-					<li>Füllmenge: ${a.fuellmenge}</li>
+					<li>Füllmenge: ${a.fuellmenge} Liter</li>
 					<li>Stückzahl: ${a.stueckzahl}</li>
-					<li>Gesamtpreis: ${a.gesamtpreis}</li>
-					<li>Pfand: ${a.pfandGesamt}</li>
-					<li>Preis pro Liter: ${a.epJeLiter} €/Liter</li>
+					<li>Gesamtpreis: ${a.gesamtpreis} €</li>
+					<li>zzgl. ${a.pfandGesamt} Pfand</li>
+					<li>Pro Liter: ${a.epJeLiter} €/Liter</li>
 				</ul>
-				
-				<form action="../../AddWarenkorbArtikelServlet" method="POST">
-				 <input type="number" id="menge" name="menge" min="1" max="10"
-				value="1">
-				<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon"
-					value="${a.artikelID}" name ="artikelID"></button>
-					</form>
 
-			</td>
+				<div class="control_InputButton">
+					<input type="number" id="menge" name="menge" min="1" max="10" value="1">
+					<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" onclick=""></button>
+				</div>
+			</div>
 
-			<c:if test="${(counter.count mod 3) == 0 && counter.last}">
-				</tr>
-			</c:if>
+
 
 
 		</c:forEach>
@@ -138,7 +132,7 @@
 
 	</c:if>
 
-</table>
+</div>
 
 
 </main>

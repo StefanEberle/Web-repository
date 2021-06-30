@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Artikel löschen</title>
 <base href="${pageContext.request.requestURI}/">
-<script type="text/javascript" src="../../js/kategorieAusgabe.js"></script>
+<script type="text/javascript" src="../../js/kategorie-Selected-Ausgabe.js"></script>
 <link rel="stylesheet" type="text/css" href="../../css/deleteArtikel.css">
 <link rel="stylesheet" type="text/css"
 	href="../../css/artikelAuswahl.css">
@@ -16,13 +16,13 @@
 <main>
 <aside>
 <a href="../artikelErzeugen.jsp">Hinzufügen</a>
-<a href="../delete.jsp">Unterkategorie löschen</a>
+<a href="../deleteUnterKategorie.jsp">Unterkategorie löschen</a>
 </aside>
 
 
 <section class="artikelDelete">
 <form action="../../AuswahlArtikelServlet" method="GET">
-<h3>Artikel Unterkategorie auswwählen:</h3>
+<h3>Artikel Unterkategorie auswählen:</h3>
 <article id="erzeugen1">
 <label>Kategorie:</label>
 <select id="kategorie2" name="kategorie" required>
@@ -38,18 +38,14 @@
 </form>
 </section>
 
-<table id="artikelListe">
+<div id="artikelListe">
 	
 	<c:if test="${not empty artikelList}">
 	
 		<c:forEach var="a" items="${artikelList}" varStatus="counter">
 
-		<c:if test="${(counter.index mod 3) == 0 }">
-			<tr>
-			
-		</c:if>
 
-		<td class="${a.gebinde}" id="artikel">
+		<div class="${a.gebinde}" id="artikel">
 			
 			<img src="../../RetrieveImageServlet?artikelID=${a.artikelID}" class="artikelBild">
 		
@@ -65,19 +61,16 @@
 			<form action="../../DeleteArtikelServlet" method="POST">
 			<button type="submit" class="fa fa-trash-o" id="deleteIcon" value="${a.artikelID}" name="deleteArtikel"></button>
 			</form>
-		</td>
+		</div>
 		
-		<c:if test="${(counter.count mod 3) == 0 && counter.last}">
-			</tr> 
-		</c:if>
-			
+	
 			
 		</c:forEach>
 	
 	
 	</c:if>
 
-</table>
+</div>
 
 </main>
 <%@ include file="../jspf/footer.jspf"%>

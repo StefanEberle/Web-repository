@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+/**/
+/*Input Felder Login*/
+#emailAdresse, #passwort{
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 31px 0 0 29px;
+  width: 350px;
+  height: 60px;
+  position:relative;
+  left:5%;
+  top:5%;
+  
+}
+
+/*Login box position */
+#kundenLogin{
+  width:100%;
+  margin:40px;;
+  padding:10px;
+  position:relative;
+  left:30%;
+  top:50px;
+
+}
+
+/* box login */
+#login {
+  background: dimgrey;
+  border: 1px solid #42464b;
+  border-radius: 6px;
+  height: 350px;
+  margin: 20px;
+  width: 450px;
+}
+/*Login Ueberschrift */
+#kundenLogin h1{
+  position:relative;
+  font-size:40px;
+  left:120px
+}
+/* Button Login */
+button[name="loginButton"]{
+  width:350px;
+  height: 60px;
+  background: #095484;
+  font-size: 20px;
+  text-align:;
+  position:relative;
+  top:15%;
+  left:11%;
+  border-radius: 15px 15px 15px 15px;
+}

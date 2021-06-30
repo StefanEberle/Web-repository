@@ -1,78 +1,16 @@
 @charset "UTF-8";
 
+@import "login.css";
+@import "indexRegistrierung.css";
 
-
-#emailAdresse, #passwort{
-  border-radius: 10px;
-  box-sizing: border-box;
-  margin: 31px 0 0 29px;
-  width: 350px;
-  height: 60px;
-  position:relative;
-  left:5%;
-  top:5%;
-  
+main{
+  font-family: Verdana;;
 }
-
-#kundenLogin{
-  width:100%;
-  margin:40px;;
-  padding:10px;
-  position:relative;
-  left:30%;
-  top:50px;
-
-}
-
-#login {
-  background: dimgrey;
-  border: 1px solid #42464b;
-  border-radius: 6px;
-  height: 350px;
-  margin: 20px;
-  width: 450px;
-}
-
-#kundenLogin h1{
-  position:relative;
-  font-size:40px;
-  left:120px
-}
-
-button[name="loginButton"]{
-  width:350px;
-  height: 60px;
-  background: #095484;
-  font-size: 20px;
-  text-align:;
-  position:relative;
-  top:15%;
-  left:11%;
-  border-radius: 15px 15px 15px 15px;
-}
-#registrierenButton{
-  background: #095484;
-  font-size: 30px;
-  text-align:center;
-  position:relative;
-  width:25%;
-  border-radius: 15px 15px 15px 15px;
-}
-
-#reg{
-  position:relative;
-  width:95%;
-  padding:20px;
-  text-align:center;;
-  font-size:30px;
-  top:100px;
-}
-
 header{
   position:relative;
   text-align:center;
   font-size:30px;
- 
+  font-family: Verdana;
 }
 header h3{
   color:black;
@@ -108,13 +46,3 @@ header hr{
       border-radius: 20px; 
 }
 
-section h3{
-  font-size:45px;
-}
-
-
-main{
-
-  height:100%;
-  width:90%;
-}
