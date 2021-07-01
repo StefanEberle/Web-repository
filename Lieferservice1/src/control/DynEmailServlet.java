@@ -34,10 +34,10 @@ public class DynEmailServlet extends HttpServlet {
 		TextBean user = new TextBean();
 		
 		if(checkEmail(email)) {			
-			user.setOriginalText(email + " ist VerfÃ¼gbar!");
+			user.setOriginalText(email + " ist Verfügbar!");
 			request.setAttribute("textbean", user);
 		}else {
-			user.setOriginalText(email + " ist nicht VerfÃ¼gbar!");
+			user.setOriginalText(email + " ist nicht Verfügbar!");
 			request.setAttribute("textbean", user);
 		}
 		
