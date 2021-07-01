@@ -16,9 +16,6 @@ function init() {
 
 	
 }
-function gebButtonFreigeben(jahr,monat,tag){
-	
-}
 
 function correctPW() {
 
@@ -36,32 +33,5 @@ function correctPW() {
 	
 }
 
-function loadEmailVerfuegbar() {
-
-	
-	var email = document.getElementById("email").value;
-	
-
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-
-		if (xmlhttp.readyState == 4) {
-
-			if (xmlhttp.status == 200) {
-
-				var erg = JSON.parse(xmlhttp.responseText);
-
-					var x = document.getElementById("emailTest");
-					x.innerHTML = erg.originalText;
-
-			}
-
-		}
-	}
-	xmlhttp.open("POST", "../../DynEmailServlet", true);
-	xmlhttp.setRequestHeader("Content-Type",
-			"application/x-www-form-urlencoded");
-	xmlhttp.send("email=" + email);
-}
 
 

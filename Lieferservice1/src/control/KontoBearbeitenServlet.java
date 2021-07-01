@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,15 +37,13 @@ public class KontoBearbeitenServlet extends HttpServlet {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		
-		final PrintWriter out = response.getWriter();
-		
-			
-		
+
+
+
 		HttpSession session = request.getSession();
 		UserBean user = (UserBean) session.getAttribute("user");
 
-		
+
 		if (request.getParameter("emailBearbeiten") != null) {
 
 			String email = request.getParameter("email");
@@ -56,14 +53,18 @@ public class KontoBearbeitenServlet extends HttpServlet {
 				if (passwortUeberpruefen(user, passwort) && isEmail(email)) {
 
 					sicherEmail(user, email);
-					
 					user.setEmail(email);
 					session.setAttribute("user", user);
-				}else {
+
 					response.sendRedirect("html/konto.jsp");
+				}else {
+					request.setAttribute("errorRequest", "Änderung Email failed!");
+					final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+					dispatcher.forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
@@ -74,17 +75,21 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			try {
 				if(passwortUeberpruefen(user, passwort) && passwortNeu.equals(passwortNeu2)) {
 					sicherPW(passwortNeu, user.getUserid());
-					
-				}else {
 					response.sendRedirect("html/konto.jsp");
+
+				}else {
+					request.setAttribute("errorRequest", "Passwort change failed");
+					final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+					dispatcher.forward(request, response);
+					return;
 				}
 			} catch (SQLException e) {
-			
+
 				e.printStackTrace();
 			}
 		}
 		if(request.getParameter("adresseBearbeiten") != null) {
-			
+
 			String vorname = request.getParameter("vorname");
 			String nachname = request.getParameter("nachname");
 			String strasse = request.getParameter("strasse");
@@ -95,9 +100,9 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			String telefonnummer =request.getParameter("telefonnummer");
 			String geburtstag = request.getParameter("geburtstag");
 			String hinweis = request.getParameter("hinweis");
-			
+
 			AdresseBean adresse = new AdresseBean();
-			
+
 			adresse.setUserid(user.getUserid());
 			adresse.setVorname(vorname);
 			adresse.setNachname(nachname);
@@ -109,26 +114,38 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			adresse.setTelefonnummer(telefonnummer);
 			adresse.setGeburtstag(geburtstag);
 			adresse.setHinweis(hinweis);
-			
+
+
+
 			try {
 				sicherAdresse(adresse);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			session.setAttribute("adresse", adresse);
+
+			response.sendRedirect("html/konto.jsp");
+
+		}else {
+
+			request.setAttribute("errorRequest", "Change Failed");
+			final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
+			dispatcher.forward(request, response);
+
+			return;
+
 		}
 
-		final RequestDispatcher dispatcher = (RequestDispatcher) request.getRequestDispatcher("html/konto.jsp");
-		dispatcher.forward(request, response);
+
 
 	}
 	private void sicherAdresse(AdresseBean adresse) throws SQLException {
-		
+
 		String query = "UPDATE thidb.Adresse SET Strasse = ?, Hausnummer = ?, PLZ = ?, Stadt = ?, Etage = ?, Telefonnummer = ?, Geburtstag = ?, "
 				+ "Hinweis = ?, Vorname = ?, Nachname = ? WHERE FKUserID = ?";
-		System.out.println(adresse.getGeburtstag());
+
 		try(Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query);) {
-			
+
 			pstm.setString(1, adresse.getStrasse());
 			pstm.setString(2, adresse.getHausnummer());
 			pstm.setInt(3, adresse.getPlz());
@@ -139,19 +156,19 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			pstm.setString(8, adresse.getHinweis());
 			pstm.setString(9, adresse.getVorname());
 			pstm.setString(10,adresse.getNachname());
-			
+
 			pstm.setInt(11, adresse.getUserid());
-			
+
 			pstm.executeUpdate();
-			
+
 			conn.close();
 		}catch (SQLException ex) {
 			throw new SQLException(ex.getMessage());
 		}
 	}
-	
-	
-	
+
+
+
 	private boolean passwortUeberpruefen(UserBean user, String pw) throws SQLException, ServletException {
 		boolean rueckgabe = false;
 
@@ -163,18 +180,14 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			pstm.setInt(1, user.getUserid());
 			try (ResultSet rs = pstm.executeQuery()) {
 
-				int spalten = rs.getMetaData().getColumnCount(); // https://www.straub.as/java/jdbc/resultset.html
+				if (rs.next() && rs != null) {
+					String aktuellesPW = rs.getString("Passwort");
 
-				if (rs.next()) {
+					if( aktuellesPW.equals(pw)) {
+						rueckgabe = true;
 
-					for (int i = 1; i <= spalten; i++) {
-					
-						if (rs.getString(i).equals(pw)) {
-							rueckgabe = true;
-						} else {
-							rueckgabe = false;
-						
-						}
+					}else {
+						rueckgabe = false;
 					}
 				}
 			}
@@ -203,7 +216,7 @@ public class KontoBearbeitenServlet extends HttpServlet {
 			throw new SQLException(ex.getMessage());
 		}
 	}
-	
+
 	private void sicherEmail(UserBean user, String emailNeu) throws SQLException {
 
 		String query = "UPDATE thidb.User SET Email = ? Where UserID = ?";
@@ -234,8 +247,9 @@ public class KontoBearbeitenServlet extends HttpServlet {
 
 			try (ResultSet rs = pstm.executeQuery()) { //resultset Liefert Tabelle bzw. Teil von einer Tabelle
 
-				while(rs.next()) { //solange es eine Zeile gibt liefert true 
+				if(rs.next()) { //solange es eine Zeile gibt liefert true
 					exist = false;
+					System.out.println("isFalse");
 				}
 			}
 			conn.close();

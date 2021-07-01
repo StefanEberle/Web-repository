@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.annotation.Resource;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -101,10 +101,10 @@ public class RegistrierungServlet extends HttpServlet {
 
 		} else {
 
-			response.setContentType("text/html");
-	        response.setCharacterEncoding("UTF-8");
-	        response.sendRedirect("html/registrierung.jsp?Registrierung=false");
-	        return;
+	        request.setAttribute("errorRequest", "Registrierung failed!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/registrierung.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
 	}
 

@@ -142,5 +142,5 @@
 
 
 </main>
-<%@ include file="../jspf/footer.jspf"%>
 </html>
+<%@ include file="../jspf/footer.jspf"%>

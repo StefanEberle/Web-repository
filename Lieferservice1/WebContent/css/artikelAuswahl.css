@@ -1,103 +1,135 @@
 @charset "UTF-8";
 
+/*Aside Filter*/
 a{
   text-decoration:none;
   color:#095484;
   font-size:25px;
  
 }
+
+/*Aside Filter*/
 p{
   border-bottom:black solid 1px;
   width:130px;
   font-size:25px;
 }
+
+/*Aside button */ 
 aside button {
   position:relative;
   right:10px;
   margin:10px;
   margin-top:15px;
-  width:120px;
+  width:135px;
   height:40px;
   border-radius:12px;
-  color:black;
+  color:white;
   background-color:#095484;
+  font-size:20px;
 }
+/*Aside allg. */
 aside{
     width:10%;
     height:50%;
     float:left;
     padding-top:50px;
+    padding-right:80px;
     margin:20px;
+    margin-bottom:150px;
 }
 
+/* Marken */
+option{
+  font-size:18px;
+}
+/* weite select*/
+#marken > select{
+  width:180px;
+}
+#selectForSearch{
+  width:180px;
+}
+/***************************************************/
+
+/* Img position */
 .artikelBild{
-   position:relative;
-   left:-90px;
-   top:40px;
-}
-#artikelBeschreibung{
-    text-align:center;
-    border-bottom:1px solid black;
-}
-img{
-    width:40%;
-    height:200px;
-}
-li{
-  list-style-type: none;
-  position:relative;
-  left:70px;
-  top:-160px;
+  display:inline;
+
+  margin-top:20px;
+  padding-top:20px;
+
 }
 
+main ul{
+ display:inline-block;
+ list-style-type:none;  
+ 
+}
+
+main li{
+  text-align:left; 
+  font-size:18px;
+}
+main li:first-child{
+  font-size:22px;
+  font-weight:bold;
+
+}
+main li:last-child{
+  font-size:14px;
+  margin:5px 0px;
+}
+
+.control_InputButton{
+
+  width:200px;
+  position:relative;
+  left:240px;
+
+}
+/* Artikel */
 #artikel{
-  
-  display:inline-block;
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
-  text-align: center;
-  width:390px;
-  height:280px;
-  margin:0;
+  width:100%;
+  height:340px;
+  margin-bottom:20px;
   padding:10px;
-  padding-right:18px;
+  padding-right:20px;
   
 }
 
+/* Position input menge */
 #menge {
-   position:relative;
-   left:80px;
-   top: -165px;
-    height: 45px;
-   width: 45px;
+
+   height: 45px;
+   width: 65px;
  }
+
+
+/* Warenkorb Button */
+
 #artikelListe button{
-  position:relative;
+
   background-color: #095484;
   color:whitesmoke;
-  text-align:center;
-  left:80px;
-  top:-160px
+
+  height:50px;
+  width:70px;
+  border-radius:10px;
 
 }
-
-
-#artikelListe tbody{
-    position:relative;
-    top:60px;
-    left:40px;
-    height:90%;
-    width:80%;
-    margin-bottom:200px;
+#artikelListe button:hover{
+  border-radius:20px;
+  background-color:aliceblue;
+}
+/* table size position */
+#artikelListe{
+    min-height:700px;
+    display:grid;
+    column-gap:4em;
+    width:75%;
+    grid-template-columns:50% 50%;
     padding-top:80px;
-    padding-right: 0px;
-}
-#artikelListe td{
-  margin-right:10px;
 }
 
-option{
-  font-size:16px;
-}
-#marken > select{
-  width:130px
-}

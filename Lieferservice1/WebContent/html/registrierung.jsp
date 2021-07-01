@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +9,10 @@
 <title>Neues Konto erstellen</title>
 
 <script type="text/javascript" src="../../js/bday.js"></script>
-<script type="text/javascript" src="../../js/passwortPruefen.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="../../css/registrierung.css">
+<script type="text/javascript" src="../../js/email-Input-Label.js"></script>
+<script type="text/javascript" src="../../js/passwort-Input-Label.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/registrierung.css">
+
 </head>
 
 <body>
@@ -23,7 +25,9 @@
 		<hr>
 	</header>
 	<main>
-
+	<c:if test="${not empty errorRequest}">
+		<c:out value="${errorRequest}" />
+	</c:if>
 	<section>
 		<form action="../../RegistrierungServlet" method="POST"
 			id="registrieren">
@@ -35,16 +39,14 @@
 				<p>Email:</p>
 				<input type="text" name="email" id="email" size="60" maxlength="60"
 					placeholder="Email Adresse" onchange="loadEmailVerfuegbar()"
-					required> <label id="emailTest"> </label> <br>
+					required> <label id="emailAvailable"> </label> <br>
 				<p>Passwort:</p>
 				<input type="password" name="passwort" id="pw" pattern=".{8,}"
 					title="Eight or more characters" size="60" maxlength="60"
 					placeholder="Passwort" required>
 
 				<!-- https://www.w3schools.com/tags/att_input_pattern.asp -->
-				<!-- onchange="pwRules(this)"  
-			
-			pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  -->
+				<!-- pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  -->
 
 
 				<br>
@@ -52,7 +54,7 @@
 				<input type="password" name="passwort2" id="repeatPW"
 					pattern=".{8,}" title="Eight or more characters" size="60"
 					maxlength="60" placeholder="Passwort wiederholen" required>
-				<!-- disabled="disabled" -->
+				
 				<label id="meldungPW2"> </label>
 
 			</fieldset>

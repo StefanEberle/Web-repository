@@ -18,6 +18,8 @@
   height: 50px;
   width: 58px;
   font-size: 20px;
+  position:relative;
+  left:250px;
 }
 #deleteIcon:hover {
   color: #b73225;

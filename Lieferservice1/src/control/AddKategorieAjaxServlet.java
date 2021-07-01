@@ -22,8 +22,8 @@ import modell.UnterKategorieBean;
 /**
  * Servlet implementation class GetKategorieBezServlet
  */
-@WebServlet("/GetKategorieBezServlet")
-public class GetKategorieBezServlet extends HttpServlet {
+@WebServlet("/AddKategorieAjaxServlet")
+public class AddKategorieAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
@@ -60,17 +60,7 @@ public class GetKategorieBezServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-/** 
-		String holeKategorieBezeichnung = request.getParameter("kategorieNamenHolen");
-		//ArrayList<TextBean> sucheList = new ArrayList<TextBean>();
-		if (holeKategorieBezeichnung != null) {
-			ArrayList<KategorieBean> listKategorie = new ArrayList<KategorieBean>();
-			listKategorie = getKategorie();		
-			request.setAttribute("listKategorie", listKategorie);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("html/holKateg.jsp");
-			dispatcher.forward(request, response);
-		}
-**/
+
 	}
 	
 private ArrayList<KategorieBean> getKategorie() throws ServletException{

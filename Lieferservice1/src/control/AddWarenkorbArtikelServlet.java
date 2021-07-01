@@ -267,3 +267,4 @@ public class AddWarenkorbArtikelServlet extends HttpServlet {
 		
 	}
 }
+

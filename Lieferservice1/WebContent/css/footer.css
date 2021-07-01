@@ -19,11 +19,12 @@ footer a{
 	padding-right:350px;
 }
 
+
 footer a:nth-of-type(2){
-	padding-left:25px;
+	padding-left:31px;
 	padding-right:0px;
 }
 footer a:nth-of-type(3){
-    padding-left:210px;	
+    padding-left:190px;	
 	padding-right:0px;
 }

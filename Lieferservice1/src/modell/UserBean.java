@@ -40,7 +40,7 @@ private static final long serialVersionUID = 1L;
 	public void setLogin(boolean isLogin) {
 		this.isLogin = isLogin;
 	}
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
 	public void setAdmin(boolean isAdmin) {

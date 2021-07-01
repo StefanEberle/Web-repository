@@ -71,7 +71,7 @@
 									src="../../RetrieveImageServlet?artikelID=${a.artikelID}"
 									class="artikelBild"></td>
 								<td>Gebinde: ${a.gebinde}</td>
-								<td>${a.stueckzahl}</td>
+								<td id="${a.artikelID}"> ${a.stueckzahl}</td>
 								<td>Preis pro Artikel: ${a.gesamtpreis} €/Artikel</td>
 								<td>
 									<button>Anzahl erhöhen</button>
@@ -90,6 +90,30 @@
 
 		</section>
 	<button>Zahlungsart Auswählen (platzhalter)</button>
+		<section id="zahlungsart">
+			<p>Zahlungsart</p>
+			<input type="radio" id="bar" name="bar" value="bar" required>
+			<label for="bar">Barzahlung (bei Lieferung)</label> <br> <input type="checkbox"
+				id="rechnung" name="rechnung" value="rechnung" required> <label for="rechnung">Zahlung per Rechnung</label>
+				<br> <input type="checkbox"
+				id="bankeinzug" name="bankeinzug" value="bankeinzug" required> <label for="bankeinzug">Zahlung per Bankeinzug</label>
+				
+				
+				<div id = "kontodaten">
+				<label>Kontoinhaber:in</label>
+				<input type="text" name="strasse" value="Kontoinhaber" maxlength="75"><br>
+				<label>Kontonummer</label>
+				<input type="text" name="kontonummer" value="Kontonummer" maxlength="75"><br>
+				<label>Bank</label>
+				<input type="text" name="bank" value="Bank" maxlength="75"><br>
+				</div>
+					
+
+		</section>
+		
+	
+	
+	
 	
 			<form action="../../createBestellungServlet" method="POST">
 				<button type="submit" name="warenkorbAnzeigen">
