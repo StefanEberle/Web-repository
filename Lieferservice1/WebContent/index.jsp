@@ -45,7 +45,7 @@
 		<hr class="hr1">
 		<h3>Neue Kunden</h3>
 		<p>Hier kannst Du kostenlos ein Konto erstellen und von unserem
-			erstklassigen Angeboten provitieren!</p>
+			erstklassigen Angeboten profitieren!</p>
 
 		<form action="../html/registrierung.jsp" name="registrierung">
 			<button type="submit" id="registrierenButton" name="registrieren">Ein

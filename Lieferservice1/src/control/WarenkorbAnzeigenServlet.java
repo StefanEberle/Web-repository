@@ -60,6 +60,7 @@ public class WarenkorbAnzeigenServlet extends HttpServlet {
 public void WarenkorbArtikelausDB(HttpServletRequest request, HttpServletResponse response, UserBean user, HttpSession session) throws ServletException, IOException {
 	ArrayList<ArtikelBean> warenkorbArtikelList = new ArrayList<ArtikelBean>();
 	BigDecimal gesamtsumme = BigDecimal.ZERO;
+	BigDecimal summe = BigDecimal.ZERO;
 	
 	
 	
@@ -81,8 +82,12 @@ public void WarenkorbArtikelausDB(HttpServletRequest request, HttpServletRespons
 			artikel.setGebinde(rs.getString("Gebinde"));
 			artikel.setFuellmenge(rs.getBigDecimal("Fuellmenge"));
 			artikel.setStueckzahl(rs.getInt("AnzahlArtikel"));
-			artikel.setGesamtpreis((rs.getBigDecimal("Gesamtpreis")));
+			
 			BigDecimal AnzahlArtikel = BigDecimal.valueOf(rs.getInt("AnzahlArtikel"));
+			artikel.setGesamtpreis((rs.getBigDecimal("Gesamtpreis")));
+			
+			
+			
 			gesamtsumme= gesamtsumme.add(rs.getBigDecimal("Gesamtpreis").multiply(AnzahlArtikel));
 			System.out.println("Bigdecimal Berechnung: "+ AnzahlArtikel + "*"+ rs.getBigDecimal("Gesamtpreis") +" = "+gesamtsumme);
 			warenkorbArtikelList.add(artikel);
@@ -94,6 +99,7 @@ public void WarenkorbArtikelausDB(HttpServletRequest request, HttpServletRespons
 		throw new ServletException(ex.getMessage());
 	}
 
+	System.out.println("Gesamtsumme auﬂerhalb SChleife " + gesamtsumme);
 	session.setAttribute("warenkorbArtikelList", warenkorbArtikelList);
 	session.setAttribute("gesamtsumme", gesamtsumme);
 	

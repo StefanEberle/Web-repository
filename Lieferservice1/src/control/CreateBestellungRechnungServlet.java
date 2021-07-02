@@ -29,7 +29,7 @@ import modell.RechnungBean;
 /**
  * Servlet implementation class createBestellungServlet
  */
-@WebServlet("/createBestellungServlet")
+@WebServlet("/createBestellungRechnungServlet")
 public class CreateBestellungRechnungServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -46,8 +46,13 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 		Integer dieserWarenkorbID = (Integer) session.getAttribute("WarenkorbID");
 		UserBean user = (UserBean) session.getAttribute("user");
 		BigDecimal summe = (BigDecimal) session.getAttribute("gesamtsumme");
+		String zahlungsmethode = (String) request.getParameter("zahlungsmethode");
+		
+		
 		
 		System.out.println("welcome to CreateBEstellungRechnung2");
+		System.out.println("Zahlungsmethode= "+ zahlungsmethode);
+		
 		
 		BestellungBean bestellung = new BestellungBean();
 		bestellung.setFKuserID(user.getUserid());
@@ -61,8 +66,10 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 		rechnung.setFKuserID(user.getUserid());
 		rechnung.setFKbestellungID(bestellung.getBestellungID());
 		rechnung.setRechnungsstatus("offen");
+		rechnung.setBezahlung(zahlungsmethode);
 		
-		System.out.println("Rechnung erstellt.");
+		
+		System.out.println("Rechnung erstellt. RECHNUNG BEZAHLUNG = " + rechnung.getBezahlung());
 		
 		
 		
@@ -177,12 +184,13 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 		System.out.println("Summe= " + rechnung.getSumme());
 		
 		
-		String query = "INSERT INTO Rechnung (FKbestellungID, FKuserID, summe) values (?,?,?)";
+		String query = "INSERT INTO Rechnung (FKbestellungID, FKuserID, summe, bezahlung) values (?,?,?,?)";
 		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 			
 			pstm.setInt(1, rechnung.getFKbestellungID());
 			pstm.setInt(2, rechnung.getFKuserID());
 			pstm.setBigDecimal(3, rechnung.getSumme());
+			pstm.setString(4, rechnung.getBezahlung());
 		
 			pstm.executeUpdate(); 
 			conn.close();

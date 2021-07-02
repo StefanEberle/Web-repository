@@ -20,12 +20,6 @@ public class  BestellungBean implements Serializable {
 		return BestellungID;
 	}
 
-	public void setBestellungsID(int bestellungID) {
-		BestellungID = bestellungID;
-	}
-
-	
-
 
 	public String getStatus() {
 		return status;

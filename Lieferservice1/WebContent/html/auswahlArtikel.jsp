@@ -118,9 +118,10 @@
 					<li>Pro Liter: ${a.epJeLiter} €/Liter</li>
 				</ul> 
 				
+				<!--  <form action="../../AddWarenkorbArtikelServlet" method="POST">-->
 				<div class="control_InputButton">
 					<input type="number" id="menge" name="menge" min="1" max="10" value="1">
-					<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" onclick=""></button>
+					<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" name ="artikelID" onclick = "addArtikel(this)"></button>
 				</div>
 			</div>
 

@@ -3,30 +3,52 @@ document.addEventListener("DOMContentLoaded", init);
 
 
 function init(){
-
 	
 	//var warenkorbButton = document.getElementById("warenkorbHinzu");
 	//warenkorbButton.addEventListener("click",addArtikel);
 	
-		$(zahlungsart).click(function(){
-}
+	//var warenkorbAnzahlChange = document.getElementByID("warenkorbAnzahlChange");
+	//warenkorbAnzahlChange.addEventListener("change",
+	
+	
+	//Unsere Bankdaten
+
+var zahlungstext = document.getElementById("unsereBank");
+zahlungstext.style.display = "none";
 
 
+// Kontodaten des Kunden
+var bankdaten = document.getElementById("kontodaten");
+	bankdaten.style.display = "none";
+	
+	var bar = document.getElementById("bar");
+	bar.addEventListener("click", function(){
+				bankdaten.style.display="none";
+				zahlungstext.style.display="none";
+				});
+				
+	var rechnung = document.getElementById("rechnung");
+	rechnung.addEventListener("click",function(){
+			zahlungstext.style.display="none";
+			bankdaten.style.display="block";
+			});
+			
+	var bankeinzug = document.getElementById("bankeinzug");
+	bankeinzug.addEventListener("click",function(){
+	bankdaten.style.display="none";
+	zahlungstext.style.display="block";
+	});
+	
+	//dieserArtikel = document.getElementById("warenkorbArtikel");
 
+	//var deleteArtikel = document.getElementById("deleteArtikel");
+	//deleteArtikel.addEventListener("click",function(){
+	//dieserArtikel.style.display="none";});
+	
+	
 
-function zeigeEmail(){
+				
 	
-	var emailForm = document.getElementById("emailBearbeiten");
-	emailForm.style.display = "block";
-	
-	var pwForm = document.getElementById("pwBearbeiten");
-	pwForm.style.display = "none";
-	
-	var emailButton = document.getElementById("emailButton");
-	emailButton.style.display = "none";
-	
-	var pwButton = document.getElementById("pwButton");
-	pwButton.style.display = "block";
 
 }
 
@@ -50,42 +72,42 @@ var xmlhttp = new XMLHttpRequest();
 
 }
 
-function zahlungsart(){
-var bar = document.getElementById("bar");
+function addArtikelAjax(id){
 
-var bankeinzug = document.getElementById("bankeinzug");
+//Problem: Er nimmt nicht den neuen Wert her!
 
-var rechnung = document.getElementbyID("rechnung");
+ var menge = document.getElementById("menge").value;
+	 var artikelid = id.value;
+	 var data = "menge="+menge+"&artikelID=" + artikelid;
+	 
+	 alert(menge+" "+artikelid);
+	
 
-//Unsere Bankdaten
-
-var zahlungstext = document.querySelectorAll("bankdaten");
-
-
-// Kontodaten des Kunden
-var bankdaten = document.getElementByID("kontodaten");
-	bankdaten.style.display = "block";
-	
-	const zahlungsart = "";
-	
-	var emailForm = document.getElementById("emailBearbeiten");
-	emailForm.style.display = "block";
-	
-	
-	if(bar.checked == true){
-		zahlungsart = "zahlungsart=bar";
-	}else if(bankeinzug == true){
-		zahlungsart = "zahlungsart=bankeinzug";
-		bankdaten.style.display = "block";
-	}else if(rechnung == true){
-		zahlungsart = "zahlungsart=rechnung";
-	}
-  
-	
-	var xmlhttp = new XMLHttpRequest();
-	
-	xmlhttp.open("POST", "../../AuswahlArtikelServlet", false);
+var xmlhttp = new XMLHttpRequest();
+		
+			
+	xmlhttp.open("POST", "../../AddWarenkorbArtikelAjaxServlet", true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xmlhttp.send(zahlungsart);
-	
+	xmlhttp.send(data);
+				
+
 }
+
+function deleteArtikel(id,dieserArtikel){
+
+  var menge = 0;
+	 var artikelid = id.value;
+	 var data = "menge="+menge+"&artikelID=" + artikelid;
+	 
+	 alert(menge+" "+artikelid);
+	
+
+var xmlhttp = new XMLHttpRequest();
+		
+			
+	xmlhttp.open("POST", "../../AddWarenkorbArtikelAjaxServlet", true);
+	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xmlhttp.send(data);
+
+}
+
