@@ -29,26 +29,15 @@ var bankdaten = document.getElementById("kontodaten");
 				
 	var rechnung = document.getElementById("rechnung");
 	rechnung.addEventListener("click",function(){
-			zahlungstext.style.display="none";
-			bankdaten.style.display="block";
+			zahlungstext.style.display="block";
+			bankdaten.style.display="none";
 			});
 			
 	var bankeinzug = document.getElementById("bankeinzug");
 	bankeinzug.addEventListener("click",function(){
-	bankdaten.style.display="none";
-	zahlungstext.style.display="block";
+	bankdaten.style.display="block";
+	zahlungstext.style.display="none";
 	});
-	
-	//dieserArtikel = document.getElementById("warenkorbArtikel");
-
-	//var deleteArtikel = document.getElementById("deleteArtikel");
-	//deleteArtikel.addEventListener("click",function(){
-	//dieserArtikel.style.display="none";});
-	
-	
-
-				
-	
 
 }
 
@@ -75,15 +64,33 @@ var xmlhttp = new XMLHttpRequest();
 function addArtikelAjax(id){
 
 //Problem: Er nimmt nicht den neuen Wert her!
-
- var menge = document.getElementById("menge").value;
-	 var artikelid = id.value;
-	 var data = "menge="+menge+"&artikelID=" + artikelid;
-	 
-	 alert(menge+" "+artikelid);
+var artikelid = id.value;
+var diese = artikelid.toString();
+alert(diese);
+ var menge = document.getElementById("menge"+diese).value;
 	
-
+	
+	 var data = "menge="+menge+"&artikelID=" + artikelid;	 
+	 
 var xmlhttp = new XMLHttpRequest();
+
+
+xmlhttp.onreadystatechange = function() {
+
+		if (xmlhttp.readyState == 4) {
+
+			if (xmlhttp.status == 200) {
+
+				var erg = JSON.parse(xmlhttp.responseText);
+				
+				var original = document.getElementById("gesamtsumme");
+				original.innerHTML = "Gesamtpreis " +erg.originalText + " €";
+				
+			
+
+		}
+		}
+		}
 		
 			
 	xmlhttp.open("POST", "../../AddWarenkorbArtikelAjaxServlet", true);
@@ -93,7 +100,14 @@ var xmlhttp = new XMLHttpRequest();
 
 }
 
-function deleteArtikel(id,dieserArtikel){
+function deleteArtikel(id){
+
+var artikelid = id.value;
+
+var diese = artikelid.toString();
+alert(diese);
+	var dieserArtikel = document.getElementById("warenkorbArtikel"+diese).value;
+
 
   var menge = 0;
 	 var artikelid = id.value;

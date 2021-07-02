@@ -3,7 +3,7 @@ package modell;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class RechnungBean  implements Serializable {
+public class RechnungBean extends BestellungBean  implements Serializable {
 	
 
 	

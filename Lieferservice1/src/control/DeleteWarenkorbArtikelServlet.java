@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-
 import modell.ArtikelBean;
 import modell.UserBean;
-import modell.WarenkorbArtikelBean;
+
 import modell.WarenkorbBean;
 
 /**
  * Servlet implementation class WarenkorbArtikelServlet
  */
-@WebServlet("/WarenkorbServlet")
+@WebServlet("/DeleteWarenkorbArtikelServlet")
 public class DeleteWarenkorbArtikelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
@@ -36,87 +36,90 @@ public class DeleteWarenkorbArtikelServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String dieserArtikel = request.getParameter("artikelID");
-		Integer dieseAnzahl = Integer.parseInt(request.getParameter("menge"));
+		Integer dieserArtikel = Integer.parseInt(request.getParameter("deleteArtikel"));
+		Integer dieseAnzahl = 0;
 		UserBean user = (UserBean) session.getAttribute("user");
-		WarenkorbBean warenkorb = (WarenkorbBean) session.getAttribute("warenkorb");
-	
 
+		// Bisheriger Inhalt Warenkorb ausgeben lassen
 
-				// Bisheriger Inhalt Warenkorb ausgeben lassen
-		
-		System.out.println("ArtikelNr, übergeben von jsp_ " + dieserArtikel);
-		System.out.println("Anzahl, übergeben von jsp: " + dieseAnzahl);
-		
-		String query = "SELECT FKartikelID, AnzahlArtikel FROM thidb.Warenkorbartikel WHERE FKwarenkorbID = ?";
-				
-				ArrayList<WarenkorbArtikelBean> warenkorbArtikel = new ArrayList<WarenkorbArtikelBean>();
+		WarenkorbBean warenkorb = new WarenkorbBean();
 
-				try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
+		String query = "SELECT * FROM thidb.Warenkorb WHERE FKuserID = ?";
 
-					pstm.setInt(1, warenkorb.getWarenkorbID());
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 
-					ResultSet rs = pstm.executeQuery(); 
-								
-					while (rs.next()) {
-						WarenkorbArtikelBean neuerWarenkorbArtikel = new WarenkorbArtikelBean(); 
-						
-						neuerWarenkorbArtikel.setFkartikelID(rs.getInt("FKartikelID"));
-						neuerWarenkorbArtikel.setAnzahlArtikel(rs.getInt("AnzahlArtikel"));
-						warenkorbArtikel.add(neuerWarenkorbArtikel);		
-						
-					}
-				}
-				catch(Exception ex) {
-					throw new ServletException(ex.getMessage());
-				}
-				System.out.println("Als nächstes sollte ich in die FOR schleife springen");
-				Integer dieserArtikelInt = Integer.parseInt(dieserArtikel);
-				
-				if (warenkorbArtikel.size()>0) {
-					boolean artikelVorhanden = false;
-					
-					for (int i = 0; i<warenkorbArtikel.size(); i++) {
-						warenkorbArtikel.get(i).getFkartikelID();
-						
-						System.out.println("Ich bin in der FOR-Schleife. ArtikelID von i = " + warenkorbArtikel.get(i).getFkartikelID() + "ArtikelID von 'dieserArtikel' = " + dieserArtikelInt);
-						
-						if (warenkorbArtikel.get(i).getFkartikelID() == dieserArtikelInt){
-							System.out.println("Es gibt diesen artikel in meinem Warenkorb!! Verringere anzahlin DB!! :) ");
-							artikelVorhanden = true;
-							
-							int neueAnzahl = warenkorbArtikel.get(i).getAnzahlArtikel()-dieseAnzahl;
-							
-							//perform update in DB
-							String query2= "UPDATE thidb.Warenkorbartikel SET AnzahlArtikel = ? WHERE FKwarenkorbID = ? AND FKartikelID = ?";
-							try (Connection conn2 = ds.getConnection(); PreparedStatement pstm2 = conn2.prepareStatement(query2)){
-								pstm2.setInt(1, neueAnzahl);
-								pstm2.setInt(2, warenkorb.getWarenkorbID());
-								pstm2.setInt(3, dieserArtikelInt);
-								pstm2.executeUpdate(); 
-								conn2.close();
-							}
-						
-						catch(Exception ex) {
-							throw new ServletException(ex.getMessage());
-						}
-							
-		
-				
+			pstm.setInt(1, user.getUserid());
+
+			ResultSet rs = pstm.executeQuery();
+			while (rs.next()) {
+
+				warenkorb.setWarenkorbID(rs.getInt("WarenkorbID"));
+
 			}
-			
+		} catch (Exception ex) {
+			throw new ServletException(ex.getMessage());
 		}
-		
-	
-	final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/auswahlArtikel.jsp");
-		dispatcher.forward(request, response);
+
+		if (dieseAnzahl == 0) {
+			String query3 = "Delete from thidb.WarenkorbArtikel where FKwarenkorbID = ? AND FKartikelID = ?";
+			try (Connection conn3 = ds.getConnection(); PreparedStatement pstm3 = conn3.prepareStatement(query3)) {
+
+				pstm3.setInt(1, warenkorb.getWarenkorbID());
+				pstm3.setInt(2, dieserArtikel);
+				pstm3.executeUpdate();
+				conn3.close();
+			}
+
+			catch (Exception ex) {
+				throw new ServletException(ex.getMessage());
+			}
+		}
+
+		WarenkorbArtikelausDB(request, response, user, session);
+
+		response.sendRedirect("html/WarenkorbAnzeigen.jsp");
 
 	}
+
+	public void WarenkorbArtikelausDB(HttpServletRequest request, HttpServletResponse response, UserBean user,
+			HttpSession session) throws ServletException, IOException {
+		ArrayList<ArtikelBean> warenkorbArtikelList = new ArrayList<ArtikelBean>();
+		BigDecimal gesamtsumme = BigDecimal.ZERO;
+
+		String query = "SELECT artikel.ArtikelID, artikel.Marke, artikel.Gebinde, artikel.Fuellmenge, artikel.Gesamtpreis, warenkorbartikel.AnzahlArtikel "
+				+ "FROM artikel INNER JOIN warenkorbartikel ON artikel.ArtikelID = warenkorbartikel.FKartikelID "
+				+ "INNER JOIN warenkorb ON warenkorb.warenkorbID = warenkorbartikel.FKwarenkorbID WHERE warenkorb.FKuserID = ?";
+
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
+
+			pstm.setInt(1, user.getUserid());
+			ResultSet rs = pstm.executeQuery();
+
+			while (rs.next()) {
+				ArtikelBean artikel = new ArtikelBean();
+
+				artikel.setArtikelID(rs.getInt("ArtikelID"));
+				artikel.setMarke(rs.getString("Marke"));
+				artikel.setGebinde(rs.getString("Gebinde"));
+				artikel.setFuellmenge(rs.getBigDecimal("Fuellmenge"));
+				artikel.setStueckzahl(rs.getInt("AnzahlArtikel"));
+
+				BigDecimal AnzahlArtikel = BigDecimal.valueOf(rs.getInt("AnzahlArtikel"));
+				artikel.setGesamtpreis((rs.getBigDecimal("Gesamtpreis")));
+
+				gesamtsumme = gesamtsumme.add(rs.getBigDecimal("Gesamtpreis").multiply(AnzahlArtikel));
+
+				warenkorbArtikelList.add(artikel);
+
+			}
+		}
+
+		catch (Exception ex) {
+			throw new ServletException(ex.getMessage());
+		}
+
+		session.setAttribute("warenkorbArtikelList", warenkorbArtikelList);
+		session.setAttribute("gesamtsumme", gesamtsumme);
+
 	}
 }
-
-
-	
-	
-
-

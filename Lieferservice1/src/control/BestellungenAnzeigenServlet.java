@@ -40,13 +40,13 @@ public class BestellungenAnzeigenServlet extends HttpServlet {
 		
 		System.out.println("Ich bin in BestellungenAnzeigenSErvlet");
 
-		ArrayList<BestellungBean> bestellungList = bestellungenHolen(user);
+		//ArrayList<BestellungBean> bestellungList = bestellungenHolen(user);
 		
-		ArrayList<RechnungBean> rechnungList = rechnungenHolen(user, bestellungList);
+		ArrayList<RechnungBean> rechnungList = rechnungenHolen(user);
 
 		System.out.println("Done with BestellungenAnzeigenSErvlet");
 		
-		request.setAttribute("bestellungList", bestellungList);
+		//request.setAttribute("bestellungList", bestellungList);
 		request.setAttribute("rechnungList", rechnungList);
 
 		final RequestDispatcher dispatcher = request.getRequestDispatcher("/html/BestellungenAnzeigen.jsp");
@@ -54,59 +54,64 @@ public class BestellungenAnzeigenServlet extends HttpServlet {
 
 	}
 	
-	public ArrayList<BestellungBean> bestellungenHolen(UserBean user) throws ServletException{
-		ArrayList<BestellungBean> bestellungList = new ArrayList<BestellungBean>();
-		
-		String query = "SELECT BestellungID, Status "
-				+ " FROM Bestellung where FKuserID=? ";
-
-		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
-
-			pstm.setInt(1, user.getUserid());
-			
-
-			ResultSet rs = pstm.executeQuery();
-
-			while (rs.next()) {
-			
-				BestellungBean bestellung = new BestellungBean();
-
-				bestellung.setBestellungID(rs.getInt("BestellungID"));
-				bestellung.setStatus(rs.getString("Status"));
-		
-				bestellungList.add(bestellung);
-
-			}
-		} catch (Exception ex) {
-			throw new ServletException(ex.getMessage());
-		}
-		
-		System.out.println("Bestellungen aus DB geholt, size="+bestellungList.size());
-		
-		return bestellungList;
-	}
+	/*
+	 * public ArrayList<BestellungBean> bestellungenHolen(UserBean user) throws
+	 * ServletException{ ArrayList<BestellungBean> bestellungList = new
+	 * ArrayList<BestellungBean>();
+	 * 
+	 * String query =
+	 * "SELECT BestellungID, Status FROM Bestellung where FKuserID=? ";
+	 * 
+	 * try (Connection conn = ds.getConnection(); PreparedStatement pstm =
+	 * conn.prepareStatement(query)) {
+	 * 
+	 * pstm.setInt(1, user.getUserid());
+	 * 
+	 * 
+	 * ResultSet rs = pstm.executeQuery();
+	 * 
+	 * while (rs.next()) {
+	 * 
+	 * BestellungBean bestellung = new BestellungBean();
+	 * 
+	 * bestellung.setBestellungID(rs.getInt("BestellungID"));
+	 * bestellung.setStatus(rs.getString("Status"));
+	 * 
+	 * bestellungList.add(bestellung);
+	 * 
+	 * } } catch (Exception ex) { throw new ServletException(ex.getMessage()); }
+	 * 
+	 * System.out.println("Bestellungen aus DB geholt, size="+bestellungList.size())
+	 * ;
+	 * 
+	 * return bestellungList; }
+	 */
 	
-	public ArrayList<RechnungBean> rechnungenHolen(UserBean user, ArrayList<BestellungBean> bestellungList) throws ServletException {
+	public ArrayList<RechnungBean> rechnungenHolen(UserBean user) throws ServletException {
 		ArrayList<RechnungBean> rechnungList = new ArrayList<RechnungBean>();
 
-	 for (int i=0; i<bestellungList.size(); i++) {
+	//for (int i=0; i<bestellungList.size(); i++) {
 	 
-		String query = "SELECT summe, Status "
-				+ " FROM Rechnung where FKuserID=? AND FKbestellungID=?";
+		String query = "SELECT Bestellung.BestellungID, Bestellung.Status, Rechnung.RechnungID, Rechnung.summe, Rechnung.Status" + 
+				" FROM Rechnung INNER JOIN Bestellung ON Rechnung.FKbestellungID = Bestellung.BestellungID" + 
+				" WHERE Bestellung.FKuserID = ? ";
 
 		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
 
 			pstm.setInt(1, user.getUserid());
-			pstm.setInt(2, bestellungList.get(i).getBestellungID());
+
 
 			ResultSet rs = pstm.executeQuery();
 
-			while (rs.next()) {
+			while (rs.next()&&rs!=null) {
 			
 				RechnungBean rechnung = new RechnungBean();
 
 				rechnung.setSumme(rs.getBigDecimal("summe"));
 				rechnung.setRechnungsstatus(rs.getString("Status"));
+				rechnung.setRechnungID(rs.getInt("RechnungID"));
+				rechnung.setStatus(rs.getString("Bestellung.Status"));
+				rechnung.setBestellungID(rs.getInt("BestellungID"));
 
 		
 				rechnungList.add(rechnung);
@@ -117,8 +122,8 @@ public class BestellungenAnzeigenServlet extends HttpServlet {
 		}
 		
 
-	}
-	 System.out.println("Rechnungen aus DB geholt");
+	//}
+	 System.out.println("Rechnungen aus DB geholt, size = " + rechnungList.size() );
 	 return rechnungList;
 }
 	

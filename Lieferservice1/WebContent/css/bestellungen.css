@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
-#bestellungenListe{
+#rechnungenListe{
     min-height:700px;
     display:grid;
     column-gap:4em;
     width:75%;
-    grid-template-columns:25% 25% 25% 25%;
+    grid-template-columns:20% 20% 20% 20% 20%;
     padding-top:80px;
 }

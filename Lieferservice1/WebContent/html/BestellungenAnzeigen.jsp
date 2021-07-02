@@ -16,33 +16,33 @@
 
 		<h1>Meine Bestellungen</h1>
 		
-		<div id= bestellungenListe>
+		<div id= rechnungenListe>
 		<div><h2>BestellNr</h2></div>
 		<div><h2>BestellStatus</h2></div>
 		<div><h2>RechnungsNummer</h2></div>
 		<div><h2>Rechnungsstatus</h2></div>
+		<div><h2>Summe</h2></div>
 		
 		
-		<c:forEach var="a" items="${bestellungList}" varStatus="counter">
+		<c:forEach var="a" items="${rechnungList}" varStatus="counter">
 		
 		<div>Bestellnr= ${a.bestellungID}</div>
 		<div>Bestellstatus = ${a.status}</div>
 		
-		
-		
-		
-		  <c:forEach var="b" items="${rechnungList}" varStatus="counter">
-		  </c:forEach>
 		  <div>
 			
-			 RechnungNr: ${b.rechnungID}
+			 RechnungNr: ${a.rechnungID}
 			
 		</div>
 		<div>
 	
-			 Rechnungsstatus: ${b.rechnungsstatus}
+			 Rechnungsstatus: ${a.rechnungsstatus}
 			
 		 </div>
+		 <div>
+		  Summe: ${a.summe}
+		 </div>
+		 
 		 </c:forEach>
 		 
 		 </div>
