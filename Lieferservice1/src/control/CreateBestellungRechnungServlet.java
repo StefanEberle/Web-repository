@@ -180,13 +180,14 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 		
 		String[] generatedKeys = new String[] { "RechnungID" };
 
-		String query = "INSERT INTO Rechnung (FKbestellungID, FKuserID, summe, bezahlung) values (?,?,?,?)";
+		String query = "INSERT INTO Rechnung (FKbestellungID, FKuserID, summe, bezahlung, status) values (?,?,?,?,?)";
 		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query, generatedKeys)) {
 
 			pstm.setInt(1, rechnung.getFKbestellungID());
 			pstm.setInt(2, rechnung.getFKuserID());
 			pstm.setBigDecimal(3, rechnung.getSumme());
 			pstm.setString(4, rechnung.getBezahlung());
+			pstm.setString(5, rechnung.getRechnungsstatus());
 
 			pstm.executeUpdate();
 			
