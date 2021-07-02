@@ -1,46 +1,11 @@
 "use strict";
-document.addEventListener("DOMContentLoaded", init);
-
-
-function init(){
-
-var zahlungstext = document.getElementById("unsereBank");
-zahlungstext.style.display = "none";
-
-
-// Kontodaten des Kunden
-var bankdaten = document.getElementById("kontodaten");
-	bankdaten.style.display = "none";
-	
-	var bar = document.getElementById("bar");
-	bar.addEventListener("click", function(){
-				bankdaten.style.display="none";
-				zahlungstext.style.display="none";
-				});
-				
-	var rechnung = document.getElementById("rechnung");
-	rechnung.addEventListener("click",function(){
-			zahlungstext.style.display="block";
-			bankdaten.style.display="none";
-			});
-			
-	var bankeinzug = document.getElementById("bankeinzug");
-	bankeinzug.addEventListener("click",function(){
-	bankdaten.style.display="block";
-	zahlungstext.style.display="none";
-	});
-
-}
 
 function addArtikel(id){
-
 
 	 var menge = document.getElementById("menge").value;
 	 var artikelid = id.value;
 	 var data = "menge="+menge+"&artikelID=" + artikelid;
 	 
-	 alert(menge+" "+artikelid);
-	
 
 var xmlhttp = new XMLHttpRequest();
 		
@@ -54,10 +19,10 @@ var xmlhttp = new XMLHttpRequest();
 
 function addArtikelAjax(id){
 
-//Problem: Er nimmt nicht den neuen Wert her!
+
 var artikelid = id.value;
 var diese = artikelid.toString();
-alert(diese);
+
  var menge = document.getElementById("menge"+diese).value;
 	
 	
@@ -94,7 +59,7 @@ function deleteArtikel(id){
 var artikelid = id.value;
 
 var diese = artikelid.toString();
-alert(diese);
+
 	var dieserArtikel = document.getElementById("warenkorbArtikel"+diese).value;
 
 
@@ -102,8 +67,6 @@ alert(diese);
 	 var artikelid = id.value;
 	 var data = "menge="+menge+"&artikelID=" + artikelid;
 	 
-	 alert(menge+" "+artikelid);
-	
 
 var xmlhttp = new XMLHttpRequest();
 		

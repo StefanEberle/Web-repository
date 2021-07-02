@@ -16,14 +16,18 @@
 
 		<h1>Meine Bestellungen</h1>
 		
-		<div id= rechnungenListe>
+		
+		<div class="first">
+		<div class="kopfzeile">
 		<div><h2>BestellNr</h2></div>
 		<div><h2>BestellStatus</h2></div>
 		<div><h2>RechnungsNummer</h2></div>
 		<div><h2>Rechnungsstatus</h2></div>
 		<div><h2>Summe</h2></div>
+		</div>
+		</div>
 		
-		
+		<div id= rechnungenListe>
 		<c:forEach var="a" items="${rechnungList}" varStatus="counter">
 		
 		<div> ${a.bestellungID}</div>
@@ -37,7 +41,7 @@
 			
 		 </div>
 		 <div>
-		 s ${a.summe}
+		  ${a.summe}€
 		 </div>
 		 
 		 </c:forEach>
@@ -47,7 +51,7 @@
 	
 		
 		
+		</main>
 	
-	</main>
-</body>
+<%@ include file="../jspf/footer.jspf"%>
 </html>

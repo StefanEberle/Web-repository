@@ -9,6 +9,8 @@
 <base href="${pageContext.request.requestURI}/">
 <link rel="stylesheet" type="text/css" href="../../css/warenkorb.css">
 <script type="text/javascript" src="../../js/warenkorb.js"></script>
+<script type="text/javascript" src="../../js/zahlungstext.js"></script>
+
 
 </head>
 <%@ include file="../jspf/header.jspf"%>
