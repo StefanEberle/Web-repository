@@ -18,8 +18,41 @@
 <h1>Ihre Rechnung</h1>
 
 
-<p> Vielen Dank für Ihre Bestellung. Anbei sehen Sie die dazugehörige Rechnung.</p>
+<div> Vielen Dank für Ihre Bestellung. Anbei sehen Sie die dazugehörige Rechnung.</div>
 
-</main>
-</body>
+<div>
+<h3>Rechnungsempfänger: ${adresse.vorname} ${adresse.nachname}</h3>
+<h4>${adresse.strasse} ${adresse.hausnummer}</h4>
+<h4>${adresse.plz}</h4>
+</div>
+
+<div>Rechnungsnummer: ${rechnung.rechnungID}</div>
+
+<div>
+
+	<c:forEach var="a" items="${warenkorbArtikelList}"
+						varStatus="counter">
+
+
+						<div class="warenkorbItems" id="warenkorbArtikel">
+								<h5>Marke: ${a.marke}</h5>
+								<h5>Gebinde: ${a.gebinde}</h5>
+
+								<h5>Stückzahl: ${a.stueckzahl}</h5>
+
+								<h5>Preis pro Stück= ${a.gesamtpreis}</h5>
+
+						</div>
+						
+						</c:forEach>
+					
+					<h3 id="gesamtsumme">Gesamtpreis ${gesamtsumme} €</h3>
+				
+</div>
+<div>Zahlungsart: ${rechnung.bezahlung}</div>
+
+
+	</main>
+	
+<%@ include file="../jspf/footer.jspf"%>
 </html>

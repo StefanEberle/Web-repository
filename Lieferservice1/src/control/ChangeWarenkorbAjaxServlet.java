@@ -26,8 +26,8 @@ import modell.WarenkorbBean;
 /**
  * Servlet implementation class AddWarenkorbArtikelAjaxServlet
  */
-@WebServlet("/AddWarenkorbArtikelAjaxServlet")
-public class AddWarenkorbArtikelAjaxServlet extends HttpServlet {
+@WebServlet("/ChangeWarenkorbAjaxServlet")
+public class ChangeWarenkorbAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@Resource(lookup = "java:jboss/datasources/MySqlThidbDS")
 	private DataSource ds;

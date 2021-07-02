@@ -3,15 +3,6 @@ document.addEventListener("DOMContentLoaded", init);
 
 
 function init(){
-	
-	//var warenkorbButton = document.getElementById("warenkorbHinzu");
-	//warenkorbButton.addEventListener("click",addArtikel);
-	
-	//var warenkorbAnzahlChange = document.getElementByID("warenkorbAnzahlChange");
-	//warenkorbAnzahlChange.addEventListener("change",
-	
-	
-	//Unsere Bankdaten
 
 var zahlungstext = document.getElementById("unsereBank");
 zahlungstext.style.display = "none";
@@ -85,15 +76,13 @@ xmlhttp.onreadystatechange = function() {
 				
 				var original = document.getElementById("gesamtsumme");
 				original.innerHTML = "Gesamtpreis " +erg.originalText + " €";
-				
 			
-
 		}
 		}
 		}
 		
 			
-	xmlhttp.open("POST", "../../AddWarenkorbArtikelAjaxServlet", true);
+	xmlhttp.open("POST", "../../ChangeWarenkorbAjaxServlet", true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xmlhttp.send(data);
 				

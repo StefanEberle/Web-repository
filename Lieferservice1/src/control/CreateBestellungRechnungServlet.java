@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.annotation.Resource;
 
@@ -54,22 +55,26 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 			return;
 		}
 		if (zahlungsmethode.equals("bankeinzug")) {
-			String kontoinhaber = request.getParameter("kontoinhaber");
-			String iban = request.getParameter("iban");
-			String bank = request.getParameter("bank");
-			BankdatenBean bankdaten = new BankdatenBean();
-			if (iban.matches("[0-9]+") && iban.length() == 22) {
+			
+			if (!checkUserZahlungsdaten(user.getUserid())) {
+				String kontoinhaber = request.getParameter("kontoinhaber");
+				String iban = request.getParameter("iban");
+				String bank = request.getParameter("bank");
+				BankdatenBean bankdaten = new BankdatenBean();
+				
 
-				bankdaten.setBank(bank);
-				bankdaten.setIBAN(iban);
-				bankdaten.setKontoinhaber(kontoinhaber);
-				bankdaten.setFKuserID(user.getUserid());
+					bankdaten.setBank(bank);
+					bankdaten.setIBAN(iban);
+					bankdaten.setKontoinhaber(kontoinhaber);
+					bankdaten.setFKuserID(user.getUserid());
+				
+
+				speichereBankdaten(bankdaten);
+				
 			}
-
-			speichereBankdaten(bankdaten);
-
+						
 		}
-
+		
 		BestellungBean bestellung = new BestellungBean();
 		bestellung.setFKuserID(user.getUserid());
 		bestellung.setStatus("aufgegeben");
@@ -172,9 +177,11 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 	}
 
 	public void rechnungInDB(RechnungBean rechnung) throws ServletException {
+		
+		String[] generatedKeys = new String[] { "RechnungID" };
 
 		String query = "INSERT INTO Rechnung (FKbestellungID, FKuserID, summe, bezahlung) values (?,?,?,?)";
-		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query)) {
+		try (Connection conn = ds.getConnection(); PreparedStatement pstm = conn.prepareStatement(query, generatedKeys)) {
 
 			pstm.setInt(1, rechnung.getFKbestellungID());
 			pstm.setInt(2, rechnung.getFKuserID());
@@ -182,6 +189,15 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 			pstm.setString(4, rechnung.getBezahlung());
 
 			pstm.executeUpdate();
+			
+			// Generierten Schlüssel auslesen
+						ResultSet rsKeys = pstm.getGeneratedKeys();
+						while (rsKeys.next()) {
+							rechnung.setRechnungID(rsKeys.getInt(1));
+						}
+
+						conn.close();
+			
 			conn.close();
 
 		} catch (Exception ex) {
@@ -206,6 +222,32 @@ public class CreateBestellungRechnungServlet extends HttpServlet {
 			throw new ServletException(ex.getMessage());
 		}
 
+	}
+	
+	private boolean checkUserZahlungsdaten(int userID) throws ServletException {
+		boolean check = false;
+
+		String query = "SELECT * from thidb.Bankdaten where FKuserID= ?";
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstm = (PreparedStatement) conn.prepareStatement(query)) {
+			pstm.setInt(1, userID);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next() && rs != null) {
+				
+				check = true;
+			
+			} else {
+				check = false;
+
+			}
+			conn.close();
+
+		} catch (SQLException ex) {
+			// message = "Error: " + e.getMessage();
+			throw new ServletException(ex.getMessage());
+		}
+
+		return check;
 	}
 
 }

@@ -26,21 +26,18 @@
 		
 		<c:forEach var="a" items="${rechnungList}" varStatus="counter">
 		
-		<div>Bestellnr= ${a.bestellungID}</div>
-		<div>Bestellstatus = ${a.status}</div>
+		<div> ${a.bestellungID}</div>
+		<div>${a.status}</div>
 		
 		  <div>
-			
-			 RechnungNr: ${a.rechnungID}
-			
+			 ${a.rechnungID}
 		</div>
 		<div>
-	
-			 Rechnungsstatus: ${a.rechnungsstatus}
+		${a.rechnungsstatus}
 			
 		 </div>
 		 <div>
-		  Summe: ${a.summe}
+		 s ${a.summe}
 		 </div>
 		 
 		 </c:forEach>

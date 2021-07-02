@@ -15,46 +15,7 @@
 <body>
 	<main>
 		<h1>Warenkorb</h1>
-		<!--  	<section>
-			<article class="mainAdresse">
-				<h2>Adresse</h2>
-
-				<form action="../../KontoBearbeitenServlet" method="POST"
-					name="adresseBearbeiten" id="mainAdresse">
-					<label>Vorname:</label> <input type="text" name="vorname"
-						value="${adresse.vorname}" maxlength="75"><br> <label>Nachname:</label>
-					<input type="text" name="nachname" value="${adresse.nachname}"
-						maxlength="75"><br> <label>Straße:</label> <input
-						type="text" name="strasse" value="${adresse.strasse}"
-						maxlength="75"><br> <label>Hr:</label> <input
-						type="number" name="hausnummer" value="${adresse.hausnummer}"
-						maxlength="5"><br> <label>PLZ:</label> <input
-						type="number" name="plz" value="${adresse.plz}" maxlength="5"><br>
-					<label>Stadt:</label> <input type="text" name="stadt"
-						value="${adresse.stadt}" maxlength="75"><br> <label>Etage:</label>
-					<input type="text" name="etage" value="${adresse.etage}"
-						maxlength="75"><br> <label>Telefonnummer:</label> <input
-						type="text" name="telefonnummer" value="${adresse.telefonnummer}"
-						maxlength="75"><br> <label>Geburstag:</label> <input
-						type="text" name="geburtstag" value="${adresse.geburtstag}"
-						maxlength="75"><br> <label>Hinweis</label> <input
-						type="text" name="hinweis" value="${adresse.hinweis}"
-						maxlength="75"><br>
-
-					<button type="submit" name="adresseBearbeiten">Änderung
-						speichern</button>
-				</form>
-
-
-				<button type="submit" name="adresseButton" id="adresseButton">Adresse
-					bearbeiten</button>
-			</article>
-		</section> -->
-		<!--   <c:if test="${empty WarenkorbArtikelList}">
-
-//<p>Sie haben noch keine Artikel zum Warenkorb hinzu gefügt. </p>
-
-//</c:if> -->
+		
 
 		<c:if test="${not empty errorRequest}">
 			<c:out value="${errorRequest}" />
@@ -182,5 +143,6 @@
 
 
 	</main>
-</body>
+	
+<%@ include file="../jspf/footer.jspf"%>
 </html>
