@@ -16,9 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+
+
 import modell.TextBean;
 import modell.UserBean;
 import modell.WarenkorbBean;
+
 
 /**
  * Servlet implementation class AddWarenkorbArtikelAjaxServlet
