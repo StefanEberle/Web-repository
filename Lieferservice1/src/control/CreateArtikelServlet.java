@@ -91,6 +91,25 @@ public class CreateArtikelServlet extends HttpServlet {
 			return;
 		}
 
+		
+		
+		String imageType = "";
+		String imageName = image.getSubmittedFileName();
+
+		// Index von Punkt
+		int i = imageName.lastIndexOf(".");
+		if (i > 0) {
+			imageType = imageName.substring(i + 1);
+		}
+		imageType = imageType.toUpperCase();
+		System.out.println(imageType);
+		if(!imageType.equals("JPG") || !imageType.equals("JPEG") || !imageType.equals("PNG") || !imageType.equals("GIF")) {
+			request.setAttribute("errorRequest", "Falsches Format!");
+			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		
 
 		BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
 		int imgWidth = bufferedImage.getWidth();
@@ -121,15 +140,9 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		BufferedImage resized = resize(bufferedImage, IMG_HEIGHT, IMG_WIDTH);
 
-		String imageType = "";
-		String imageName = image.getSubmittedFileName();
-
-		// Index von Punkt
-		int i = imageName.lastIndexOf(".");
-		if (i > 0) {
-			imageType = imageName.substring(i + 1);
-		}
-
+		
+		
+		
 		/***********
 		 * https://newbedev.com/how-to-convert-bufferedimage-to-inputstream
 		 ***********/
