@@ -1,57 +1,23 @@
-/* Stefan Eberle */
+/* Autor: Olga Ohlsson */
 @charset "UTF-8";
 
-/*Aside Filter*/
 a{
   text-decoration:none;
   color:#095484;
   font-size:25px;
  
 }
-
-/*Aside Filter*/
 p{
-  border-bottom:black solid 1px;
-  width:130px;
-  font-size:25px;
+ 
+  width:100%;
+  font-size:19px;
 }
-
-/*Aside button */ 
-aside button {
-  position:relative;
-  right:10px;
-  margin:10px;
-  margin-top:15px;
-  width:135px;
-  height:40px;
-  border-radius:12px;
-  color:white;
-  background-color:#095484;
-  font-size:20px;
+h3 {
+    font-size: 1.17em
+    margin-block-end: 10px;
+    font-weight: bold;
+    border: 0px;
 }
-/*Aside allg. */
-aside{
-    width:10%;
-    height:50%;
-    float:left;
-    padding-top:50px;
-    padding-right:80px;
-    margin:20px;
-    margin-bottom:150px;
-}
-
-/* Marken */
-option{
-  font-size:18px;
-}
-/* weite select*/
-#marken > select{
-  width:180px;
-}
-#selectForSearch{
-  width:180px;
-}
-/***************************************************/
 
 /* Img position */
 .artikelBild{
@@ -78,9 +44,10 @@ main li:first-child{
 
 }
 main li:last-child{
-  font-size:14px;
+  font-size:20px;
   margin:5px 0px;
 }
+
 
 .control_InputButton{
 
@@ -89,10 +56,9 @@ main li:last-child{
   left:240px;
 
 }
-/* Artikel */
-#artikel{
-	
-	
+
+/* WarenkorbArtikel */
+#warenkorbArtikel{
   box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
   width:100%;
   height:340px;
@@ -112,27 +78,35 @@ main li:last-child{
 
 /* Warenkorb Button */
 
-#artikelListe button{
+#warenkorbArtikelList button{
 
   background-color: #095484;
   color:whitesmoke;
 
   height:50px;
-  width:70px;
+  width:120px;
   border-radius:10px;
 
 }
-#artikelListe button:hover{
+#warenkorbArtikelList button:hover{
   border-radius:20px;
   background-color:aliceblue;
 }
 /* table size position */
-#artikelListe{
-    min-height:700px;
+#warenkorbArtikelList{
+   
     display:grid;
     column-gap:4em;
     width:75%;
-    grid-template-columns:50% 50%;
+    grid-template-columns:100%;
     padding-top:80px;
 }
+#warenkorbAnzahlChange input{
+  font-size:25px;
+  position:relative;
+  top:15px;
+  height:50px;
+  width:50px;
+  text-align:center;
 
+}

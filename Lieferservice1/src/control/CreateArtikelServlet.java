@@ -1,3 +1,4 @@
+/* Autor: Stefan Eberle */
 package control;
 
 import java.awt.Graphics2D;
@@ -94,16 +95,21 @@ public class CreateArtikelServlet extends HttpServlet {
 		
 		
 		String imageType = "";
+		String checkType = "";
 		String imageName = image.getSubmittedFileName();
 
 		// Index von Punkt
 		int i = imageName.lastIndexOf(".");
 		if (i > 0) {
 			imageType = imageName.substring(i + 1);
+			checkType = imageName.substring(i + 1);
 		}
-		imageType = imageType.toUpperCase();
-		System.out.println(imageType);
-		if(!imageType.equals("JPG") || !imageType.equals("JPEG") || !imageType.equals("PNG") || !imageType.equals("GIF")) {
+		checkType = imageType.toLowerCase();
+		checkType = checkType.replaceAll("\\s+","");
+	
+
+		if(checkType.equals("jpg") || checkType.equals("jpeg") || checkType.equals("png") || checkType.equals("gif")) {
+		}else {
 			request.setAttribute("errorRequest", "Falsches Format!");
 			final RequestDispatcher dispatcher = request.getRequestDispatcher("html/artikelErzeugen.jsp");
 			dispatcher.forward(request, response);
@@ -140,9 +146,6 @@ public class CreateArtikelServlet extends HttpServlet {
 
 		BufferedImage resized = resize(bufferedImage, IMG_HEIGHT, IMG_WIDTH);
 
-		
-		
-		
 		/***********
 		 * https://newbedev.com/how-to-convert-bufferedimage-to-inputstream
 		 ***********/

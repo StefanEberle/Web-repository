@@ -1,3 +1,4 @@
+/* Autor: Stefan Eberle */
 package modell;
 
 import java.math.BigDecimal;

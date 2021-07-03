@@ -1,6 +1,4 @@
-/**
- * 
- */
+/* Autor: Stefan Eberle */
 
 "use strict";
 

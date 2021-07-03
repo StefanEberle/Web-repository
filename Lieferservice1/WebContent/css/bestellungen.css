@@ -1,0 +1,33 @@
+/* Autor: Olga Ohlsson */
+@charset "UTF-8";
+
+#rechnungenListe{
+    min-height:700px;
+    font-size: large;
+    display:grid;
+    column-gap:4em;
+    width:80%;
+    grid-template-columns:20% 20% 20% 20% 20%;
+    padding-top:0px;
+   
+     text-align: center;
+    
+}
+#rechnungenListe div{
+	padding-bottom: 10px;
+
+}
+.first{
+	border-bottom:black solid 3px;
+	grid-template-columns:100%;
+}
+.kopfzeile{
+	 font-size: large;
+    display:grid;
+    column-gap:4em;
+    width:80%;
+    grid-template-columns:20% 20% 20% 20% 20%;
+    padding-top:0px;
+   
+     text-align: center;
+}

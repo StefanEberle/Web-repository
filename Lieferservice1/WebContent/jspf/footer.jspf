@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <head>
 <base href="${pageContext.request.requestURI}/">
 <link rel="stylesheet" type="text/css" href="../../css/footer.css">

@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,6 +15,7 @@
 </head>
 <%@ include file="../jspf/header.jspf"%>
 <main>
+
 <aside>
 <a href="../artikelErzeugen.jsp">Hinzufügen</a>
 <a href="../deleteUnterKategorie.jsp">Unterkategorie löschen</a>
@@ -74,4 +76,3 @@
 
 </main>
 <%@ include file="../jspf/footer.jspf"%>
-</html>

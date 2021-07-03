@@ -1,3 +1,4 @@
+/* Autor: Olga Ohlsson */
 package modell;
 
 import java.io.Serializable;

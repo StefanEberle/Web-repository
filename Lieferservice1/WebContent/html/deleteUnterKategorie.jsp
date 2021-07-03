@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +11,9 @@
 <link rel="stylesheet" type="text/css" href="../../css/delete-UK-undArtikel.css">
 </head>
 <%@ include file="../jspf/header.jspf"%>
+
 <main>
+
 <aside>
 <a href="../artikelErzeugen.jsp">Hinzufügen</a>
 <a href="../deleteArtikel.jsp">Artikel löschen</a>
@@ -50,4 +53,3 @@
 
 </main>
 <%@ include file="../jspf/footer.jspf"%>
-</html>

@@ -1,3 +1,4 @@
+/* Autor: Stefan Eberle */
 package modell;
 
 public class ArtikelBildBean {

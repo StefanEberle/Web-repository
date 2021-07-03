@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -120,7 +121,7 @@
 				
 				<div class="control_InputButton">
 					<input type="number" id="menge" name="menge" min="1" max="10" value="1">
-					<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" onclick=""></button>
+					<button type="submit" class="fa fa-shopping-cart" id="warenkorbIcon" value="${a.artikelID}" onclick="addArtikel(this)"></button>
 				</div>
 			</div>
 

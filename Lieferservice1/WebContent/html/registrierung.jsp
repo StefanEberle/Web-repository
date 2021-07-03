@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -37,9 +38,10 @@
 
 
 				<p>Email:</p>
-				<input type="text" name="email" id="email" size="60" maxlength="60"
-					placeholder="Email Adresse" onchange="loadEmailVerfuegbar()"
-					required> <label id="emailAvailable"> </label> <br>
+				<input type="email" name="email" id="email" size="60" maxlength="60" placeholder="Email Adresse" onchange="loadEmailVerfuegbar()" required> 
+				
+				<label id="emailAvailable"> </label> <br>
+				
 				<p>Passwort:</p>
 				<input type="password" name="passwort" id="pw" pattern=".{8,}"
 					title="Eight or more characters" size="60" maxlength="60"
@@ -99,16 +101,16 @@
 					placeholder="Nr." required> <br>
 				<p>PLZ:</p>
 				<input type="number" name="plz" size="8" min="85049" max="85098"
-					maxlength="5" placeholder="PLZ" required> <br>
+					 placeholder="PLZ" required> <br>
 				<p>Stadt</p>
 				<input type="text" name="stadt" size="30" maxlength="40"
 					placeholder="Stadt" required> <br>
 				<p>Etage:</p>
 				<input type="number" name="etage" size="8" min="0" max="9999"
-					maxlength="4" placeholder="Etage" required> <br>
+					 placeholder="Etage" required> <br>
 				<p>Mobil:</p>
 				<input type="number" name="telefonnummer" size="30" min="0"
-					max="9999999999999" maxlength="13" placeholder="Telefonnummer"
+					max="9999999999999"  placeholder="Telefonnummer"
 					required> <br>
 				<textarea name="lieferhinweise" rows="5" cols="40" maxlength="250"
 					placeholder="Weitere Lieferhinweise"></textarea>

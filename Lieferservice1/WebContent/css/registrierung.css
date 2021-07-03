@@ -1,3 +1,4 @@
+/* Stefan Eberle */
 @charset "UTF-8";
 body{
 	font-family: Verdana;
@@ -40,7 +41,7 @@ fieldset{
 #registrieren{
   background: #095484;
   padding: 2em 2em 5em;
-  max-width: 1150px;
+  max-width: 1250px;
   margin-left:200px;
   box-shadow: 0 0 4em #222;
   border-radius: 10px;

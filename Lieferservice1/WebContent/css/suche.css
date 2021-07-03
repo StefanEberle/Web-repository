@@ -1,22 +1,10 @@
+/* Stefan Eberle */
 @charset "UTF-8";
 
 .divLupe {
   font-size: 20px;
 }
-/* 
-.sucheButton{
-	position: relative;
-	left: 286px;
-	background-color: #4CAF50;
-	border: none;
-	color: white;
-	text-align: center;
-	width:100px;
-	height:55px;
-	padding:none;
-	top:-55px;
-}	
-*/
+
 .divLupe:hover #artikelSucheInput {
   display: block;
 }

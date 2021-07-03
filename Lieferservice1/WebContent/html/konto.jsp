@@ -1,3 +1,4 @@
+<!-- Stefan Eberle -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -27,7 +28,9 @@
 	
 	<aside class="mainSideBar">
 			<h5>Mein Konto</h5>
-			<a>Bestellungen</a>
+			<form action ="../../BestellungenAnzeigenServlet" method="POST" name="bestellungenAnzeigen">
+			<button type ="submit" name="bestellungenAnzeigen">Meine Bestellungen</button>
+			</form>
 	</aside>
 
 <section class="mainContent">
@@ -40,7 +43,7 @@
 				<div id="emailBearbeiten">
 				<h5>Email bearbeiten:</h5>
 				<form action="../../KontoBearbeitenServlet" method="POST" name="emailBearbeiten">
-				 	<input type="text" name="email" id="email" size="60" maxlength="20" placeholder="Email Adresse" value="${user.email}" onchange="loadEmailVerfuegbar()" required> <br> 
+				 	<input type="email" name="email" id="email" size="60" maxlength="20" placeholder="Email Adresse" value="${user.email}" onchange="loadEmailVerfuegbar()" required> <br> 
 				 	<label id="emailAvailable"> </label>    				 	 
 					<br>
 					<input type="password" name="passwort" size="60" maxlength="20" placeholder="Passwort" required>
@@ -80,15 +83,16 @@
 				<label>Straße:</label>
 				<input type="text" name="strasse" value="${adresse.strasse}" maxlength="30" required><br>
 				<label>Hr:</label>	
-				<input type="number" name="hausnummer" value="${adresse.hausnummer}" maxlength="5" required><br>
+				<input type="text" name="hausnummer" value="${adresse.hausnummer}" maxlength="5" required><br>
 				<label>PLZ:</label>
-				<input type="number" name="plz" value="${adresse.plz}" maxlength="5" required><br>
+				<input type="number" name="plz" value="${adresse.plz}" size="8" min="85049" max="85098" required><br>
 				<label>Stadt:</label>
 				<input type="text" name="stadt" value="${adresse.stadt}" maxlength="30" required><br>
 				<label>Etage:</label>
-				<input type="text" name="etage" value="${adresse.etage}" maxlength="8" required><br>
+				<input type="number" name="etage" value="${adresse.etage}" min="0" max="9999" required><br>
 				<label>Telefonnummer:</label>
-				<input type="text" name="telefonnummer" value="${adresse.telefonnummer}" maxlength="15" required><br>
+				<input type="number" name="telefonnummer" value="${adresse.telefonnummer}" min="0"
+					max="9999999999999" required><br>
 				<label>Geburstag:</label>
 				<input type="text" name="geburtstag" value="${adresse.geburtstag}" maxlength="11" required><br>
 				<label>Hinweis</label>
@@ -106,4 +110,3 @@
 
 </main>
 <%@ include file="../jspf/footer.jspf"%>
-</html>

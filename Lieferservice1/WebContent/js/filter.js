@@ -1,3 +1,5 @@
+/* Autor: Stefan Eberle */
+
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
 
@@ -11,7 +13,7 @@ function init() {
 	// Wenn Anfrage über Suche kommt - dann Marke auswählen 
 	var select = document.getElementById("selectForSearch");
 
-	if (select != null) {
+	if (select !== null) {
 		select.selectedIndex = "0";
 
 	}
@@ -101,7 +103,7 @@ function sucheMarkenAuswahl() {
 					// Anfrage über NavBar oder Filter kommt
 					var selectedList = document
 							.getElementById("selectForSearchAjax");
-					if (selectedList != null) {
+					if (selectedList !== null) {
 						selectedList.selectedIndex = "0";
 					}
 				}

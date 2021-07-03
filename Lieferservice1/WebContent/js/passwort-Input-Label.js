@@ -1,3 +1,4 @@
+/* Autor: Stefan Eberle */
 "use strict";
 document.addEventListener("DOMContentLoaded", init);
 

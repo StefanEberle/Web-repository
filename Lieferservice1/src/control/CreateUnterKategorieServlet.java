@@ -1,3 +1,4 @@
+/* Autor: Stefan Eberle */
 package control;
 
 import java.io.IOException;

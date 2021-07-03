@@ -1,18 +1,36 @@
+/* Autor: Olga Ohlsson */
 "use strict";
-document.addEventListener("DOMContentLoaded", init);
 
-function init() {
+
+function addArtikel(id) {
+
+	var menge = document.getElementById("menge").value;
+	var artikelid = id.value;
+	var data = "menge=" + menge + "&artikelID=" + artikelid;
+
+	
+
+	var xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.open("POST", "../../AddWarenkorbArtikelServlet", true);
+	xmlhttp.setRequestHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+	xmlhttp.send(data);
 
 }
 
-function addShoppingCart(artikelID){
-	
+function addArtikelAjax(id) {
 
-	var menge = document.getElementById("menge").value;
-	var sendURL = "artikelID=" + artikelID + "&" + "menge=" + menge;
+
+	var artikelid = id.value;
+	var diese = artikelid.toString();
 	
-	
+	var menge = document.getElementById("menge" + diese).value;
+
+	var data = "menge=" + menge + "&artikelID=" + artikelid;
+
 	var xmlhttp = new XMLHttpRequest();
+
 	xmlhttp.onreadystatechange = function() {
 
 		if (xmlhttp.readyState == 4) {
@@ -20,22 +38,18 @@ function addShoppingCart(artikelID){
 			if (xmlhttp.status == 200) {
 
 				var erg = JSON.parse(xmlhttp.responseText);
-				var ausgabe = "";
 
-				alert("jo");
-			
+				var original = document.getElementById("gesamtsumme");
+				original.innerHTML = "Gesamtpreis " + erg.originalText + " €";
+
 			}
-
 		}
-
 	}
 
-	xmlhttp.open("POST", "../../WarenkorbServlet", true);
-	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xmlhttp.send(sendURL);
+	xmlhttp.open("POST", "../../AddWarenkorbArtikelAjaxServlet", true);
+	xmlhttp.setRequestHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+	xmlhttp.send(data);
 
-	
-	
-	
-	
 }
+
